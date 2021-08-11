@@ -1,0 +1,153 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li>Liste des images</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerListe">
+    <?php if(!in_array("12", $prv) && !in_array("13", $prv) && !in_array("14", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(isset($page)): ?>
+        <h3><i class="fa fa-list-ul"></i>Liste des images</h3>
+        <?php if(in_array("13", $prv)) { ?>
+            <h3><a href="/importgames/backoff/ajoutimg"><i class="fa fa-plus"></i>Ajouter une image</a></h3>
+        <?php } ?>
+        <form class="formLines" method="POST">
+            <label for="lignesImg">Afficher par : </label>
+            <select id="lignesImg" name="lignesImg">
+                <?php if($nbrImgs[0] <= 100) { ?>
+                <option value="5">5</option>
+                <?php }
+                if($nbrImgs[0] <= 250) { ?>
+                <option value="10">10</option>
+                <?php } ?>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <?php if($nbrImgs[0] > 100) { ?>
+                <option value="250">250</option>
+                <?php }
+                if($nbrImgs[0] > 250) { ?>
+                <option value="500">500</option>
+                <?php } ?>
+            </select>
+        </form>
+        <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrImgs[0]) ?></div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/imgs-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/imgs-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/imgs-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/imgs-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                // Si le nombre de pages de pages est supérieur à 1 (voir images.php ligne 129),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/imgs-page-<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triImgId">
+                                    <span>Identifiant</span><i id="arrowDownImgId" class="fa fa-long-arrow-down"></i><i id="arrowUpImgId" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triImgProd">
+                                    <span>Id produit</span><i id="arrDwnImgProd" class="fa fa-long-arrow-down"></i><i id="arrUpImgProd" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triImgUrl">
+                                    <span>Image</span><i id="arrDwnImgUrl" class="fa fa-long-arrow-down"></i><i id="arrUpImgUrl" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <?php if(in_array("14", $prv)) { ?>
+                            <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($imgs as $img): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($img["id"]) ?></td>
+                        <td>
+                            <?php if($img["produit_id"]): echo htmlspecialchars($img["produit_id"]); ?> - 
+                                <?php if(getTitrebyId($img["produit_id"])): echo htmlspecialchars(getTitrebyId($img["produit_id"]));
+                                else: ?>
+                                    <i>Article supprimé</i>
+                                <?php endif;
+                            else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($img["url"]): ?>
+                                <a href="<?= htmlspecialchars($img["url"])?>" target="_blank"><img src="<?= htmlspecialchars($img["url"]) ?>" alt="img" /></a>
+                            <?php else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <?php if(in_array("14", $prv)) { ?>
+                            <td>
+                                <a href="/importgames/backoff/modifimg-<?= htmlspecialchars($img["id"]) ?>" class="btnModif"><?php if($img["produit_id"]): ?><i class="fa fa-pencil-square-o"></i>Modifier<?php else: ?><i class="fa fa-exchange"></i>Remplacer<?php endif; ?></a>
+                                <?php if($img["produit_id"]) { ?>
+                                    <form class="formReset" method="POST">
+                                        <button type="submit" id="resetImg<?= htmlspecialchars($img["id"]) ?>" class="btnReset" name="resetImg" value="<?= htmlspecialchars($img["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                        <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                    </form>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/imgs-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/imgs-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/imgs-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/imgs-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/imgs-page-<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/tableau-de-bord"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

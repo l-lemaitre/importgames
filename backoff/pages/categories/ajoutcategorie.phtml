@@ -1,0 +1,44 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li><a href="/importgames/backoff/cats-page-1">Liste des catégories</a></li>
+        <li class="titreFil">Ajouter une catégorie</li>
+        <li class="titreFil300" title="Ajouter une catégorie">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerAjoutCat">
+    <?php if(!in_array("2", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php else: ?>
+    	<h3><i class="fa fa-plus"></i>Ajouter une catégorie</h3>
+        <form method="POST">
+            <div>
+                <label for="titre">Titre :</label>
+                <input type="text" id="titre" name="titre" value="<?php if(isset($_POST["titre"])) echo htmlspecialchars($_POST["titre"]); ?>" required />
+                <?php if(isset($emptyTitre)): ?>
+                    <p>Le <em>titre</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidTitre)): ?>
+                    <p>Le <em>titre</em> ne doit comporter aucun chiffres ni caractères spéciaux et ne pas dépasser 16 caractères.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="ajoutCat" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/cats-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

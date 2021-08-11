@@ -1,0 +1,144 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li><a href="/importgames/backoff/prods-page-1">Liste des produits</a></li>
+        <li class="titreFil">Ajouter un produit</li>
+        <li class="titreFil300" title="Ajouter un produit">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerAjout">
+    <?php if(!in_array("8", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php else: ?>
+        <h3><i class="fa fa-plus"></i>Ajouter un produit</h3>
+        <form enctype="multipart/form-data" method="POST">
+            <div>
+                <label for="catId">Identifiant catégorie :</label>
+                <select id="catId" name="catId" required>
+                    <?php foreach($cats as $cat): ?>
+                        <option value="<?= htmlspecialchars($cat["id"]) ?>">
+                            <?= htmlspecialchars($cat["id"]) ?> - <?= htmlspecialchars($cat["titre"]) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <?php if(isset($emptyCatId)): ?>
+                    <p>L'<em>Identifiant catégorie</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidCatId)): ?>
+                    <p>L'<em>identifiant catégorie</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="titre">Titre :</label>
+                <input type="text" id="titre" name="titre" value="<?php if(isset($_POST["titre"])) echo htmlspecialchars($_POST["titre"]); ?>" required />
+                <?php if(isset($emptyTitre)) { ?>
+                    <p>Le <em>titre</em> ne peut pas être vide.</p>
+                <?php } ?>
+            </div>
+            <div>
+                <label for="ean13">Code-barres :</label>
+                <input type="text" id="ean13" name="ean13" value="<?php if(isset($_POST["ean13"])) echo $_POST["ean13"]; ?>" required />
+                <?php if(isset($emptyEan)): ?>
+                    <p>Le <em>code-barres</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidEan)): ?>
+                    <p>Le <em>code-barres</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="prix">Prix (€) :</label>
+                <input type="text" id="prix" name="prix" value="<?php if(isset($_POST["prix"])) echo $_POST["prix"]; ?>" required />
+                <?php if(isset($emptyPrix)): ?>
+                    <p>Le <em>prix</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidPrix)): ?>
+                    <p>Le <em>prix</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="qte">Quantité :</label>
+                <input type="text" id="qte" name="qte" value="<?php if(isset($_POST["qte"])) echo $_POST["qte"]; ?>" required />
+                <?php if(isset($emptyQte)): ?>
+                    <p>La <em>quantité</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidQte)): ?>
+                    <p>La <em>quantité</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="dateSortie">Date de sortie :</label>
+                <input type="date" id="dateSortie" name="dateSortie" value="<?php if(isset($_POST["dateSortie"])) echo $_POST["dateSortie"]; ?>" />
+                <?php if(isset($emptyDateSortie)): ?>
+                    <p>La <em>date de sortie</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidDateS)): ?>
+                    <p>La <em>date de sortie</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="descript">Description :</label>
+                <textarea id="descript" name="descript" rows="6" required><?php if(isset($_POST["descript"])) echo $_POST["descript"]; ?></textarea>
+                <?php if(isset($emptyDescript)) { ?>
+                    <p>La <em>description</em> ne peut pas être vide.</p>
+                <?php } ?>
+            </div>
+            <div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
+                <label for="prevImg">Aperçu image du produit :</label>
+                <input type="file" id="prevImg" name="prevImg" accept=".gif, .jpeg, .jpg, .png, .svg" required />
+                <?php if(isset($emptyPrevImg)): ?>
+                    <p>Le fichier <em>image</em> ne peut pas être vide ou dépasser la taille de 500 Ko.</p>
+                <?php elseif(isset($errorPrevImg)): ?>
+                    <p>Une erreur s'est produite lors de la vérification du fichier.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="srcIframe">Lien streaming vidéo :</label>
+                <span>※ Intégrer la vidéo d'un site de streaming
+                    Allez sur la page de la vidéo, cliquez sur "Partager" puis sélectionnez l'option "Intégrer"
+                    Collez uniquement dans le champ de saisie ci-dessous la partie contenant l'adresse de la vidéo (<u>sans les guillements</u>, comme sur cette <a href="/importgames/images/divers/src_iframe.png" target="_blank">image</a>)</span>
+                <input type="text" id="srcIframe" name="srcIframe" value="<?php if(isset($_POST["srcIframe"])) echo htmlspecialchars($_POST["srcIframe"]); ?>" />
+                <?php if(isset($emptySrc)): ?>
+                    <p>Le <em>lien de streaming vidéo</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidSrc)): ?>
+                    <p>Le <em>lien de streaming vidéo</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>ou</div>
+            <div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
+                <label for="video">Vidéo :</label>
+                <input type="file" id="video" name="video" accept=".mp4" />
+                <?php if(isset($error2Vid)): ?>
+                    <p>Vous ne pouvez attribuer un <em>lien de streaming</em> et un fichier <em>vidéo</em> au même produit.</p>
+                <?php elseif(isset($emptyVid)): ?>
+                    <p>Le fichier <em>vidéo</em> ne peut pas être vide ou dépasser la taille de 100 Mo.</p>
+                <?php elseif(isset($errorVid)): ?>
+                    <p>Une erreur s'est produite lors de la vérification du fichier.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="dateCrea">Date de création :</label>
+                <input type="date" id="dateCrea" name="dateCrea" value="<?php if(isset($_POST["dateCrea"])) echo $_POST["dateCrea"]; else echo date("Y-m-d"); ?>" required />
+                <?php if(isset($emptyDateCrea)): ?>
+                    <p>La <em>date de création</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidDateCrea)): ?>
+                    <p>La <em>date de création</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="ajoutProd" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/prods-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

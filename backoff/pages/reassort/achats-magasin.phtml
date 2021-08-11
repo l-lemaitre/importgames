@@ -1,0 +1,200 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li>Liste des achats magasin</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerListe">
+    <?php if(!in_array("15", $prv) && !in_array("16", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(isset($page)): ?>
+        <h3><i class="fa fa-list-ul"></i>Liste des achats magasin</h3>
+        <div>Afficher par :</div>
+        <form class="formProds" method="POST">
+            <label for="affichageProd">Produits : </label>
+            <select id="affichageProd" name="affichageProd">
+                <option value="defaut">Tout</option>
+                <option value="removed">Remplacés ou supprimés</option>
+                <?php foreach($prods as $prod): ?>
+                    <option value="<?= htmlspecialchars($prod["id"]) ?>"><?= htmlspecialchars($prod["titre"]) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </form>
+        <form class="formLines" method="POST">
+            <label for="lignesAchat">Nombre de lignes : </label>
+            <select id="lignesAchat" name="lignesAchat">
+                <?php if($nbrAchats[0] <= 100) { ?>
+                <option value="5">5</option>
+                <?php }
+                if($nbrAchats[0] <= 250) { ?>
+                <option value="10">10</option>
+                <?php } ?>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <?php if($nbrAchats[0] > 100) { ?>
+                <option value="250">250</option>
+                <?php }
+                if($nbrAchats[0] > 250) { ?>
+                <option value="500">500</option>
+                <?php } ?>
+            </select>
+        </form>
+        <?php if(!isset($_SESSION["affichageProd"]["achat"]) || $_SESSION["affichageProd"]["achat"] == "defaut"): ?>
+            <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrAchats[0]) ?></div>
+        <?php elseif(isset($nbrAProd[0]) && $nbrAProd[0] >= 1): ?>
+            <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrAProd[0]) ?></div>
+        <?php endif;
+        if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/achatsmag-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/achatsmag-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/achatsmag-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/achatsmag-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                // Si le nombre de pages de pages est supérieur à 1 (voir achats-magasin.php lignes 155 et 183),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/achatsmag-page-<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatId">
+                                    <span>Id</span><i id="arrowDownAchatId" class="fa fa-long-arrow-down"></i><i id="arrowUpAchatId" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatProdId">
+                                    <span>Id produit</span><i id="arrDwnAchtProd" class="fa fa-long-arrow-down"></i><i id="arrUpAchtProd" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatTitre">
+                                    <span>Titre du produit</span><i id="arrDwnAchtTitre" class="fa fa-long-arrow-down"></i><i id="arrUpAchtTitre" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatDate">
+                                    <span>Date</span><i id="arrDwnAchtDate" class="fa fa-long-arrow-down"></i><i id="arrUpAchtDate" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatQte">
+                                    <span>Quantité</span><i id="arrDwnAchtQte" class="fa fa-long-arrow-down"></i><i id="arrUpAchtQte" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatPrix">
+                                    <span>Prix</span><i id="arrDwnAchtPrix" class="fa fa-long-arrow-down"></i><i id="arrUpAchtPrix" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triAchatTotal">
+                                    <span>Total</span><i id="arrDwnAchtTotal" class="fa fa-long-arrow-down"></i><i id="arrUpAchtTotal" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <?php if(in_array("16", $prv)) { ?>
+                            <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if($achats):
+                        foreach($achats as $achat): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($achat["id"]) ?></td>
+                            <td><?= htmlspecialchars($achat["produit_id"]) ?></td>
+                            <td>
+                                <?php if(($achat["date_a"] <= getDatebyId($achat["produit_id"]) AND $achat["titre"] != getTitrebyId($achat["produit_id"])) OR !getTitrebyId($achat["produit_id"])): ?>
+                                    <i class="wrap"><?= htmlspecialchars($achat["titre"]) ?></i>
+                                <?php else: ?>
+                                    <a href="/importgames/backoff/ficheprod-<?= htmlspecialchars($achat["produit_id"]) ?>" target="_blank"><?= htmlspecialchars($achat["titre"]) ?></a>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars(date("d/m/Y", strtotime($achat["date_a"]))) ?></td>
+                            <td><?= htmlspecialchars($achat["qte"]) ?></td>
+                            <td><?= htmlspecialchars(str_replace(".", ",", $achat["prix"])) ?>€</td>
+                            <td><?= htmlspecialchars(str_replace(".", ",", number_format($achat["qte"] * $achat["prix"], 2))) ?>€</td>
+                            <?php if(in_array("16", $prv)) { ?>
+                                <td>
+                                    <div class="displayForm"></div>
+                                    <form class="formReset" method="POST">
+                                        <button type="submit" id="resetAchat<?= htmlspecialchars($achat["id"]) ?>" class="btnReset" name="resetAchat" value="<?= htmlspecialchars($achat["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                        <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                    </form>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                        <?php $total += $achat["prix"] * $achat["qte"];
+                        endforeach;
+                    else: ?>
+                        <tr>
+                            <td colspan="8">Aucune donnée disponible</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <h2>Total des achats affichés : <strong><?= htmlspecialchars(str_replace(".", ",", number_format($total, 2))) ?>€</strong></h2>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/achatsmag-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/achatsmag-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/achatsmag-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/achatsmag-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/achatsmag-page-<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/tableau-de-bord"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

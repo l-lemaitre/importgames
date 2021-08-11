@@ -1,0 +1,58 @@
+<!-- MAIN CONTENT -->
+<main class="containerDashboard">
+	<h2><i class="fa fa-tachometer"></i>Tableau de bord</h2>
+    <section class="dashboardBox1">
+        <a href="/importgames/backoff/users-page-1">
+            <div class="dashboardIcons"><i class="fa fa-users"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de clients</h4>
+                <strong><?= htmlspecialchars($nbrClients[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+    <section class="dashboardBox2">
+        <a href="/importgames/backoff/prods-page-1">
+            <div class="dashboardIcons"><i class="fa fa-product-hunt"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de produits</h4>
+                <strong><?= htmlspecialchars($nbrProds[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+    <section class="dashboardBox3">
+        <a href="/importgames/backoff/achatsmag-page-1">
+            <div class="dashboardIcons"><i class="fa fa-product-hunt"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de produits achetés</h4>
+                <strong><?= htmlspecialchars($nbrAchats[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+    <section class="dashboardBox4">
+        <a href="/importgames/backoff/ventes-page-1">
+            <div class="dashboardIcons"><i class="fa fa-product-hunt"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de produits vendus</h4>
+                <strong><?= htmlspecialchars($nbrVentes[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+    <section class="dashboardBox5">
+        <a href="/importgames/backoff/visitesprod-page-1">
+            <div class="dashboardIcons"><i class="fa fa-arrow-right"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de visites page produit</h4>
+                <strong><?= htmlspecialchars($nbrVisitesProd[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+    <section class="dashboardBox6">
+        <a href="/importgames/backoff/recs-page-1">
+            <div class="dashboardIcons"><i class="fa fa-search"></i></div>
+            <div class="dashboardInfos">
+                <h4>Nombre de recherches</h4>
+                <strong><?= htmlspecialchars($nbrSearchs[0]) ?></strong>
+            </div>
+        </a>
+    </section>
+</main>

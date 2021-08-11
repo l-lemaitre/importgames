@@ -1,0 +1,148 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane noPrint">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil"><a href="/importgames/backoff/coms-page-1">Liste des commandes clients</a></li>
+        <li class="titreFil300" title="Liste des commandes clients"><a href="/importgames/backoff/coms-page-1">Liste des co...</a></li>
+        <li class="titreFil">
+            <?php if(in_array("27", $prv)):
+                if(isset($comId)):
+                    if(!isset($com["user_id"])): ?>
+                        <a href="#">Aucune commande trouvée</a>
+                    <?php else: ?>
+                        <a href="/importgames/backoff/detailcom-<?= htmlentities($com["id"]); ?>">Commande #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)) ?></a>
+                    <?php endif;
+                else: ?>
+                    <a href="#">Erreur adresse HTTP</a>
+                <?php endif;
+            else: ?>
+                <a href="#">Autorisation refusée</a>
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("27", $prv)): if(isset($comId)): if(!isset($com["user_id"])): ?>Aucune commande trouvée<?php else: ?>Commande #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)) ?><?php endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">
+            <a href="<?php if(empty($com["user_id"])): ?>#<?php else: ?>/importgames/backoff/detailcom-<?php echo htmlentities($com["id"]); endif; ?>">...</a>
+        </li>
+        <li class="titreFilLarge">
+            <?php if(in_array("27", $prv)):
+                if(isset($comId)):
+                    if(!isset($com["user_id"])): ?>
+                        Aucun contenu trouvé
+                    <?php else: ?>
+                        Facture #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+            </li>
+        <li class="titreFil600 titreFil300" title="<?php if(in_array("27", $prv)): if(isset($comId)): if(!isset($com["user_id"])): ?>Aucun contenu trouvé<?php else: ?>Facture #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerFct">
+    <?php if(!in_array("27", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($comId)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($com["user_id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php else: ?>
+        <div class="enteteFct">
+            <img src="/importgames/images/divers/importgamesfull.png" alt="logo" />
+            <div>
+                <h3>Facture</h3>
+                <p>N°<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)) ?></p>
+            </div>
+        </div>
+        <div class="infosFct">
+            <div class="adresseVendeur">
+                <address>ImportGames
+                    55 rue de Paris
+                    75000 PARIS
+                    France
+                    TVA FR55XXXXXXX55
+                </address>
+            </div>
+            <div class="infosCom">
+                <p><strong>Date de la facture :&nbsp;</strong> <span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"] . "+ 1 DAY"))) ?></span></p>
+                <p><strong>Date de la commande :&nbsp;</strong> <span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"]))) ?></span></p>
+                <p><strong>N° de la commande :&nbsp;</strong> <span><?= htmlentities(str_pad($com["numero"], 4, "0", STR_PAD_LEFT)) ?></span></p>
+            </div>
+            <div class="adresseUser">
+                <div>
+                    <h4>Adresse de facturation</h4>
+                    <address><?= htmlspecialchars($com["adresse"]) ?></address>
+                </div>
+                <div>
+                    <h4>Adresse de livraison</h4>
+                    <address><?= htmlspecialchars($com["adresse"]) ?></address>
+                </div>
+            </div>
+        </div>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Sous-total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($details as $detail): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($detail["titre"]) ?></td>
+                        <td><?= htmlentities($detail["qte"]) ?></td>
+                        <td><?= htmlentities(str_replace(".", ",", $detail["prix"])) ?>€</td>
+                        <td><?= htmlentities(str_replace(".", ",", number_format($detail["qte"] * $detail["prix"], 2))) ?>€</td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"><b>Total HT : </b><span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.80), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><b>TVA 20% : </b><span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.20), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1"><b>Arrêt de la facture à la somme de : </b><small><?= $totalFr ?></small></td>
+                        <td colspan="3"><h3>Total : <?= htmlentities(str_replace(".", ",", $com["total"])) ?>€</h3></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="printFct noPrint">
+            <button type="button" id="print" class="btnPrint">Imprimer</button>
+        </div>
+    <?php endif; ?>
+    <div class="backLink noPrint">
+        <?php if(in_array("27", $prv)):
+            if(isset($comId)):
+                if(!isset($com["user_id"])): ?>
+                    <a href="#">
+                <?php else: ?>
+                    <a href="/importgames/backoff/detailcom-<?= htmlentities($com["id"]); ?>">
+                <?php endif;
+            else: ?>
+                <a href="#">
+            <?php endif;
+        else: ?>
+            <a href="#">
+        <?php endif; ?>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a>
+    </div>
+</main>

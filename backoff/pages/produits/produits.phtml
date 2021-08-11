@@ -1,0 +1,321 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li>Liste des produits</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerProds">
+    <?php if(!in_array("7", $prv) && !in_array("8", $prv) && !in_array("9", $prv) && !in_array("10", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(isset($page)): ?>
+        <h3><i class="fa fa-list-ul"></i>Liste des produits</h3>
+        <?php if(in_array("8", $prv)) { ?>
+            <h3><a href="/importgames/backoff/ajoutprod"><i class="fa fa-plus"></i>Ajouter un produit</a></h3>
+        <?php } ?>
+        <form class="formLines" method="POST">
+            <label for="lignesProd">Afficher par : </label>
+            <select id="lignesProd" name="lignesProd">
+                <?php if($nbrProds[0] <= 100) { ?>
+                <option value="5">5</option>
+                <?php }
+                if($nbrProds[0] <= 250) { ?>
+                <option value="10">10</option>
+                <?php } ?>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <?php if($nbrProds[0] > 100) { ?>
+                <option value="250">250</option>
+                <?php }
+                if($nbrProds[0] > 250) { ?>
+                <option value="500">500</option>
+                <?php } ?>
+            </select>
+        </form>
+        <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrProds[0]) ?></div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/prods-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/prods-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/prods-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/prods-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                // Si le nombre de pages de pages est supérieur à 1 (voir produits.php ligne 129),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/prods-page-<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdId">
+                                    <i id="arrowDownProdId" class="fa fa-long-arrow-down"></i><i id="arrowUpProdId" class="fa fa-long-arrow-up"></i>
+                                    <div>Id</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdCat">
+                                    <i id="arrDwnPrdCat" class="fa fa-long-arrow-down"></i><i id="arrUpPrdCat" class="fa fa-long-arrow-up"></i>
+                                    <div>Id catégorie</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdTitre">
+                                    <i id="arrDwnPrdTitre" class="fa fa-long-arrow-down"></i><i id="arrUpPrdTitre" class="fa fa-long-arrow-up"></i>
+                                    <div>Titre</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdEan13">
+                                    <i id="arrDwnPrdEan" class="fa fa-long-arrow-down"></i><i id="arrUpPrdEan" class="fa fa-long-arrow-up"></i>
+                                    <div>Code-barres</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdPrix">
+                                    <i id="arrDwnPrdPrix" class="fa fa-long-arrow-down"></i><i id="arrUpPrdPrix" class="fa fa-long-arrow-up"></i>
+                                    <div>Prix</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdQte">
+                                    <i id="arrDwnPrdQte" class="fa fa-long-arrow-down"></i><i id="arrUpPrdQte" class="fa fa-long-arrow-up"></i>
+                                    <div>Quantité</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdDateSortie">
+                                    <i id="arrDwnPrdSortie" class="fa fa-long-arrow-down"></i><i id="arrUpPrdSortie" class="fa fa-long-arrow-up"></i>
+                                    <div>Date de sortie</div>
+                                </button>
+                            </form>
+                        </th>
+                        <?php if(in_array("9", $prv) || in_array("10", $prv)) { ?>
+                            <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($prods as $prod): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($prod["id"]) ?></td>
+                        <td class="noWrap">
+                            <?php if($prod["cat_id"]): echo htmlspecialchars($prod["cat_id"]); ?> - 
+                                <?php if(getCatbyId($prod["cat_id"])): echo htmlspecialchars(getCatbyId($prod["cat_id"]));
+                                else: ?>
+                                    <i>Catégorie supprimée</i>
+                                <?php endif;
+                            else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["titre"]): echo htmlspecialchars($prod["titre"]); else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["ean13"]): echo htmlspecialchars($prod["ean13"]); else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["prix"]): echo htmlspecialchars(str_replace(".", ",", $prod["prix"])); ?>€<?php else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["qte"]): echo htmlspecialchars($prod["qte"]); else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["date_sortie"]): echo htmlspecialchars(date("d/m/Y", strtotime($prod["date_sortie"]))); else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <?php if(in_array("9", $prv) || in_array("10", $prv)) { ?>
+                            <td>
+                                <?php if(in_array("10", $prv) && $prod["cat_id"]) { ?>
+                                    <a href="/importgames/backoff/ficheprod-<?= htmlspecialchars($prod["id"]) ?>" class="btnAchat">Commander</a>
+                                <?php }
+                                if((in_array("10", $prv) && !in_array("9", $prv))) { ?>
+                                    <div class="displayForm"></div>
+                                <?php }
+                                if(in_array("9", $prv)) { ?>
+                                    <a href="/importgames/backoff/modifprod-<?= htmlspecialchars($prod["id"]) ?>" class="btnModif"><?php if($prod["cat_id"]): ?><i class="fa fa-pencil-square-o"></i>Modifier<?php else: ?><i class="fa fa-exchange"></i>Remplacer<?php endif; ?></a>
+                                    <?php if($prod["cat_id"]) { ?>
+                                        <form class="formReset" method="POST">
+                                            <button type="submit" id="resetProdTop<?= htmlspecialchars($prod["id"]) ?>" class="btnReset" name="resetProd" value="<?= htmlspecialchars($prod["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                            <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                        </form>
+                                    <?php }
+                                } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdId">
+                                    <span>Id</span>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdDescript">
+                                    <i id="arrDwnPrdDescr" class="fa fa-long-arrow-down"></i><i id="arrUpPrdDescr" class="fa fa-long-arrow-up"></i>
+                                    <div>Description</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdImg">
+                                    <i id="arrDwnPrdImg" class="fa fa-long-arrow-down"></i><i id="arrUpPrdImg" class="fa fa-long-arrow-up"></i>
+                                    <div>Aperçu image</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdVideo">
+                                    <i id="arrDwnPrdVid" class="fa fa-long-arrow-down"></i><i id="arrUpPrdVid" class="fa fa-long-arrow-up"></i>
+                                    <div>Vidéo</div>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triProdDateCrea">
+                                    <i id="arrDwnPrdCrea" class="fa fa-long-arrow-down"></i><i id="arrUpPrdCrea" class="fa fa-long-arrow-up"></i>
+                                    <div>Date&nbsp;de&nbsp;création</div>
+                                </button>
+                            </form>
+                        </th>
+                        <?php if(in_array("9", $prv) || in_array("10", $prv)) { ?>
+                            <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($prods as $prod): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($prod["id"]) ?></td>
+                        <td>
+                            <?php if($prod["description"]): ?>
+                                <div class="descript"><?= htmlspecialchars($prod["description"]); ?></div>
+                             <?php else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["apercu_img"]): ?>
+                                <a href="<?= htmlspecialchars($prod["apercu_img"])?>" target="_blank"><img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" alt="imgProd" /></a>
+                            <?php else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["video"]):
+                                if(substr(strrchr($prod["video"], "."), 1) == "mp4"): ?>
+                                    <div class="video">
+                                        <video width="265" height="150" controls><source src="<?= htmlspecialchars($prod["video"]) ?>" type="video/mp4"></video>
+                                    </div>
+                                <?php elseif($prod["video"]): ?>
+                                    <iframe src="<?= htmlspecialchars($prod["video"]) ?>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <?php endif;
+                            else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($prod["date_creation"]): echo htmlspecialchars(date("d/m/Y", strtotime($prod["date_creation"]))); else: ?>
+                                <i>À attribuer</i>
+                            <?php endif; ?>
+                        </td>
+                        <?php if(in_array("9", $prv) || in_array("10", $prv)) { ?>
+                            <td>
+                                <?php if(in_array("10", $prv) && $prod["cat_id"]) { ?>
+                                    <a href="/importgames/backoff/ficheprod-<?= htmlspecialchars($prod["id"]) ?>" class="btnAchat">Commander</a>
+                                <?php }
+                                if((in_array("10", $prv) && !in_array("9", $prv))) { ?>
+                                    <div class="displayForm"></div>
+                                <?php }
+                                if(in_array("9", $prv)) { ?>
+                                    <a href="/importgames/backoff/modifprod-<?= htmlspecialchars($prod["id"]) ?>" class="btnModif"><?php if($prod["cat_id"]): ?><i class="fa fa-pencil-square-o"></i>Modifier<?php else: ?><i class="fa fa-exchange"></i>Remplacer<?php endif; ?></a>
+                                    <?php if($prod["cat_id"]) { ?>
+                                        <form class="formReset" method="POST">
+                                            <button type="submit" id="resetProd<?= htmlspecialchars($prod["id"]) ?>" class="btnReset" name="resetProd" value="<?= htmlspecialchars($prod["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                            <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                        </form>
+                                    <?php }
+                                } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/prods-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/prods-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/prods-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/prods-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/prods-page-<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/tableau-de-bord"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

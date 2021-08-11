@@ -1,0 +1,173 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil">Liste des commandes clients</li>
+        <li class="titreFil300" title="Liste des commandes clients">Liste des commandes c...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerListe">
+    <?php if(!in_array("25", $prv) && !in_array("26", $prv) && !in_array("27", $prv) && !in_array("28", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(isset($page)): ?>
+        <h3><i class="fa fa-list-ul"></i>Liste des commandes clients</h3>
+        <form class="formLines" method="POST">
+            <label for="lignesCom">Afficher par : </label>
+            <select id="lignesCom" name="lignesCom">
+                <?php if($nbrComs[0] <= 100) { ?>
+                <option value="5">5</option>
+                <?php }
+                if($nbrComs[0] <= 250) { ?>
+                <option value="10">10</option>
+                <?php } ?>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <?php if($nbrComs[0] > 100) { ?>
+                <option value="250">250</option>
+                <?php }
+                if($nbrComs[0] > 250) { ?>
+                <option value="500">500</option>
+                <?php } ?>
+            </select>
+        </form>
+        <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrComs[0]) ?></div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/coms-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/coms-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/coms-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/coms-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                // Si le nombre de pages de pages est supérieur à 1 (voir commandes-clients.php ligne 141),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/coms-page-<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triComId">
+                                    <span>Id</span><i id="arrowDownComId" class="fa fa-long-arrow-down"></i><i id="arrowUpComId" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triComUser">
+                                    <span class="tableHeader">Id utilisateur</span><span class="tblHeader300600" title ="Id Utilisateur">Id utilisa...</span><i id="arrDwnCoUser" class="fa fa-long-arrow-down"></i><i id="arrUpCoUser" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triComNum">
+                                <span class="tableHeader">Commande client</span><span class="tblHeader300600" title ="Commande client">Com...</span><i id="arrDwnCoNum" class="fa fa-long-arrow-down"></i><i id="arrUpCoNum" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triComAdresse">
+                                    <span>Adresse</span><i id="arrDwnCoAdress" class="fa fa-long-arrow-down"></i><i id="arrUpCoAdress" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triDateCo">
+                                    <span>Date</span><i id="arrDwnCoDate" class="fa fa-long-arrow-down"></i><i id="arrUpCoDate" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triComTotal">
+                                    <span>Total</span><i id="arrDwnCoTotal" class="fa fa-long-arrow-down"></i><i id="arrUpCoTotal" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <?php if(in_array("26", $prv) || in_array("27", $prv) || in_array("28", $prv)) { ?>
+                            <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($coms as $com): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($com["id"]) ?></td>
+                        <td class="userCom">
+                            <?= htmlspecialchars($com["user_id"]) ?> - 
+                            <?php if($com["date_co"] < getDatebyId($com["user_id"])): ?>
+                                <i>Compte remplacé</i>
+                            <?php elseif(!getNamebyId($com["user_id"])): ?>
+                                <i>Compte supprimé</i>
+                            <?php else: echo htmlspecialchars(getNamebyId($com["user_id"]));
+                            endif; ?>
+                        </td>
+                        <td>#<?= htmlspecialchars(str_pad($com["numero"], 3, "0", STR_PAD_LEFT)) ?></td> 
+                        <td><?= htmlspecialchars($com["adresse"]) ?></td>
+                        <td><?= htmlspecialchars(date("d/m/Y H:i", strtotime($com["date_co"]))) ?></td>
+                        <td><?= htmlspecialchars(str_replace(".", ",", $com["total"])) ?>€</td>
+                        <?php if(in_array("26", $prv) || in_array("27", $prv) || in_array("28", $prv)) { ?>
+                            <td>
+                                <?php if(in_array("26", $prv) || in_array("27", $prv)) { ?>
+                                    <a href="/importgames/backoff/detailcom-<?= htmlspecialchars($com["id"]) ?>" class="btnDetails"><i class="fa fa-info-circle"></i>Détails</a>
+                                <?php }
+                                if((!in_array("26", $prv) && !in_array("27", $prv)) && in_array("28", $prv)) { ?>
+                                    <div class="displayForm"></div>
+                                <?php }
+                                if(in_array("28", $prv)) { ?>
+                                    <form class="formReset" method="POST">
+                                        <button type="submit" id="resetCom<?= htmlspecialchars($com["id"]) ?>" class="btnReset" name="resetCom" value="<?= htmlspecialchars($com["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                        <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                    </form>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/coms-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/coms-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/coms-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/coms-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/coms-page-<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/tableau-de-bord"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

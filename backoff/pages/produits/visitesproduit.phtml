@@ -1,0 +1,146 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil">Liste des visites page produit</li>
+        <li class="titreFil300" title="Liste des visites page produit">Liste des visites page p...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerListe">
+    <?php if(!in_array("11", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(isset($page)): ?>
+    	<h3><i class="fa fa-list-ul"></i>Liste des visites page produit</h3>
+        <form class="formLines" method="POST">
+            <label for="lignesVisit">Afficher par : </label>
+            <select id="lignesVisit" name="lignesVisit">
+                <?php if($nbrVisits[0] <= 100) { ?>
+                <option value="5">5</option>
+                <?php }
+                if($nbrVisits[0] <= 250) { ?>
+                <option value="10">10</option>
+                <?php } ?>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <?php if($nbrVisits[0] > 100) { ?>
+                <option value="250">250</option>
+                <?php }
+                if($nbrVisits[0] > 250) { ?>
+                <option value="500">500</option>
+                <?php } ?>
+            </select>
+        </form>
+        <div>Résultats <?= $resultDebut ?> à <?= htmlspecialchars($resultFin) ?> sur <?= htmlspecialchars($nbrVisits[0]) ?></div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/visitesprod-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/visitesprod-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($next)): ?>
+                    <div class="pageSuiv"><a href="/importgames/backoff/visitesprod-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/visitesprod-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php endif;
+                // Si le nombre de pages de pages est supérieur à 1 (voir visitesproduit.php ligne 175),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/visitesprod-page-<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triVisitId">
+                                    <span>Id</span><i id="arrowDownVisitId" class="fa fa-long-arrow-down"></i><i id="arrowUpVisitId" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triVisitProd">
+                                    <span>Id produit</span><i id="arrDwnVstProd" class="fa fa-long-arrow-down"></i><i id="arrUpVstProd" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triVisitUser">
+                                    <span>Id utilisateur</span><i id="arrDwnVstUser" class="fa fa-long-arrow-down"></i><i id="arrUpVstUser" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                        <th>
+                            <form method="POST">
+                                <button class="btnTri" type="submit" name="triVisitDate">
+                                    <span>Date</span><i id="arrDwnVstDate" class="fa fa-long-arrow-down"></i><i id="arrUpVstDate" class="fa fa-long-arrow-up"></i>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($visits as $visit): ?>
+        	        <tr>
+        	            <td><?= htmlspecialchars($visit["id"]) ?></td>
+        	            <td>
+                            <?= htmlspecialchars($visit["produit_id"]) ?> - 
+                            <?php if(substr($visit["date_v"], 0, -9) < getDatebyId($visit["produit_id"])): ?>
+                                <i>Article remplacé</i>
+                            <?php elseif(!getTitrebyId($visit["produit_id"])): ?>
+                                <i>Article supprimé</i>
+                            <?php else: ?>
+                                <a href="/importgames/backoff/ficheprod-<?= htmlspecialchars($visit["produit_id"]) ?>" target="_blank"><?= htmlspecialchars(getTitrebyId($visit["produit_id"])) ?></a>
+                            <?php endif; ?>
+                        </td>
+                        <td class="noWrap">
+                            <?php if($visit["user_id"]): echo htmlspecialchars($visit["user_id"]); ?> - 
+                                <?php if(substr($visit["date_v"], 0, -9) < getDateUser($visit["user_id"])): ?>
+                                    <i>Compte remplacé</i>
+                                <?php elseif(!getNamebyId($visit["user_id"])): ?>
+                                    <i>Compte supprimé</i>
+                                <?php else: echo htmlspecialchars(getNamebyId($visit["user_id"]));
+                                endif;
+                            else: ?>
+                                <i>Invité</i>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars(date("d/m/Y H:i", strtotime($visit["date_v"]))) ?></td>
+        	        </tr>
+        	        <?php endforeach; ?>
+            	</tbody>
+            </table>
+        </div>
+        <?php if(isset($navigation)) { ?>
+            <div class="navigation">
+            	<?php if(isset($prev) && isset($next)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/visitesprod-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="/importgames/backoff/visitesprod-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+            	<?php elseif(isset($next)): ?>
+                	<div class="pageSuiv"><a href="/importgames/backoff/visitesprod-page-<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php elseif(isset($prev)): ?>
+                    <div class="pagePrec"><a href="/importgames/backoff/visitesprod-page-<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+            	<?php endif;
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="/importgames/backoff/visitesprod-page-<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+            		<?php endfor;
+                } ?>
+            </div>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/tableau-de-bord"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

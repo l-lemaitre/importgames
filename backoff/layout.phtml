@@ -1,0 +1,236 @@
+<?php ob_start(); ?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta name="description" content="Projet personnel de llemaitre.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/importgames/images/divers/importgamesfull.ico" rel="icon" type="image/ico" />
+        <title>ImportGames | <?= htmlspecialchars(headTitle()) ?></title>
+        <!-- CSS Vendor -->
+        <link href="/importgames/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- CSS Perso -->
+        <link href="/importgames/css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/backoff/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- TOPBAR -->
+        <nav class="topBar noPrint">
+            <div class="topbarContenu">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="/importgames/backoff/tableau-de-bord" title="Accueil"><h2>ImportGames</h2></a>
+                </div>
+                <div class="recherche">
+                    <form METHOD="GET" ACTION="/importgames/backoff/ficheproduit">
+                        <input type="text" name="search" placeholder=" Rechercher un produit...">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="displayAdmin">
+                    <ul>
+                        <li><?= htmlspecialchars($_SESSION["admin"]) ?></li>
+                        <li>|</li>
+                        <li><a href="/importgames/backoff/deconnexion"><span>Déconnexion</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- HEADER -->
+        <header class="headerLayout noPrint">
+            <nav>
+                <ul>
+                    <?php if(in_array("1", $prv) || in_array("2", $prv) || in_array("3", $prv) || in_array("4", $prv) || in_array("5", $prv) || in_array("6", $prv) || in_array("7", $prv) || in_array("8", $prv) || in_array("9", $prv) || in_array("10", $prv) || in_array("11", $prv) || in_array("12", $prv) || in_array("13", $prv) || in_array("14", $prv) || in_array("15", $prv) || in_array("16", $prv) || in_array("17", $prv) || in_array("18", $prv)) { ?>
+                        <li>
+                            <a href="#">Magasin</a>
+                            <div class="menu">
+                                <?php if(in_array("1", $prv) || in_array("2", $prv) || in_array("3", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Catégories</h2>
+                                        <ul>
+                                            <li><a href="/importgames/backoff/cats-page-1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
+                                            <?php if(in_array("2", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ajoutcat"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php }
+                                if(in_array("4", $prv) || in_array("5", $prv) || in_array("6", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Slider</h2>
+                                        <ul>
+                                            <li><a href="/importgames/backoff/slid-page-1"><i class="fa fa-cog"></i>Gérer le slider</a></li>
+                                            <?php if(in_array("5", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ajoutslid"><i class="fa fa-plus"></i>Ajouter un slide</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php }
+                                if(in_array("7", $prv) || in_array("8", $prv) || in_array("9", $prv) || in_array("10", $prv) || in_array("11", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Produits</h2>
+                                        <ul>
+                                            <?php if(in_array("7", $prv) || in_array("9", $prv) || in_array("10", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/prods-page-1"><i class="fa fa-cog"></i>Gérer les produits</a></li>
+                                            <?php }
+                                            if(in_array("8", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ajoutprod"><i class="fa fa-plus"></i>Ajouter un produit</a></li>
+                                            <?php }
+                                            if(in_array("11", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/visitesprod-page-1"><i class="fa fa-history"></i>Historique des visites</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php }
+                                if(in_array("12", $prv) || in_array("13", $prv) || in_array("14", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Images</h2>
+                                        <ul>
+                                            <li><a href="/importgames/backoff/imgs-page-1"><i class="fa fa-cog"></i>Gérer les images</a></li>
+                                            <?php if(in_array("13", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ajoutimg"><i class="fa fa-plus"></i>Ajouter une image</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php }
+                                if(in_array("15", $prv) || in_array("16", $prv) || in_array("17", $prv) || in_array("18", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Réassort</h2>
+                                        <ul>
+                                            <?php if(in_array("15", $prv) || in_array("16", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/achatsmag-page-1"><i class="fa fa-history"></i>Historique des achats</a></li>
+                                            <?php }
+                                            if(in_array("17", $prv) || in_array("18", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ventes-page-1"><i class="fa fa-history"></i>Historique des ventes</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </li>
+                    <?php }
+                    if(in_array("19", $prv) || in_array("20", $prv) || in_array("21", $prv)) { ?>
+                        <li>
+                            <a href="#">Administrateurs</a>
+                            <div class="menu">
+                                <div class="sousMenu singleMenu">
+                                    <ul>
+                                        <li><a href="/importgames/backoff/admins-page-1"><i class="fa fa-cog"></i>Gérer les administrateurs</a></li>
+                                        <?php if(in_array("20", $prv)) { ?>
+                                            <li><a href="/importgames/backoff/ajoutadmin"><i class="fa fa-plus"></i>Ajouter un administrateur</a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <?php }
+                    if(in_array("22", $prv) || in_array("23", $prv) || in_array("24", $prv) || in_array("25", $prv) || in_array("26", $prv) || in_array("27", $prv) || in_array("28", $prv)) { ?>
+                        <li>
+                            <a href="#">Clients</a>
+                            <div class="menu">
+                                <?php if(in_array("22", $prv) || in_array("23", $prv) || in_array("24", $prv)) { ?>
+                                    <div class="sousMenu menuUsers">
+                                        <h2>Utilisateurs</h2>
+                                        <ul>
+                                            <li><a href="/importgames/backoff/users-page-1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
+                                            <?php if(in_array("23", $prv)) { ?>
+                                                <li><a href="/importgames/backoff/ajoutuser"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php }
+                                if(in_array("25", $prv) || in_array("26", $prv) || in_array("27", $prv) || in_array("28", $prv)) { ?>
+                                    <div class="sousMenu">
+                                        <h2>Commandes</h2>
+                                        <ul>
+                                            <li><a href="/importgames/backoff/coms-page-1"><i class="fa fa-history"></i>Historique des commandes</a></li>
+                                        </ul>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </li>
+                    <?php }
+                    if(in_array("29", $prv) || in_array("30", $prv)) { ?>
+                        <li>
+                            <a href="#">Recherches</a>
+                            <div class="menu">
+                                <div class="sousMenu singleMenu">
+                                    <ul>
+                                        <li><a href="/importgames/backoff/recs-page-1"><i class="fa fa-history"></i>Historique des recherches</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <?php }
+                    if(in_array("31", $prv) || in_array("32", $prv) || in_array("33", $prv)) { ?>
+                        <li>
+                            <a href="#">Partenaires</a>
+                            <div class="menu">
+                                <div class="sousMenu singleMenu">
+                                    <ul>
+                                        <li><a href="/importgames/backoff/partns-page-1"><i class="fa fa-cog"></i>Gérer les partenaires</a></li>
+                                        <?php if(in_array("32", $prv)) { ?>
+                                            <li><a href="/importgames/backoff/ajoutpartn"><i class="fa fa-plus"></i>Ajouter un partenaire</a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </nav>
+        </header>
+        <!-- AFFICHAGE TEMPLATE -->
+        <?php
+            // Inclut la variable template, soit le contenu de la page .phtml correspondant à la variable session template du fichier .php de la page courante
+            if(empty($template)) {
+                $template = $_SESSION["template"];
+
+                // On limite l'inclusion aux fichiers .phtml en ajoutant dynamiquement l'extension. On supprime également d'éventuels espaces
+                $template = trim($template . ".phtml");
+            }
+
+            // On évite les caractères qui permettent de naviguer dans les répertoires
+            $template = str_replace("../", "protect", $template);
+            $template = str_replace(";", "protect", $template);
+            $template = str_replace("%", "protect", $template);
+
+            // On interdit l'inclusion de dossiers protégés par htaccess
+            if(preg_match("/backoff/", $template)) {
+                echo "Vous n'avez pas accès à ce répertoire.";
+             }
+
+            else {
+                // On vérifie que la page est bien sur le "serveur" en utlisant le chemin du dossier parent de la variable session FILE_PHTML du fichier .php de la page courante
+                if(file_exists(dirname($_SESSION["FILE_PHTML"]) . "/" . $template) && $template != "index.phtml") {
+                    include dirname($_SESSION["FILE_PHTML"]) . "/" . $template;
+                }
+
+                else {
+                    echo "Page inexistante.";
+                }
+            }
+        ?>
+        <!-- Cookie Consent -->
+        <aside id="cookieConsent" class="cookieConsent">
+            <div id="closeCookieConsent" class="closeCookieConsent">x</div>
+            <div>ImportGames utilise des cookies pour vous garantir la meilleure expérience sur notre site Web. <a href="https://www.culture-informatique.net/cest-quoi-les-cookies" class="lienCookie" target="_blank">En savoir plus</a><a id="cookieConsentOK" class="cookieConsentOK">Autoriser</a></div>
+        </aside>
+        <!-- FOOTER -->
+        <footer class="noPrint">
+            <!-- Mentions légales -->
+            <div class="mentionsLegales">
+                <p class="contact">Site vitrine E-commerce, projet personnel et professionnel de <a href="mailto:contact@llemaitre.com">Ludovic LEMAÎTRE</a></p>
+                <p>Copyright &copy; 2020-2021 &middot; Conçu et développé par <a href="https://llemaitre.com" target="_blank">llemaitre.com</a>. Tous droits réservés</p>
+            </div>
+        </footer>
+        <!-- Javascript / JS Vendor -->
+        <script src="/importgames/js/jquery-3.4.1.js"></script>
+        <script src="/importgames/js/js.cookie.js"></script>
+        <script src="/importgames/backoff/js/vendor.js"></script>
+        <!-- JS Perso -->
+        <script src="/importgames/backoff/js/ajax.js"></script>
+        <script src="/importgames/backoff/js/main.js"></script>
+    </body>
+</html>

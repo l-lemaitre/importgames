@@ -1,0 +1,102 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li><a href="/importgames/backoff/slid-page-1">Liste des slides</a></li>
+        <li class="titreFil">
+            <?php if(in_array("6", $prv)):
+                if(isset($slidId)):
+                    if(!isset($slid["id"])): ?>
+                        Aucun contenu trouvé
+                    <?php elseif($slid["titre"]): ?>
+                        Modifier slide <?= htmlspecialchars($slid["titre"]);
+                    else: ?>
+                        Remplacer slide #<?= htmlspecialchars(str_pad($slid["id"], 3, "0", STR_PAD_LEFT));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("6", $prv)): if(isset($slidId)): if(!isset($slid["id"])): ?>Aucun contenu trouvé<?php elseif($slid["titre"]): ?>Modifier slide <?= htmlspecialchars($slid["titre"]); else: ?>Remplacer slide #<?= htmlspecialchars(str_pad($slid["id"], 3, "0", STR_PAD_LEFT)); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerModif">
+    <?php if(!in_array("6", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($slidId)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($slid["id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php else: ?>
+    	<h3><?php if($slid["titre"]): ?><i class="fa fa-pencil"></i>Modifier slide <?= htmlspecialchars($slid["titre"]) ?><?php else: ?><i class="fa fa-exchange"></i>Remplacer slide #<?= htmlspecialchars(str_pad($slid["id"], 3, "0", STR_PAD_LEFT)) ?><?php endif; ?></h3>
+        <form enctype="multipart/form-data" method="POST">
+            <div>
+                <label for="titre">Titre :</label>
+                <input type="text" id="titre" name="titre" value="<?php if(isset($_POST["titre"])) echo htmlspecialchars($_POST["titre"]); else echo htmlspecialchars($slid["titre"]); ?>" required />
+                <?php if(isset($emptyTitre)): ?>
+                    <p>Le <em>titre</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidTitre)): ?>
+                    <p>Le <em>titre</em> ne doit comporter aucun chiffres ni caractères spéciaux et ne pas dépasser 16 caractères.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="leg">Légende :</label>
+                <input type="text" id="leg" name="leg" value="<?php if(isset($_POST["leg"])) echo htmlspecialchars($_POST["leg"]); else echo htmlspecialchars($slid["legende"]); ?>" required />
+                <?php if(isset($emptyLeg)) { ?>
+                    <p>La <em>légende</em> ne peut pas être vide.</p>
+                <?php } ?>
+            </div>
+            <div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                <label for="img">Image :</label>
+                <?php if($slid["image"]) { ?>
+                    <i>(<a href="<?= htmlspecialchars($slid["image"])?>" target="_blank">Lien vers l'image actuelle</a>)</i>
+                <?php } ?>
+                <input type="file" id="img" name="img" accept=".gif, .jpeg, .jpg, .png, .svg" <?php if(!$slid["titre"]) { ?>required=""<?php } ?> />
+                <?php if(isset($emptyImg)): ?>
+                    <p>Le fichier <em>image</em> ne peut pas être vide ou dépasser la taille de 5000 Ko.</p>
+                <?php elseif(isset($errorImg)): ?>
+                    <p>Une erreur s'est produite lors de la vérification du fichier.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="mdfSlid" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+        <?php if($slid["titre"]) { ?>
+            <form class="formReset" method="POST">
+                <button type="button" id="resetSlid" class="btnReset"><i class="fa fa-trash-o"></i>Supprimer le slide</button>
+                <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                <input type="hidden" name="formResetToken" value="<?= $token ?>" />
+                <?php if(isset($verifResetError)): ?>
+                    <div><p>Erreur de vérification.</p></div>
+                <?php elseif(isset($refResetError)): ?>
+                    <div><p>La requête ne provient pas du formulaire.</p></div>
+                <?php endif; ?>
+            </form>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/slid-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

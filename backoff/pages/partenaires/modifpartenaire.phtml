@@ -1,0 +1,105 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil"><a href="/importgames/backoff/partns-page-1">Liste des partenaires</a></li>
+        <li class="titreFil300" title="Liste des partenaires"><a href="/importgames/backoff/partns-page-1">Liste des partenair...</a></li>
+        <li class="titreFil">
+            <?php if(in_array("33", $prv)):
+                if(isset($partnId)):
+                    if(!isset($partn["id"])): ?>
+                        Aucun contenu trouvé
+                    <?php elseif($partn["nom"]): ?>
+                        Modifier partenaire <?= htmlspecialchars($partn["nom"]);
+                    else: ?>
+                        Remplacer partenaire #<?= htmlspecialchars(str_pad($partn["id"], 3, "0", STR_PAD_LEFT));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("33", $prv)): if(isset($partnId)): if(!isset($partn["id"])): ?>Aucun contenu trouvé<?php elseif($partn["nom"]): ?>Modifier partenaire <?= htmlspecialchars($partn["nom"]); else: ?>Remplacer partenaire #<?= htmlspecialchars(str_pad($partn["id"], 3, "0", STR_PAD_LEFT)); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerModif">
+    <?php if(!in_array("33", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($partnId)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($partn["id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php else: ?>
+    	<h3><?php if($partn["nom"]): ?><i class="fa fa-pencil"></i>Modifier partenaire <?= htmlspecialchars($partn["nom"]) ?><?php else: ?><i class="fa fa-exchange"></i>Remplacer partenaire #<?= htmlspecialchars(str_pad($partn["id"], 3, "0", STR_PAD_LEFT)) ?><?php endif; ?></h3>
+        <form enctype="multipart/form-data" method="POST">
+            <div>
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" value="<?php if(isset($_POST["nom"])) echo htmlspecialchars($_POST["nom"]); else echo htmlspecialchars($partn["nom"]); ?>" required />
+                <?php if(isset($emptyNom)): ?>
+                    <p>Le <em>nom</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidNom)): ?>
+                    <p>Le <em>nom</em> ne doit pas comporter de caractères spéciaux.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                <label for="img">Image :</label>
+                <?php if($partn["nom"]) { ?>
+                    <i>(<a href="<?= htmlspecialchars($partn["image"])?>" target="_blank">Lien vers l'image actuelle</a>)</i>
+                <?php } ?>
+                <input type="file" id="img" name="img" accept=".gif, .jpeg, .jpg, .png, .svg" <?php if(!$partn["nom"]) { ?>required=""<?php } ?> />
+                <?php if(isset($emptyImg)): ?>
+                    <p>Le fichier <em>image</em> ne peut pas être vide ou dépasser la taille de 5000 Ko.</p>
+                <?php elseif(isset($errorImg)): ?>
+                    <p>Une erreur s'est produite lors de la vérification du fichier.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="url">Adresse web :</label>
+                <input type="text" id="url" name="url" value="<?php if(isset($_POST["url"])) echo $_POST["url"]; else echo htmlspecialchars($partn["url"]); ?>" required />
+                <?php if(isset($emptyUrl)): ?>
+                    <p>L'<em>adresse web</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidUrl)): ?>
+                    <p>L'<em>adresse web</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="mdfPartn" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+        <?php if($partn["nom"]) { ?>
+            <form class="formReset" method="POST">
+                <button type="button" id="resetPartn" class="btnReset"><i class="fa fa-trash-o"></i>Supprimer le partenaire</button>
+                <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                <input type="hidden" name="formResetToken" value="<?= $token ?>" />
+                <?php if(isset($verifResetError)): ?>
+                    <div><p>Erreur de vérification.</p></div>
+                <?php elseif(isset($refResetError)): ?>
+                    <div><p>La requête ne provient pas du formulaire.</p></div>
+                <?php endif; ?>
+            </form>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/partns-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

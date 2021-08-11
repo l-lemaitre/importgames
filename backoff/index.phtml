@@ -1,0 +1,76 @@
+<?php ob_start(); ?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta name="description" content="Projet personnel de llemaitre.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/importgames/images/divers/importgamesfull.ico" rel="icon" type="image/ico" />
+        <title>ImportGames | Connexion</title>
+        <!-- CSS Vendor -->
+        <link href="/importgames/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- CSS Perso -->
+        <link href="/importgames/css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/backoff/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header>
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/importgames" target="_blank"><img src="/importgames/images/divers/importgamesfull.png" alt="logo" title="ImportGames | Votre solution pour l'import Japonais" /></a>
+            </div>
+        </header>
+        <!-- MAIN CONTENT -->
+        <main class="containerLogin">
+            <h3><i class="fa fa-chevron-right"></i>Connexion</h3>
+            <form method="POST">
+                <ul>
+                    <li>
+                        <input type="text" name="name" placeholder="Nom :" value="<?php if(isset($_POST["name"])) echo htmlspecialchars($_POST["name"]); ?>" required />
+                        <?php if(isset($emptyName)) { ?>
+                            <div><p>L'<em>identifiant</em> ne peut pas être vide.</p></div>
+                        <?php } ?>
+                    </li>
+                    <li>
+                        <input type="password" class="password" name="password" placeholder="Mot de passe :" value="<?php if(isset($_POST["password"])) echo $_POST["password"]; ?>" required />
+                        <button class="changeType" type="button"></button>
+                        <?php if(isset($emptyPass)) { ?>
+                            <div><p>Le <em>mot de passe</em> ne peut pas être vide.</p></div>
+                        <?php } ?>
+                    </li>
+                    <li>
+                        <div class="g-recaptcha" data-sitekey="6LfGCe8UAAAAAOLswSSrPok74Xl4Tg52dvFDF4ya"></div>
+                        <?php if(isset($noCaptcha)) { ?>
+                            <div><p>Vérification reCAPTCHA requise.</p></div>
+                        <?php } ?>
+                    </li>
+                </ul>
+                <button class="btnLogin" type="submit" name="login">Connexion</button>
+                <?php if(isset($loginError) && !isset($emptyName) && !isset($emptyPass)) { ?>
+                    <div><p>L'<em>identifiant</em> ou le <em>mot de passe</em> est incorrect.</p></div>
+                <?php } ?>
+            </form>
+            <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+        </main>
+        <!-- Cookie Consent -->
+        <aside id="cookieConsent" class="cookieConsent">
+            <div id="closeCookieConsent" class="closeCookieConsent">x</div>
+            <div>ImportGames utilise des cookies pour vous garantir la meilleure expérience sur notre site Web. <a href="https://www.culture-informatique.net/cest-quoi-les-cookies" class="lienCookie" target="_blank">En savoir plus</a><a id="cookieConsentOK" class="cookieConsentOK">Autoriser</a></div>
+        </aside>
+        <!-- FOOTER -->
+        <footer>
+            <!-- Mentions légales -->
+            <div class="mentionsLegales">
+                <p class="contact">Site vitrine E-commerce, projet personnel et professionnel de <a href="mailto:contact@llemaitre.com">Ludovic LEMAÎTRE</a></p>
+                <p>Copyright &copy; 2020-2021 &middot; Conçu et développé par <a href="https://llemaitre.com" target="_blank">llemaitre.com</a>. Tous droits réservés</p>
+            </div>
+        </footer>
+        <!-- Javascript / JS Vendor -->
+        <script src="/importgames/js/jquery-3.4.1.js"></script>
+        <script src="/importgames/js/js.cookie.js"></script>
+        <script src="/importgames/backoff/js/vendor.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+    </body>
+</html>

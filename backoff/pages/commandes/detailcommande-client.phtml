@@ -1,0 +1,109 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil"><a href="/importgames/backoff/coms-page-1">Liste des commandes clients</a></li>
+        <li class="titreFil300" title="Liste des commandes clients"><a href="/importgames/backoff/coms-page-1">Liste des comman...</a></li>
+        <li class="titreFil">
+            <?php if(in_array("26", $prv) || in_array("27", $prv)):
+                if(isset($comId)):
+                    if(!isset($com["user_id"])): ?>
+                        Aucune commande trouvée
+                    <?php else: ?>
+                        Commande #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("26", $prv) || in_array("27", $prv)): if(isset($comId)): if(!isset($com["user_id"])): ?>Aucune commande trouvée<?php else: ?>Commande #<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerDetailcom">
+    <?php if(!in_array("26", $prv) && !in_array("27", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($comId)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($com["user_id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/package.png" alt="imgPackage" />
+            <h2>Aucune commande trouvée</h2>
+        </div>
+    <?php else: ?>
+        <div class="infosCom">
+            <p><strong>Client :&nbsp;</strong>
+                <span>
+                    <?php if($com["date_co"] < getDatebyId($com["user_id"])): ?>
+                        <i>Compte remplacé</i>
+                    <?php elseif(!getNamebyId($com["user_id"])): ?>
+                        <i>Compte supprimé</i>
+                    <?php else: echo htmlspecialchars(getNamebyId($com["user_id"]));
+                    endif; ?>
+                </span>
+            </p>
+            <p><strong>Date de la commande :&nbsp;</strong><span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"]))) ?></span></p>
+            <p><strong>N° de commande :&nbsp;</strong><span><?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)) ?></span></p>
+            <p><strong>N° de commande client :&nbsp;</strong><span><?= htmlentities(str_pad($com["numero"], 3, "0", STR_PAD_LEFT)) ?></span></p>
+        </div>
+        <?php if(in_array("27", $prv)) { ?>
+            <div class="displayFct">
+                <a href="/importgames/backoff/facture-<?= htmlentities($com["id"]) ?>" class="btnFct">Afficher la facture</a>
+            </div>
+        <?php } ?>
+        <div class="tableScroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Sous-total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for($i = 0; $i < $nbrProdsCo; $i++): ?>
+                    <tr>
+                        <?php if($com["date_co"] < $dateCrea[$i]): ?>
+                            <td><i>Article remplacé</i></td>
+                            <td><?= htmlspecialchars($titre[$i]) ?></td>
+                        <?php elseif(!$dateCrea[$i]): ?>
+                            <td><i>Article supprimé</i></td>
+                            <td><?= htmlspecialchars($titre[$i]) ?></td>
+                        <?php else: ?>
+                            <td><a href="/importgames/prod-<?= htmlentities($prodId[$i]) ?>" target="_blank"><img src="<?= htmlspecialchars($apercuImg[$i]) ?>" alt="imgProd" /></a></td>
+                            <td><a href="/importgames/prod-<?= htmlentities($prodId[$i]) ?>" target="_blank"><?= htmlspecialchars($titre[$i]) ?></a></td>
+                        <?php endif; ?>
+                        <td><?= htmlentities($qte[$i]) ?></td>
+                        <td><?= htmlentities(str_replace(".", ",", $prix[$i])) ?>€</td>
+                        <td><?= htmlentities(str_replace(".", ",", number_format($qte[$i] * $prix[$i], 2))) ?>€</td>
+                    </tr>
+                    <?php endfor; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6"><b>Total HT :</b> <span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.80), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><b>TVA 20% :</b> <span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.20), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><h3>Total : <?= htmlentities(str_replace(".", ",", $com["total"])) ?>€</h3></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    <?php endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/coms-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>

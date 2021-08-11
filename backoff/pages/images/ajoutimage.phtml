@@ -1,0 +1,60 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li><a href="/importgames/backoff/imgs-page-1">Liste des images</a></li>
+        <li class="titreFil">Ajouter une image</li>
+        <li class="titreFil300" title="Ajouter une image">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerAjout">
+    <?php if(!in_array("13", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php else: ?>
+        <h3><i class="fa fa-plus"></i>Ajouter une image</h3>
+        <form enctype="multipart/form-data" method="POST">
+            <div>
+                <label for="prodId">Identifiant produit :</label>
+                <select id="prodId" name="prodId" required>
+                    <?php foreach($prods as $prod): ?>
+                        <option value="<?= htmlspecialchars($prod["id"]) ?>">
+                            <?= htmlspecialchars($prod["id"]) ?> - <?= htmlspecialchars($prod["titre"]) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <?php if(isset($emptyProdId)): ?>
+                    <p>L'<em>identifiant produit</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidProdId)): ?>
+                    <p>L'<em>identifiant produit</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                <label for="imgUrl">Image :</label>
+                <input type="file" id="imgUrl" name="imgUrl" accept=".gif, .jpeg, .jpg, .png, .svg" required />
+                <?php if(isset($emptyImg)): ?>
+                    <p>Le fichier <em>image</em> ne peut pas être vide ou dépasser la taille de 5000 Ko.</p>
+                <?php elseif(isset($errorImg)): ?>
+                    <p>Une erreur s'est produite lors de la vérification du fichier.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="ajoutImg" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/imgs-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

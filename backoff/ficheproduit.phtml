@@ -1,0 +1,182 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li><a href="/importgames/backoff/prods-page-1">Liste des produits</a></li>
+        <li class="titreFilLarge">
+            <?php if(in_array("10", $prv)):
+                if(isset($prodId) || isset($searchResult)):
+                    if(!isset($prod["id"])): ?>
+                        Aucun produit trouvé
+                    <?php else: ?>
+                        Fiche produit <?= htmlspecialchars($prod["titre"]);
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil600" title="<?php if(in_array("10", $prv)): if(isset($prodId) || isset($searchResult)): if(!isset($prod["id"])): ?>Aucun produit trouvé<?php else: ?>Fiche produit <?= htmlspecialchars($prod["titre"]); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">
+            <?php if(in_array("10", $prv)):
+                if(isset($_GET["id"]) || isset($_GET["search"])):
+                    if(!isset($prod["id"])): ?>
+                        Aucun produit trouvé
+                    <?php else: ?>
+                        Fiche produit <?= htmlspecialchars(couperTitre($prod["titre"]));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("10", $prv)): if(isset($prodId) || isset($searchResult)): if(!isset($prod["id"])): ?>Aucun produit trouvé<?php else: ?>Fiche produit <?= htmlspecialchars($prod["titre"]); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerAchat">
+    <?php if(!in_array("10", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($prodId) && !isset($searchResult)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgInterrogation" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($prod["id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun produit trouvé</h2>
+        </div>
+    <?php else: ?>
+        <h3><i class="fa fa-product-hunt"></i>Fiche produit <?= htmlspecialchars($prod["titre"]) ?></h3>
+        <img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" class="imgProd" alt="imgProd" />
+        <div class="tableScroll">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td><?= htmlspecialchars($prod["titre"]) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Code-barres</th>
+                        <td><?= htmlspecialchars($prod["ean13"]) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Catégorie</th>
+                        <td><?= htmlspecialchars(getCatbyId($prod["cat_id"])) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Prix de vente</th>
+                        <td><?= htmlspecialchars(str_replace(".", ",", $prod["prix"])) ?>€</td>
+                    </tr>
+                    <tr>
+                        <th>Stock</th>
+                        <td><?= htmlspecialchars($prod["qte"]) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Date de sortie</th>
+                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($prod["date_sortie"]))) ?></td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($prod["date_creation"]))) ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4><i class="fa fa-history"></i>Derniers achats</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Quantité</th>
+                        <th>Prix d'achat</th>
+                        <th>Total</th>
+                        <?php if(in_array("16", $prv)) { ?>
+                        <th>Options</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if($achats):
+                        foreach($achats as $achat): ?>
+                        <tr>
+                            <td><?= htmlspecialchars(date("d/m/Y", strtotime($achat["date_a"]))) ?></td>
+                            <td><?= htmlspecialchars($achat["qte"]) ?></td>
+                            <td><?= htmlspecialchars(str_replace(".", ",", $achat["prix"])) ?>€</td>
+                            <td><?= htmlspecialchars(str_replace(".", ",", number_format($achat["qte"] * $achat["prix"], 2))) ?>€</td>
+                            <?php if(in_array("16", $prv)) { ?>
+                                <td>
+                                    <form class="formReset" method="POST">
+                                        <button type="submit" id="resetAchat<?= htmlspecialchars($achat["id"]) ?>" class="btnReset" name="resetAchat" value="<?= htmlspecialchars($achat["id"]) ?>"><i class="fa fa-trash-o"></i>Supprimer</button>
+                                        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                                        <input type="hidden" name="formToken" value="<?= $token ?>" />
+                                    </form>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                        <?php $total += $achat["prix"] * $achat["qte"];
+                        endforeach;
+                    else: ?>
+                        <tr>
+                            <td colspan="5">Aucune donnée disponible</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"><h3>Total : <?= htmlspecialchars(str_replace(".", ",", number_format($total, 2))) ?>€</h3></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <h4><i class="fa fa-shopping-cart"></i>Commander</h4>
+        <form method="POST">
+            <div>
+                <label for="prixAchat">Prix d'achat (€) :</label>
+                <input type="text" id="prixAchat" name="prixAchat" value="<?php if(isset($_POST["prixAchat"])) echo $_POST["prixAchat"]; ?>" required />
+                <?php if(isset($emptyPrixA)): ?>
+                    <p>Le <em>prix d'achat</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidPrixA)): ?>
+                    <p>Le <em>prix d'achat</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="qte">Quantité :</label>
+                <input type="text" id="qte" name="qte" value="<?php if(isset($_POST["qte"])) echo $_POST["qte"]; ?>" required />
+                <?php if(isset($emptyQte)): ?>
+                    <p>La <em>quantité</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidQte)): ?>
+                    <p>La <em>quantité</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="dateAchat">Date d'achat :</label>
+                <input type="date" id="dateAchat" name="dateAchat" value="<?php if(isset($_POST["dateAchat"])) echo $_POST["dateAchat"]; else echo date("Y-m-d"); ?>" required />
+                <?php if(isset($emptyDateA)): ?>
+                    <p>La <em>date d'achat</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidDateA)): ?>
+                    <p>La <em>date d'achat</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <button type="button" id="comProd" class="btn">Valider</button>
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="comProdToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/prods-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

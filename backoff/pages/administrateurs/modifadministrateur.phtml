@@ -1,0 +1,271 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="/importgames/backoff/tableau-de-bord" class="home">Accueil</a></li>
+        <li class="titreFil"><a href="/importgames/backoff/admins-page-1">Liste des administrateurs</a></li>
+        <li class="titreFil300" title="Liste des administrateurs"><a href="/importgames/backoff/admins-page-1">Liste des administ...</a></li>
+        <li class="titreFil">
+            <?php if(in_array("21", $prv)):
+                if(isset($adminId)):
+                    if(!isset($admin["id"])): ?>
+                        Aucun contenu trouvé
+                    <?php elseif($admin["name"]): ?>
+                        Modifier administrateur <?= htmlspecialchars($admin["name"]);
+                    else: ?>
+                        Remplacer administrateur #<?= htmlspecialchars(str_pad($admin["id"], 3, "0", STR_PAD_LEFT));
+                    endif;
+                else: ?>
+                    Erreur adresse HTTP
+                <?php endif;
+            else: ?>
+                Autorisation refusée
+            <?php endif; ?>
+        </li>
+        <li class="titreFil300" title="<?php if(in_array("21", $prv)): if(isset($adminId)): if(!isset($admin["id"])): ?>Aucun contenu trouvé<?php elseif($admin["name"]): ?>Modifier administrateur <?= htmlspecialchars($admin["name"]); else: ?>Remplacer administrateur #<?= htmlspecialchars(str_pad($admin["id"], 3, "0", STR_PAD_LEFT)); endif; else: ?>Erreur adresse HTTP<?php endif; else: ?>Autorisation refusée<?php endif; ?>">...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerModif">
+    <?php if(!in_array("21", $prv)): ?>
+        <div class="unauthorized">
+            <img src="/importgames/images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Autorisation refusée, veuillez contacter le « super administrateur » du site.</h2>
+        </div>
+    <?php elseif(!isset($adminId)): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php elseif(!isset($admin["id"])): ?>
+        <div class="erreurHeader">
+            <img src="/importgames/images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php else: ?>
+    	<h3><?php if($admin["name"]): ?><i class="fa fa-pencil"></i>Modifier administrateur <?= htmlspecialchars($admin["name"]) ?><?php else: ?><i class="fa fa-exchange"></i>Remplacer administrateur #<?= htmlspecialchars(str_pad($admin["id"], 3, "0", STR_PAD_LEFT)) ?><?php endif; ?></h3>
+        <form method="POST">
+            <div>
+                <label for="name">Nom :</label>
+                <input type="text" id="name" name="name" value="<?php if(isset($_POST["name"])) echo htmlspecialchars($_POST["name"]); else echo htmlspecialchars($admin["name"]); ?>" required />
+                <?php if(isset($emptyName)): ?>
+                    <p>Le <em>nom</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidName)): ?>
+                    <p>Le <em>nom</em> ne doit comporter aucun espace ni caractères spéciaux et ne pas dépasser 16 caractères.</p>
+                <?php elseif(isset($usedName)): ?>
+                    <p>Ce <em>nom</em> n'est pas disponible.</p>
+                <?php endif; ?>
+            </div>
+            <?php if($admin["password"]): ?>
+                <div>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" class="password" name="password" value="<?php if(isset($_POST["password"])) echo $_POST["password"]; ?>" />
+                    <button class="changeType" type="button"></button>
+                    <?php if(isset($emptyPass)): ?>
+                        <p>Le <em>mot de passe</em> ne peut pas être vide.</p>
+                    <?php elseif(isset($passError)): ?>
+                        <p>Le <em>mot de passe</em> est incorrect.</p>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <label for="newPass">Nouveau mot de passe :</label>
+                    <input type="password" id="newPass" class="password" name="newPass" value="<?php if(isset($_POST["newPass"])) echo $_POST["newPass"]; ?>" />
+                    <button class="changeType" type="button"></button>
+                    <?php if(isset($emptyNewPass)): ?>
+                        <p>Le <em>nouveau mot de passe</em> ne peut pas être vide.</p>
+                    <?php elseif(isset($invalidNewPass)): ?>
+                        <p>Le <em>nouveau mot de passe</em> n'est pas valide. Il doit contenir 8 caractères au minimum et ne comporter aucun accent ni caractères spéciaux.</p>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <label for="passConf">Confirmer le nouveau mot de passe :</label>
+                    <input type="password" id="passConf" name="passConf" />
+                    <?php if(isset($invalidPassConf)) { ?>
+                        <p>La confirmation du <em>nouveau mot de passe</em> ne correspond pas.</p>
+                    <?php } ?>
+                </div>
+            <?php else: ?>
+                <div>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" class="password" name="newPass" value="<?php if(isset($_POST["newPass"])) echo $_POST["newPass"]; ?>" required />
+                    <button class="changeType" type="button"></button>
+                    <?php if(isset($emptyNewPass)): ?>
+                        <p>Le <em>mot de passe</em> ne peut pas être vide.</p>
+                    <?php elseif(isset($invalidNewPass)): ?>
+                        <p>Le <em>mot de passe</em> n'est pas valide. Il doit contenir 8 caractères alphanumériques au minimum et ne comporter aucun accent ni caractères spéciaux.<p>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <label for="passConf">Confirmer le mot de passe :</label>
+                    <input type="password" id="passConf" name="passConf" required />
+                    <?php if(isset($invalidPassConf)) { ?>
+                        <p>La confirmation du <em>mot de passe</em> ne correspond pas.</p>
+                    <?php } ?>
+                </div>
+            <?php endif; ?>
+            <div>
+                <label for="prv">Privilèges :</label>
+                <span>※ Maintenez le clic gauche ou appuyez sur la touche "Ctrl" en vous déplaçant avec la souris pour sélectionner plusieurs options. Vous pouvez aussi maintenir la touche "Maj" et utiliser les flêches directionnelles.</span>
+                <select id="prv" class="prv" name="prv[]" multiple required>
+                    <optgroup label="Catégories">
+                        <option value="1" <?php if(in_array("selected", $selected) || in_array("1", $selected)) echo "selected"; ?>>
+                            1 - Liste des catégories
+                        </option>
+                        <option value="2" <?php if(in_array("2", $selected)) echo "selected"; ?>>
+                            2 - Ajouter catégories
+                        </option>
+                        <option value="3" <?php if(in_array("3", $selected)) echo "selected"; ?>>
+                            3 - Modifier catégories
+                        </option>
+                    </optgroup>
+                    <optgroup label="Slider">
+                        <option value="4" <?php if(in_array("selected", $selected) || in_array("4", $selected)) echo "selected"; ?>>
+                            4 - Liste des slides
+                        </option>
+                        <option value="5" <?php if(in_array("5", $selected)) echo "selected"; ?>>
+                            5 - Ajouter slides
+                        </option>
+                        <option value="6" <?php if(in_array("6", $selected)) echo "selected"; ?>>
+                            6 - Modifier slides
+                        </option>
+                    </optgroup>
+                    <optgroup label="Produits">
+                        <option value="7" <?php if(in_array("selected", $selected) || in_array("7", $selected)) echo "selected"; ?>>
+                            7 - Liste des produits
+                        </option>
+                        <option value="8" <?php if(in_array("8", $selected)) echo "selected"; ?>>
+                            8 - Ajouter produits
+                        </option>
+                        <option value="9" <?php if(in_array("9", $selected)) echo "selected"; ?>>
+                            9 - Modifier produits
+                        </option>
+                        <option value="10" <?php if(in_array("10", $selected)) echo "selected"; ?>>
+                            10 - Commander produits
+                        </option>
+                        <option value="11" <?php if(in_array("selected", $selected) || in_array("11", $selected)) echo "selected"; ?>>
+                            11 - Historique des visites
+                        </option>
+                    </optgroup>
+                    <optgroup label="Images">
+                        <option value="12" <?php if(in_array("selected", $selected) || in_array("12", $selected)) echo "selected"; ?>>
+                            12 - Liste des images
+                        </option>
+                        <option value="13" <?php if(in_array("13", $selected)) echo "selected"; ?>>
+                            13 - Ajouter images
+                        </option>
+                        <option value="14" <?php if(in_array("14", $selected)) echo "selected"; ?>>
+                            14 - Modifier images
+                        </option>
+                    </optgroup>
+                    <optgroup label="Réassort">
+                        <option value="15" <?php if(in_array("selected", $selected) || in_array("15", $selected)) echo "selected"; ?>>
+                            15 - Historique des achats
+                        </option>
+                        <option value="16" <?php if(in_array("16", $selected)) echo "selected"; ?>>
+                            16 - Supprimer des achats
+                        </option>
+                        <option value="17" <?php if(in_array("selected", $selected) || in_array("17", $selected)) echo "selected"; ?>>
+                            17 - Historique des ventes
+                        </option>
+                        <option value="18" <?php if(in_array("18", $selected)) echo "selected"; ?>>
+                            18 - Supprimer des ventes
+                        </option>
+                    </optgroup>
+                    <optgroup label="Administrateurs">
+                        <option value="19" <?php if(in_array("selected", $selected) || in_array("19", $selected)) echo "selected"; ?>>
+                            19 - Liste des administrateurs
+                        </option>
+                        <option value="20" <?php if(in_array("20", $selected)) echo "selected"; ?>>
+                            20 - Ajouter administrateurs
+                        </option>
+                        <option value="21" <?php if(in_array("21", $selected)) echo "selected"; ?>>
+                            21 - Modifier administrateurs
+                        </option>
+                    </optgroup>
+                    <optgroup label="Utilisateurs">
+                        <option value="22" <?php if(in_array("selected", $selected) || in_array("22", $selected)) echo "selected"; ?>>
+                            22 - Liste des utilisateurs
+                        </option>
+                        <option value="23" <?php if(in_array("23", $selected)) echo "selected"; ?>>
+                            23 - Ajouter utilisateurs
+                        </option>
+                        <option value="24" <?php if(in_array("24", $selected)) echo "selected"; ?>>
+                            24 - Modifier utilisateurs
+                        </option>
+                    </optgroup>
+                    <optgroup label="Commandes clients">
+                        <option value="25" <?php if(in_array("selected", $selected) || in_array("25", $selected)) echo "selected"; ?>>
+                            25 - Historique des commandes
+                        </option>
+                        <option value="26" <?php if(in_array("selected", $selected) || in_array("26", $selected)) echo "selected"; ?>>
+                            26 - Détails commandes
+                        </option>
+                        <option value="27" <?php if(in_array("selected", $selected) || in_array("27", $selected)) echo "selected"; ?>>
+                            27 - Afficher factures
+                        </option>
+                        <option value="28" <?php if(in_array("28", $selected)) echo "selected"; ?>>
+                            28 - Supprimer commandes
+                        </option>
+                    </optgroup>
+                    <optgroup label="Recherches">
+                        <option value="29" <?php if(in_array("selected", $selected) || in_array("29", $selected)) echo "selected"; ?>>
+                            29 - Historique des recherches
+                        </option>
+                        <option value="30" <?php if(in_array("30", $selected)) echo "selected"; ?>>
+                            30 - Supprimer recherches
+                        </option>
+                    </optgroup>
+                    <optgroup label="Partenaires">
+                        <option value="31" <?php if(in_array("selected", $selected) || in_array("31", $selected)) echo "selected"; ?>>
+                            31 - Liste des partenaires
+                        </option>
+                        <option value="32" <?php if(in_array("32", $selected)) echo "selected"; ?>>
+                            32 - Ajouter partenaires
+                        </option>
+                        <option value="33" <?php if(in_array("33", $selected)) echo "selected"; ?>>
+                            33 - Modifier partenaires
+                        </option>
+                    </optgroup>
+                </select>
+                <?php if(isset($emptyPrv)): ?>
+                    <p>Le champ de saisie <em>privilèges</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidPrv)): ?>
+                    <p>Le champ de saisie <em>privilèges</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <div>
+                <label for="dateReg">Date d'inscription :</label>
+                <input type="date" id="dateReg" name="dateReg" value="<?php if(isset($_POST["dateReg"])) echo $_POST["dateReg"]; elseif($admin["date_reg"]) echo htmlspecialchars($admin["date_reg"]); else echo date("Y-m-d"); ?>" required />
+                <?php if(isset($emptyDateReg)): ?>
+                    <p>La <em>date d'inscription</em> ne peut pas être vide.</p>
+                <?php elseif(isset($invalidDateReg)): ?>
+                    <p>La <em>date d'inscription</em> n'est pas valide.</p>
+                <?php endif; ?>
+            </div>
+            <input type="submit" class="btn" name="mdfAdmin" value="Valider" />
+            <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+            <input type="hidden" name="formToken" value="<?= $token ?>" />
+            <?php if(isset($verifError)): ?>
+                <div class="msg"><p>Erreur de vérification.</p></div>
+            <?php elseif(isset($refError)): ?>
+                <div class="msg"><p>La requête ne provient pas du formulaire.</p></div>
+            <?php endif; ?>
+        </form>
+        <?php if($admin["name"]) { ?>
+            <form class="formReset" method="POST">
+                <button type="button" id="resetAdmin" class="btnReset"><i class="fa fa-trash-o"></i>Supprimer l'administrateur</button>
+                <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+                <input type="hidden" name="formResetToken" value="<?= $token ?>" />
+                <?php if(isset($verifResetError)): ?>
+                    <div><p>Erreur de vérification.</p></div>
+                <?php elseif(isset($refResetError)): ?>
+                    <div><p>La requête ne provient pas du formulaire.</p></div>
+                <?php endif; ?>
+            </form>
+        <?php }
+    endif; ?>
+    <div class="backLink"><a href="/importgames/backoff/admins-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

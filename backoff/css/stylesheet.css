@@ -1,0 +1,2219 @@
+@charset "UTF-8";
+/* CSS GLOBAL Document */
+/* La règle @ @font-face permet de définir la police d'écriture "Montserrat-Regular" à utiliser 
+pour afficher le texte des pages web */
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("../../fonts/Montserrat-Regular/Montserrat-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../../fonts/Montserrat-Regular/Montserrat-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Montserrat-Regular/Montserrat-Regular.otf") format("opentype"), url("../../fonts/Montserrat-Regular/Montserrat-Regular.svg") format("svg"), url("../../fonts/Montserrat-Regular/Montserrat-Regular.ttf") format("truetype"), url("../../fonts/Montserrat-Regular/Montserrat-Regular.woff") format("woff"), url("../../fonts/Montserrat-Regular/Montserrat-Regular.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url("../../fonts/Raleway-Regular/Raleway-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../../fonts/Raleway-Regular/Raleway-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Raleway-Regular/Raleway-Regular.otf") format("opentype"), url("../../fonts/Raleway-Regular/Raleway-Regular.svg") format("svg"), url("../../fonts/Raleway-Regular/Raleway-Regular.ttf") format("truetype"), url("../../fonts/Raleway-Regular/Raleway-Regular.woff") format("woff"), url("../../fonts/Raleway-Regular/Raleway-Regular.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal; }
+* {
+  box-sizing: border-box; }
+
+html {
+  /* Position */
+  /* Affichage */
+  margin: 0 auto;
+  /* Texte */
+  font-size: 62.5%;
+  /* Décoration */ }
+
+body {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 1.5rem;
+  color: #777777;
+  background-color: white; }
+
+/* PAGE INDEX.PHTML */
+/* HEADER */
+header .logo {
+  text-align: center; }
+  header .logo a img {
+    max-width: 35rem; }
+
+/* MAIN CONTENT */
+.containerLogin {
+  min-height: 52.5rem;
+  max-width: 50rem;
+  margin: 0 auto 3rem; }
+  .containerLogin h3 {
+    font-weight: 100;
+    text-align: initial;
+    color: #777777; }
+    .containerLogin h3 i {
+      display: inline-block;
+      height: 4rem;
+      width: 4rem;
+      margin-right: 1rem;
+      line-height: 4.1rem;
+      text-align: center;
+      color: #ffffff;
+      background-color: #ff8b2b; }
+  .containerLogin form {
+    margin: -0.5rem 0 10rem;
+    padding: 1.2rem 0.5rem 1.4rem;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerLogin form ul {
+      padding: 0;
+      list-style: none; }
+      .containerLogin form ul li {
+        position: relative;
+        margin: 0 auto 1.3rem;
+        color: red; }
+        .containerLogin form ul li input {
+          height: 3rem;
+          width: 30.1rem;
+          margin: 1rem 0 2rem;
+          padding-left: 0.5rem;
+          color: #777777;
+          border-radius: 2px;
+          border: 1px solid #d2d2d2; }
+        .containerLogin form ul li input::placeholder {
+          font-style: italic; }
+        .containerLogin form ul li .password + .changeType {
+          position: absolute;
+          top: 1.4rem;
+          right: 9.75rem;
+          height: 2.2rem;
+          width: 3.2rem;
+          text-indent: -999rem;
+          background-color: #C0C0C0;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+          -webkit-appearance: none; }
+        .containerLogin form ul li .password + .changeType:before {
+          position: absolute;
+          top: 0.4rem;
+          left: 0.95rem;
+          width: 1.4rem;
+          height: 1.4rem;
+          z-index: 1;
+          content: "";
+          background-color: #e3e3e3;
+          border-radius: 50%; }
+        .containerLogin form ul li .password[type="text"] + .changeType:after {
+          position: absolute;
+          top: 0.6rem;
+          left: 1.15rem;
+          width: 1rem;
+          height: 1rem;
+          z-index: 2;
+          content: "";
+          background-color: #C0C0C0;
+          border-radius: 50%; }
+        .containerLogin form ul li .g-recaptcha {
+          display: inline-block;
+          margin: 1rem 0 1.4rem; }
+    .containerLogin form .btnLogin {
+      display: block;
+      height: 2.8rem;
+      margin: 1.6rem auto 2rem;
+      padding: 0 1.5rem;
+      line-height: 2.6rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerLogin form .btnLogin:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerLogin form div p {
+      margin: 0 auto 1.3rem;
+      color: red; }
+
+/* FOOTER */
+footer {
+  padding-bottom: 0.9rem;
+  line-height: 1rem;
+  font-family: "Raleway-Regular", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #777777;
+  background-color: #f0f1f4; }
+  footer .mentionsLegales {
+    padding-top: 1rem; }
+    footer .mentionsLegales p a {
+      text-decoration: none;
+      color: #ff8b2b; }
+    footer .mentionsLegales p a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2rem; }
+
+/* PAGE-INTROUVABLE.HTML */
+/* BREADCRUMB */
+.filAriane {
+  padding: 0.5rem 1.5rem 3rem;
+  margin: 0 auto 3.3rem;
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: #777777;
+  background-color: #fafafa; }
+  .filAriane ul {
+    max-width: 120rem;
+    margin-left: auto;
+    margin-right: auto; }
+    .filAriane ul li {
+      float: left;
+      position: relative;
+      margin-right: 2.4rem;
+      list-style: none; }
+      .filAriane ul li a {
+        color: #777777;
+        text-decoration: none; }
+      .filAriane ul li .home::before {
+        padding-right: 0.5rem;
+        font-family: "FontAwesome";
+        font-size: 1.3rem;
+        content: "\F015"; }
+    .filAriane ul .titreFil600, .filAriane ul .titreFil300 {
+      display: none; }
+  .filAriane ul li a::after {
+    position: absolute;
+    right: -1.5rem;
+    color: #333;
+    content: "/"; }
+  .filAriane ul li a:hover {
+    color: #ef7d63; }
+
+/* MAIN CONTENT */
+.containerErreur404 {
+  min-height: 46.5rem;
+  max-width: 115rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem; }
+  .containerErreur404 div:first-child {
+    padding: 10.705rem 0 9.9rem;
+    text-align: center; }
+    .containerErreur404 div:first-child img {
+      max-height: 15rem;
+      vertical-align: middle; }
+    .containerErreur404 div:first-child h2 {
+      font-size: 2.5rem;
+      font-weight: 400; }
+
+/* PAGE LAYOUT.PHTML */
+/* TOPBAR */
+.topBar {
+  position: relative;
+  height: 4.4rem;
+  margin: 0 auto;
+  z-index: 100;
+  color: #fafafa;
+  background-color: #ff8b2b;
+  border-top: 1px solid #ff8b2b; }
+  .topBar .topbarContenu {
+    display: flex;
+    justify-content: center;
+    max-width: 115rem;
+    margin: 0 auto;
+    font-size: 1.3rem; }
+    .topBar .topbarContenu .logo {
+      display: flex;
+      align-items: center;
+      flex-grow: 1.1; }
+      .topBar .topbarContenu .logo a {
+        text-decoration: none;
+        color: #fafafa; }
+        .topBar .topbarContenu .logo a h2 {
+          margin-top: 0.75rem;
+          font-size: 1.9em;
+          font-weight: 600;
+          text-align: center;
+          text-transform: uppercase; }
+    .topBar .topbarContenu .recherche {
+      flex-grow: 1;
+      margin-top: 0.85rem; }
+      .topBar .topbarContenu .recherche form input {
+        height: 2.5rem;
+        width: 18rem;
+        border-radius: 2px 0 0 2px;
+        border: 1px solid #777777; }
+      .topBar .topbarContenu .recherche form button {
+        height: 2.5rem;
+        margin-left: -0.42rem;
+        background-color: #efefef;
+        border-radius: 0 2px 2px 0;
+        border: 1px solid #777777;
+        cursor: pointer; }
+        .topBar .topbarContenu .recherche form button .fa-search {
+          color: #ff8b2b; }
+    .topBar .topbarContenu .displayAdmin {
+      flex-grow: 0; }
+      .topBar .topbarContenu .displayAdmin ul {
+        padding: 0; }
+        .topBar .topbarContenu .displayAdmin ul li {
+          display: inline-block;
+          list-style: none; }
+        .topBar .topbarContenu .displayAdmin ul li:first-child + li {
+          margin: 0 0.3rem; }
+        .topBar .topbarContenu .displayAdmin ul a {
+          font-weight: 100;
+          text-decoration: none;
+          color: #fafafa;
+          transition-duration: 0.2s; }
+          .topBar .topbarContenu .displayAdmin ul a span::after {
+            padding-left: 0.8rem;
+            font-family: "FontAwesome";
+            font-size: 1.3rem;
+            content: "\F08B"; }
+      .topBar .topbarContenu .displayAdmin ul a:hover {
+        color: #777777; }
+
+/* HEADER */
+.headerLayout {
+  position: sticky;
+  top: 0;
+  z-index: 99; }
+  .headerLayout nav > ul > li {
+    display: inline-block; }
+  .headerLayout nav > ul > li:focus-within > a {
+    color: #fafafa;
+    background-color: #ffb400; }
+  .headerLayout nav {
+    background-color: white;
+    border-bottom: 4px solid #ff8b2b; }
+    .headerLayout nav ul {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      list-style: none; }
+      .headerLayout nav ul li {
+        margin: 0 -0.2rem; }
+        .headerLayout nav ul li a {
+          display: inline-block;
+          padding: 2rem 3.2rem;
+          font-weight: bold;
+          text-decoration: none;
+          color: #777777;
+          transition: all ease-in-out 0.2s;
+          -webkit-transition: all ease-in-out 0.2s; }
+        .headerLayout nav ul li .menu {
+          position: absolute;
+          left: 0;
+          right: 0;
+          padding-bottom: 3rem;
+          background: #ff8b2b;
+          opacity: 0;
+          visibility: hidden;
+          transition: all ease-in-out 0.2s;
+          -webkit-transition: all ease-in-out 0.2s; }
+          .headerLayout nav ul li .menu .sousMenu {
+            display: inline-block;
+            width: 19%;
+            padding: 0 0.5rem;
+            vertical-align: top; }
+            .headerLayout nav ul li .menu .sousMenu h2 {
+              margin: 0 0 -0.3rem;
+              padding: 3rem 0 1.5rem;
+              font-size: 1.6rem;
+              text-transform: uppercase;
+              color: #fafafa; }
+            .headerLayout nav ul li .menu .sousMenu br + ul {
+              margin-top: 1rem; }
+            .headerLayout nav ul li .menu .sousMenu ul li a {
+              padding: 0;
+              line-height: 2.5rem;
+              text-decoration: none;
+              color: #fafafa;
+              transition-duration: 0.2s; }
+              .headerLayout nav ul li .menu .sousMenu ul li a i {
+                padding-right: 0.8rem;
+                vertical-align: 0.07rem;
+                font-size: 1.3rem; }
+            .headerLayout nav ul li .menu .sousMenu ul li a:hover {
+              color: #777777; }
+          .headerLayout nav ul li .menu .singleMenu ul li:first-child {
+            padding-top: 3rem; }
+    .headerLayout nav ul li:focus-within .menu {
+      opacity: 1;
+      visibility: visible; }
+    .headerLayout nav ul li:hover a {
+      color: #fafafa;
+      background-color: #ff8b2b; }
+    .headerLayout nav ul li:hover .menu {
+      z-index: 1;
+      opacity: 1;
+      visibility: visible; }
+
+/* Cookie Consent */
+.cookieConsent {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  min-height: 2.6rem;
+  padding: 0.8rem 0 0.8rem 3rem;
+  line-height: 2.6rem;
+  z-index: 99;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #fafafa;
+  background-color: rgba(255, 139, 43, 0.8); }
+  .cookieConsent .closeCookieConsent {
+    float: right;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    margin: -1.2rem -0.5rem 0 0;
+    font-weight: bold;
+    transition-duration: 0.2s;
+    cursor: pointer; }
+  .cookieConsent .closeCookieConsent:hover {
+    color: red; }
+  .cookieConsent div a {
+    color: #fafafa; }
+  .cookieConsent div a:hover {
+    text-decoration: none; }
+  .cookieConsent .cookieConsentOK {
+    float: right;
+    display: inline-block;
+    margin: 0 6rem 0 1rem;
+    padding: 0 2rem;
+    color: #ff8b2b;
+    background-color: #fafafa;
+    border-radius: 0.5rem;
+    transition-duration: 0.2s;
+    cursor: pointer; }
+  .cookieConsent .cookieConsentOK:hover {
+    color: #3ca037; }
+
+/* PAGE TABLEAU-DE-BORD.PHTML */
+/* MAIN CONTENT */
+.containerDashboard {
+  display: grid;
+  grid-template-rows: 14rem 11rem 11rem;
+  grid-template-columns: auto;
+  grid-gap: 1em;
+  min-height: 60.5rem;
+  max-width: 115rem;
+  margin: 3rem auto 4rem;
+  line-height: 2rem; }
+  .containerDashboard h2 {
+    grid-area: 1 / 1 / 1 / 4;
+    margin-top: 4.5rem;
+    font-size: 2.5rem; }
+    .containerDashboard h2 i {
+      display: inline-block;
+      height: 4rem;
+      width: 4rem;
+      margin-right: 0.5rem;
+      line-height: 4.1rem;
+      text-align: center;
+      color: #ff8b2b; }
+  .containerDashboard .dashboardBox1, .containerDashboard .dashboardBox2, .containerDashboard .dashboardBox3, .containerDashboard .dashboardBox4, .containerDashboard .dashboardBox5, .containerDashboard .dashboardBox6 {
+    background-color: #ff8b2b;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px; }
+    .containerDashboard .dashboardBox1 a, .containerDashboard .dashboardBox2 a, .containerDashboard .dashboardBox3 a, .containerDashboard .dashboardBox4 a, .containerDashboard .dashboardBox5 a, .containerDashboard .dashboardBox6 a {
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: auto;
+      text-decoration: none; }
+      .containerDashboard .dashboardBox1 a .dashboardIcons, .containerDashboard .dashboardBox2 a .dashboardIcons, .containerDashboard .dashboardBox3 a .dashboardIcons, .containerDashboard .dashboardBox4 a .dashboardIcons, .containerDashboard .dashboardBox5 a .dashboardIcons, .containerDashboard .dashboardBox6 a .dashboardIcons {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        grid-row-end: 1;
+        grid-column-end: 1;
+        margin: 3.5rem auto 0;
+        padding-left: 1rem; }
+        .containerDashboard .dashboardBox1 a .dashboardIcons i, .containerDashboard .dashboardBox2 a .dashboardIcons i, .containerDashboard .dashboardBox3 a .dashboardIcons i, .containerDashboard .dashboardBox4 a .dashboardIcons i, .containerDashboard .dashboardBox5 a .dashboardIcons i, .containerDashboard .dashboardBox6 a .dashboardIcons i {
+          font-size: 4rem;
+          color: #fafafa; }
+      .containerDashboard .dashboardBox1 a .dashboardInfos, .containerDashboard .dashboardBox2 a .dashboardInfos, .containerDashboard .dashboardBox3 a .dashboardInfos, .containerDashboard .dashboardBox4 a .dashboardInfos, .containerDashboard .dashboardBox5 a .dashboardInfos, .containerDashboard .dashboardBox6 a .dashboardInfos {
+        grid-row-start: 1;
+        grid-column-start: 2;
+        grid-row-end: 1;
+        grid-column-end: 2;
+        margin: 1.2rem auto 0;
+        padding: 0 1.2rem 1rem 2rem;
+        line-height: 1.5rem;
+        text-align: center;
+        color: #fafafa; }
+        .containerDashboard .dashboardBox1 a .dashboardInfos h4, .containerDashboard .dashboardBox2 a .dashboardInfos h4, .containerDashboard .dashboardBox3 a .dashboardInfos h4, .containerDashboard .dashboardBox4 a .dashboardInfos h4, .containerDashboard .dashboardBox5 a .dashboardInfos h4, .containerDashboard .dashboardBox6 a .dashboardInfos h4 {
+          margin-bottom: 1.5rem; }
+        .containerDashboard .dashboardBox1 a .dashboardInfos strong, .containerDashboard .dashboardBox2 a .dashboardInfos strong, .containerDashboard .dashboardBox3 a .dashboardInfos strong, .containerDashboard .dashboardBox4 a .dashboardInfos strong, .containerDashboard .dashboardBox5 a .dashboardInfos strong, .containerDashboard .dashboardBox6 a .dashboardInfos strong {
+          font-size: 1.8rem; }
+  .containerDashboard .dashboardBox1, .containerDashboard .dashboardBox2, .containerDashboard .dashboardBox5, .containerDashboard .dashboardBox6 {
+    grid-area: 2 / auto / 2 / auto; }
+  .containerDashboard .dashboardBox3 {
+    grid-area: 3 / 2 / 3 / 2; }
+  .containerDashboard .dashboardBox4 {
+    grid-area: 3 / 3 / 3 / 3; }
+
+/* PAGE CATEGORIES.PHTML */
+/* MAIN CONTENT */
+.containerCats {
+  min-height: 56.5rem;
+  max-width: 69rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem;
+  text-align: center; }
+  .containerCats h3:first-child {
+    margin: 0 0 5rem -1rem;
+    font-weight: 100;
+    color: #777777; }
+    .containerCats h3:first-child i {
+      height: 4rem;
+      width: 4rem;
+      line-height: 4.1rem;
+      color: #ff8b2b; }
+  .containerCats h3 + h3 {
+    float: right;
+    margin: -0.8rem 1rem 0 0;
+    font-weight: 100;
+    text-align: initial; }
+    .containerCats h3 + h3 a {
+      padding: 1rem 1.4rem 1rem 0;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerCats h3 + h3 a i {
+        height: 4rem;
+        width: 4rem;
+        margin-right: -0.5rem;
+        line-height: 4.1rem;
+        text-align: center; }
+  .containerCats h3 + h3:hover a {
+    color: #ffffff;
+    background-color: #ef7d63;
+    cursor: pointer; }
+  .containerCats .formLines {
+    margin-bottom: 3rem;
+    text-align: initial; }
+  .containerCats form + div {
+    margin-bottom: 3rem; }
+  .containerCats .navigation {
+    margin: -1rem 0 3rem; }
+    .containerCats .navigation .pageSuiv {
+      float: right; }
+    .containerCats .navigation .pagePrec {
+      float: left; }
+    .containerCats .navigation .liensPages {
+      margin: 0.2rem; }
+      .containerCats .navigation .liensPages a {
+        padding: 0.2rem 0.7rem 0.1rem; }
+    .containerCats .navigation a {
+      text-decoration: none;
+      color: #777777;
+      transition-duration: 0.1s; }
+    .containerCats .navigation a:hover {
+      color: #ef7d63; }
+  .containerCats .tableScroll {
+    position: relative;
+    top: -1rem;
+    margin-bottom: 2rem;
+    overflow-x: auto; }
+  .containerCats .tableScroll + .navigation {
+    margin: -1rem 0 3rem; }
+  .containerCats table {
+    min-width: 68rem;
+    border-collapse: collapse; }
+    .containerCats table tr th {
+      padding: 2rem;
+      font-weight: 1000;
+      color: #777777;
+      border: 1px solid #cccccc; }
+      .containerCats table tr th form .btnTri {
+        background: none;
+        border: none;
+        cursor: pointer; }
+        .containerCats table tr th form .btnTri span {
+          padding-right: 2rem; }
+        .containerCats table tr th form .btnTri .fa {
+          display: initial;
+          font-size: 1.3rem;
+          transition-duration: 0.15s; }
+        .containerCats table tr th form .btnTri .fa-long-arrow-down {
+          margin-right: 0.2rem; }
+      .containerCats table tr th form .btnTri:hover .fa {
+        color: #ef7d63; }
+    .containerCats table tr td > i {
+      white-space: nowrap;
+      color: #ef7d63; }
+    .containerCats table tr td {
+      padding: 2rem;
+      border-bottom: 1px solid #cccccc;
+      border-left: 1px solid #cccccc; }
+    .containerCats table tr td:last-child {
+      display: flex;
+      justify-content: space-around;
+      border-right: 1px solid #cccccc; }
+      .containerCats table tr td:last-child .btnModif {
+        display: block;
+        height: 3rem;
+        width: 10.8rem;
+        padding: 0.9rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerCats table tr td:last-child .btnModif i {
+          margin-right: 0.5rem; }
+      .containerCats table tr td:last-child .btnModif:hover {
+        color: #ffffff;
+        background-color: #ef7d63;
+        cursor: pointer; }
+      .containerCats table tr td:last-child .btnReset {
+        height: 3rem;
+        width: 10.8rem;
+        padding: 0.1rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerCats table tr td:last-child .btnReset i {
+          margin-right: 0.5rem; }
+      .containerCats table tr td:last-child .btnReset:hover {
+        color: #ffffff;
+        background-color: red;
+        cursor: pointer; }
+
+/* PAGES AJOUTCAT.PHTML ET MODIFCAT.PHTML */
+/* MAIN CONTENT */
+.containerAjoutCat, .containerModifCat {
+  min-height: 56.5rem;
+  max-width: 50rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem; }
+  .containerAjoutCat h3, .containerModifCat h3 {
+    margin: 0 0 4rem -1rem;
+    font-weight: 100;
+    text-align: center;
+    color: #777777; }
+    .containerAjoutCat h3 i, .containerModifCat h3 i {
+      height: 0;
+      width: 4rem;
+      color: #ff8b2b; }
+  .containerAjoutCat form, .containerModifCat form {
+    margin: -0.5rem 0 3.05rem;
+    padding: 2.5rem 1rem 0.5rem;
+    line-height: 1.5rem;
+    font-weight: 100;
+    text-align: center;
+    color: #777777;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerAjoutCat form div, .containerModifCat form div {
+      position: relative;
+      padding: 0.5rem 0; }
+      .containerAjoutCat form div label, .containerModifCat form div label {
+        display: block;
+        margin-left: 12.5rem;
+        text-align: left; }
+      .containerAjoutCat form div input, .containerModifCat form div input {
+        height: 3rem;
+        width: 22rem;
+        margin: 0.8rem 0 2rem;
+        padding-left: 0.5rem;
+        color: #777777;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAjoutCat form div p, .containerModifCat form div p {
+        margin: 0 0 1.5rem;
+        color: red; }
+    .containerAjoutCat form .btn, .containerModifCat form .btn {
+      display: block;
+      height: 3.2rem;
+      margin: 0.5rem auto 2.5rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerAjoutCat form .btn:hover, .containerModifCat form .btn:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerAjoutCat form .msg p, .containerModifCat form .msg p {
+      margin: -1rem 0 1.8rem;
+      color: red; }
+  .containerAjoutCat .formReset, .containerModifCat .formReset {
+    margin: -0.5rem 0 -1rem;
+    padding: 0;
+    border: none; }
+    .containerAjoutCat .formReset .btnReset, .containerModifCat .formReset .btnReset {
+      height: 3.2rem;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerAjoutCat .formReset .btnReset i, .containerModifCat .formReset .btnReset i {
+        margin-right: 0.5rem; }
+    .containerAjoutCat .formReset .btnReset:hover, .containerModifCat .formReset .btnReset:hover {
+      color: #ffffff;
+      background-color: red;
+      cursor: pointer; }
+    .containerAjoutCat .formReset div p, .containerModifCat .formReset div p {
+      margin: 0 0 -0.6rem;
+      color: red; }
+
+/* PAGES SLIDER.PHTML, IMAGES.PHTML, ACHATS-MAGASIN.PHTML, VENTES.PHTML, ADMINISTRATEURS.PHTML, 
+COMMANDES-CLIENTS.PHTML, RECHERCHES.PHTML ET PARTENAIRES.PHTML */
+/* MAIN CONTENT */
+.containerListe {
+  min-height: 56.5rem;
+  max-width: 114rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem;
+  text-align: center; }
+  .containerListe h3:first-child {
+    margin: 0 0 5rem -1rem;
+    font-weight: 100;
+    color: #777777; }
+    .containerListe h3:first-child i {
+      height: 4rem;
+      width: 4rem;
+      line-height: 4.1rem;
+      color: #ff8b2b; }
+  .containerListe h3 + h3 {
+    float: right;
+    margin: -0.8rem 1rem 0 0;
+    font-weight: 100;
+    text-align: initial; }
+    .containerListe h3 + h3 a {
+      padding: 1rem 1.4rem 1rem 0;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerListe h3 + h3 a i {
+        height: 4rem;
+        width: 4rem;
+        margin-right: -0.5rem;
+        line-height: 4.1rem;
+        text-align: center; }
+  .containerListe h3 + h3:hover a {
+    color: #ffffff;
+    background-color: #ef7d63;
+    cursor: pointer; }
+  .containerListe h3 + div {
+    margin-bottom: 1.5rem;
+    text-align: initial; }
+  .containerListe .formProds {
+    margin-bottom: 1rem;
+    text-align: initial; }
+    .containerListe .formProds select {
+      max-width: 15rem; }
+      .containerListe .formProds select option:first-child + option {
+        font-style: italic;
+        color: #ef7d63; }
+  .containerListe .formLines {
+    margin-bottom: 3rem;
+    text-align: initial; }
+  .containerListe form + div {
+    margin-bottom: 3rem; }
+  .containerListe .navigation {
+    margin: -1rem 0 3rem; }
+    .containerListe .navigation .pageSuiv {
+      float: right; }
+    .containerListe .navigation .pagePrec {
+      float: left; }
+    .containerListe .navigation .liensPages {
+      margin: 0.2rem; }
+      .containerListe .navigation .liensPages a {
+        padding: 0.2rem 0.7rem 0.1rem; }
+    .containerListe .navigation a {
+      text-decoration: none;
+      color: #777777;
+      transition-duration: 0.1s; }
+    .containerListe .navigation a:hover {
+      color: #ef7d63; }
+  .containerListe .tableScroll {
+    position: relative;
+    top: -1rem;
+    margin-bottom: 2rem;
+    overflow-x: auto; }
+  .containerListe .tableScroll + .navigation {
+    margin: -1rem 0 3rem; }
+  .containerListe table {
+    min-width: 113rem;
+    border-collapse: collapse; }
+    .containerListe table tr th {
+      padding: 2rem 1rem;
+      white-space: nowrap;
+      font-weight: 1000;
+      color: #777777;
+      border: 1px solid #cccccc; }
+      .containerListe table tr th form .btnTri {
+        background: none;
+        border: none;
+        cursor: pointer; }
+        .containerListe table tr th form .btnTri span {
+          padding-right: 1.2rem; }
+        .containerListe table tr th form .btnTri .tblHeader300600 {
+          display: none; }
+        .containerListe table tr th form .btnTri .fa {
+          display: initial;
+          font-size: 1.3rem;
+          transition-duration: 0.15s; }
+        .containerListe table tr th form .btnTri .fa-long-arrow-down {
+          margin-right: 0.2rem; }
+      .containerListe table tr th form .btnTri:hover .fa {
+        color: #ef7d63; }
+    .containerListe table tr td > i {
+      white-space: nowrap;
+      color: #ef7d63; }
+    .containerListe table tr td {
+      padding: 2rem 1rem 1.7rem;
+      border: 1px solid #cccccc; }
+      .containerListe table tr td a {
+        overflow-wrap: anywhere;
+        text-decoration: none;
+        color: #777777;
+        transition-duration: 0.1s; }
+        .containerListe table tr td a img {
+          max-height: 22rem;
+          max-width: 22rem; }
+        .containerListe table tr td a span {
+          white-space: initial; }
+      .containerListe table tr td a:hover {
+        color: #ef7d63; }
+      .containerListe table tr td .btnModif, .containerListe table tr td .btnDetails {
+        display: block;
+        height: 3rem;
+        width: 10.8rem;
+        margin: 0 auto;
+        padding: 0.9rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerListe table tr td .btnModif i, .containerListe table tr td .btnDetails i {
+          margin-right: 0.5rem; }
+      .containerListe table tr td .btnModif:hover, .containerListe table tr td .btnDetails:hover {
+        color: #ffffff;
+        background-color: #ef7d63;
+        cursor: pointer; }
+      .containerListe table tr td .displayForm {
+        margin-bottom: -3.2rem;
+        padding-top: initial; }
+      .containerListe table tr td .btnReset {
+        height: 3rem;
+        width: 10.8rem;
+        margin-top: 2rem;
+        padding: 0.1rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerListe table tr td .btnReset i {
+          margin-right: 0.5rem; }
+      .containerListe table tr td .btnReset:hover {
+        color: #ffffff;
+        background-color: red;
+        cursor: pointer; }
+    .containerListe table tr .noWrap {
+      white-space: nowrap; }
+    .containerListe table tr .wrap {
+      white-space: initial; }
+    .containerListe table tr .userCom {
+      white-space: nowrap; }
+    .containerListe table tr .userCom + td + td {
+      white-space: pre-line;
+      text-align: initial; }
+    .containerListe table tr .userCom + td + td + td {
+      white-space: nowrap; }
+    .containerListe table tfoot tr td {
+      padding: 2rem 0 0;
+      text-align: right;
+      border: none; }
+      .containerListe table tfoot tr td h2 {
+        margin: -0.1rem 0 0.1rem;
+        font-size: 1.9rem; }
+        .containerListe table tfoot tr td h2 strong {
+          color: #ff8b2b; }
+
+/* PAGES AJOUTSLIDE.PHTML, MODIFSLIDE.PHTML, AJOUTIMAGE.PHTML, MODIFIMAGE.PHTML, 
+AJOUTADMINISTRATEUR.PHTML, MODIFADMINISTRATEUR.PHTML, AJOUTUTILISATEUR.PHTML, MODIFUTILISATEUR.PHTML, 
+ AJOUTPARTENAIRE.PHTML ET MODIFPARTENAIRE.PHTML */
+/* MAIN CONTENT */
+.containerAjout, .containerModif {
+  min-height: 56.5rem;
+  max-width: 50rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem; }
+  .containerAjout h3, .containerModif h3 {
+    margin: 0 0 4rem -1rem;
+    font-weight: 100;
+    text-align: center;
+    color: #777777; }
+    .containerAjout h3 i, .containerModif h3 i {
+      height: 0;
+      width: 4rem;
+      color: #ff8b2b; }
+  .containerAjout form, .containerModif form {
+    margin: -0.5rem 0 3.05rem;
+    padding: 2.5rem 0.5rem 0.5rem;
+    line-height: 1.5rem;
+    font-weight: 100;
+    text-align: center;
+    color: #777777;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerAjout form div, .containerModif form div {
+      position: relative;
+      width: 40rem;
+      margin: 0 auto;
+      padding: 0.5rem 0;
+      /* Pages administrateurs.phtml, modifadministrateur.phtml, ajoututilisateur.phtml et 
+      modifutilisateur.phtml */ }
+      .containerAjout form div label, .containerModif form div label {
+        display: block;
+        text-align: left; }
+      .containerAjout form div i, .containerModif form div i {
+        float: right;
+        margin: -1.4rem 0;
+        font-size: 1.3rem; }
+        .containerAjout form div i a, .containerModif form div i a {
+          text-decoration: none;
+          color: #777777;
+          transition-duration: 0.1s; }
+        .containerAjout form div i a:hover, .containerModif form div i a:hover {
+          color: #ef7d63; }
+      .containerAjout form div span, .containerModif form div span {
+        display: block;
+        margin: 1rem 0 0.5rem;
+        line-height: 1.8rem;
+        white-space: pre-line;
+        font-size: 1.4rem;
+        font-style: italic;
+        text-align: left; }
+        .containerAjout form div span u, .containerModif form div span u {
+          text-decoration: underline #ef7d63;
+          text-underline-offset: 0.2rem; }
+        .containerAjout form div span a, .containerModif form div span a {
+          text-decoration: none;
+          color: #ef7d63;
+          transition-duration: 0.1s; }
+      .containerAjout form div input, .containerModif form div input {
+        height: 3.5rem;
+        width: 40rem;
+        margin: 0.8rem 0 1.5rem;
+        padding: 0.5rem;
+        color: #777777;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAjout form div input::placeholder, .containerModif form div input::placeholder {
+        font-size: 1.3rem;
+        font-style: italic;
+        color: red; }
+      .containerAjout form div .password + .changeType, .containerModif form div .password + .changeType {
+        position: absolute;
+        top: 3.45rem;
+        right: 0.5rem;
+        height: 2.2rem;
+        width: 3.2rem;
+        text-indent: -999rem;
+        background-color: #C0C0C0;
+        border-radius: 50%;
+        cursor: pointer;
+        border: none;
+        -webkit-appearance: none; }
+      .containerAjout form div .password + .changeType:before, .containerModif form div .password + .changeType:before {
+        position: absolute;
+        top: 0.4rem;
+        left: 0.95rem;
+        width: 1.4rem;
+        height: 1.4rem;
+        z-index: 1;
+        content: "";
+        background-color: #e3e3e3;
+        border-radius: 50%; }
+      .containerAjout form div .password[type="text"] + .changeType:after, .containerModif form div .password[type="text"] + .changeType:after {
+        position: absolute;
+        top: 0.6rem;
+        left: 1.15rem;
+        width: 1rem;
+        height: 1rem;
+        z-index: 2;
+        content: "";
+        background-color: #C0C0C0;
+        border-radius: 50%; }
+      .containerAjout form div p, .containerModif form div p {
+        margin: 0.2rem 0 0.7rem;
+        line-height: 2rem;
+        color: red; }
+      .containerAjout form div select, .containerModif form div select {
+        height: 3.5rem;
+        width: 40rem;
+        margin: 0.8rem 0 1.5rem;
+        padding: 0.5rem;
+        color: #777777;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAjout form div .prv, .containerModif form div .prv {
+        height: 30rem; }
+      .containerAjout form div textarea, .containerModif form div textarea {
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        color: #777777;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+    .containerAjout form .btn, .containerModif form .btn {
+      display: block;
+      height: 3.2rem;
+      margin: 1rem auto 2.5rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerAjout form .btn:hover, .containerModif form .btn:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerAjout form .msg p, .containerModif form .msg p {
+      margin: -1.2rem 0 1.5rem;
+      color: red; }
+  .containerAjout .formReset, .containerModif .formReset {
+    margin: -0.5rem 0 -1rem;
+    padding: 0;
+    border: none; }
+    .containerAjout .formReset .btnReset, .containerModif .formReset .btnReset {
+      height: 3.2rem;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerAjout .formReset .btnReset i, .containerModif .formReset .btnReset i {
+        margin-right: 0.5rem; }
+    .containerAjout .formReset .btnReset:hover, .containerModif .formReset .btnReset:hover {
+      color: #ffffff;
+      background-color: red;
+      cursor: pointer; }
+    .containerAjout .formReset div, .containerModif .formReset div {
+      width: initial; }
+      .containerAjout .formReset div p, .containerModif .formReset div p {
+        margin: -0.2rem 0 -0.6rem;
+        color: red; }
+
+/* PAGES PRODUITS.PHTML ET UTILISATEURS.PHTML */
+/* MAIN CONTENT */
+.containerProds, .containerUsers {
+  min-height: 56.5rem;
+  max-width: 150rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem;
+  text-align: center; }
+  .containerProds h3:first-child, .containerUsers h3:first-child {
+    margin: 0 0 5rem -1rem;
+    font-weight: 100;
+    color: #777777; }
+    .containerProds h3:first-child i, .containerUsers h3:first-child i {
+      height: 4rem;
+      width: 4rem;
+      line-height: 4.1rem;
+      color: #ff8b2b; }
+  .containerProds h3 + h3, .containerUsers h3 + h3 {
+    float: right;
+    margin: -0.8rem 1rem 0 0;
+    font-weight: 100;
+    text-align: initial; }
+    .containerProds h3 + h3 a, .containerUsers h3 + h3 a {
+      padding: 1rem 1.4rem 1rem 0;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerProds h3 + h3 a i, .containerUsers h3 + h3 a i {
+        height: 4rem;
+        width: 4rem;
+        margin-right: -0.5rem;
+        line-height: 4.1rem;
+        text-align: center; }
+  .containerProds h3 + h3:hover a, .containerUsers h3 + h3:hover a {
+    color: #ffffff;
+    background-color: #ef7d63;
+    cursor: pointer; }
+  .containerProds .formLines, .containerUsers .formLines {
+    margin-bottom: 3rem;
+    text-align: initial; }
+  .containerProds form + div, .containerUsers form + div {
+    margin-bottom: 3rem; }
+  .containerProds .navigation, .containerUsers .navigation {
+    margin: -1rem 0 3rem; }
+    .containerProds .navigation .pageSuiv, .containerUsers .navigation .pageSuiv {
+      float: right; }
+    .containerProds .navigation .pagePrec, .containerUsers .navigation .pagePrec {
+      float: left; }
+    .containerProds .navigation .liensPages, .containerUsers .navigation .liensPages {
+      margin: 0.2rem; }
+      .containerProds .navigation .liensPages a, .containerUsers .navigation .liensPages a {
+        padding: 0.2rem 0.7rem 0.1rem; }
+    .containerProds .navigation a, .containerUsers .navigation a {
+      text-decoration: none;
+      color: #777777;
+      transition-duration: 0.1s; }
+    .containerProds .navigation a:hover, .containerUsers .navigation a:hover {
+      color: #ef7d63; }
+  .containerProds .tableScroll, .containerUsers .tableScroll {
+    position: relative;
+    top: -1rem;
+    margin-bottom: 2rem;
+    overflow-x: auto; }
+  .containerProds .tableScroll + .navigation, .containerUsers .tableScroll + .navigation {
+    margin: -1rem 0 3rem; }
+  .containerProds table, .containerUsers table {
+    min-width: 149rem;
+    border-collapse: collapse; }
+    .containerProds table tr th, .containerUsers table tr th {
+      padding: 2rem 1rem;
+      font-weight: 1000;
+      color: #777777;
+      border: 1px solid #cccccc; }
+      .containerProds table tr th form .btnTri, .containerUsers table tr th form .btnTri {
+        background: none;
+        border: none;
+        cursor: pointer; }
+        .containerProds table tr th form .btnTri .fa, .containerUsers table tr th form .btnTri .fa {
+          display: initial;
+          vertical-align: 0.5rem;
+          font-size: 1.3rem;
+          transition-duration: 0.15s; }
+        .containerProds table tr th form .btnTri .fa-long-arrow-down, .containerUsers table tr th form .btnTri .fa-long-arrow-down {
+          margin-right: 0.2rem; }
+      .containerProds table tr th form .btnTri:hover .fa, .containerUsers table tr th form .btnTri:hover .fa {
+        color: #ef7d63; }
+    .containerProds table tr td > i, .containerUsers table tr td > i {
+      white-space: nowrap;
+      color: #ef7d63; }
+    .containerProds table tr td, .containerUsers table tr td {
+      padding: 2rem 1rem 1.7rem;
+      white-space: nowrap;
+      border: 1px solid #cccccc; }
+      .containerProds table tr td a img, .containerUsers table tr td a img {
+        max-height: 20rem; }
+      .containerProds table tr td .btnModif, .containerProds table tr td .btnAchat, .containerUsers table tr td .btnModif, .containerUsers table tr td .btnAchat {
+        display: block;
+        height: 3rem;
+        width: 10.8rem;
+        margin: 0 auto;
+        padding: 0.9rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerProds table tr td .btnModif i, .containerProds table tr td .btnAchat i, .containerUsers table tr td .btnModif i, .containerUsers table tr td .btnAchat i {
+          margin-right: 0.5rem; }
+      .containerProds table tr td .btnModif:hover, .containerProds table tr td .btnAchat:hover, .containerUsers table tr td .btnModif:hover, .containerUsers table tr td .btnAchat:hover {
+        color: #ffffff;
+        background-color: #ef7d63;
+        cursor: pointer; }
+      .containerProds table tr td .btnAchat, .containerUsers table tr td .btnAchat {
+        margin-bottom: 2rem; }
+      .containerProds table tr td .displayForm, .containerUsers table tr td .displayForm {
+        margin-top: -1.8rem; }
+      .containerProds table tr td .btnReset, .containerUsers table tr td .btnReset {
+        height: 3rem;
+        width: 10.8rem;
+        margin: 2rem 0 0.4rem;
+        padding: 0.1rem 1rem 0;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #C0C0C0;
+        border: none;
+        border-radius: 3px;
+        transition-duration: 0.2s; }
+        .containerProds table tr td .btnReset i, .containerUsers table tr td .btnReset i {
+          margin-right: 0.5rem; }
+      .containerProds table tr td .btnReset:hover, .containerUsers table tr td .btnReset:hover {
+        color: #ffffff;
+        background-color: red;
+        cursor: pointer; }
+      .containerProds table tr td .descript, .containerUsers table tr td .descript {
+        white-space: initial;
+        text-align: initial; }
+    .containerProds table tr .noWrap, .containerUsers table tr .noWrap {
+      white-space: nowrap; }
+    .containerProds table tr .video, .containerUsers table tr .video {
+      height: 15.35rem;
+      width: 26.85rem;
+      margin: 0 auto;
+      border: 2px solid #7d7d7d; }
+    .containerProds table tr iframe, .containerUsers table tr iframe {
+      height: 15.35rem;
+      width: 26.85rem; }
+  .containerProds table + table, .containerUsers table + table {
+    margin-top: 3rem; }
+
+/* PAGES FICHEPRODUIT.PHTML */
+.containerAchat {
+  min-height: 56.5rem;
+  max-width: 59rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem;
+  text-align: center; }
+  .containerAchat h3 {
+    font-weight: 100;
+    color: #777777; }
+    .containerAchat h3 i {
+      height: 4rem;
+      width: 3.5rem;
+      margin-left: -0.8rem;
+      line-height: 4.1rem;
+      text-align: center;
+      color: #ff8b2b; }
+  .containerAchat .imgProd {
+    max-height: 40rem; }
+  .containerAchat .tableScroll {
+    position: relative;
+    margin: 3rem 0 -3rem;
+    overflow-x: auto;
+    z-index: 0; }
+  .containerAchat table:first-child th {
+    white-space: nowrap; }
+  .containerAchat table {
+    min-width: 58rem;
+    border-collapse: collapse; }
+    .containerAchat table tr th {
+      padding: 2rem 1rem;
+      font-weight: 1000;
+      color: #777777;
+      border: 1px solid #cccccc; }
+    .containerAchat table tr td {
+      padding: 2rem 1rem;
+      color: #777777;
+      border: 1px solid #cccccc; }
+      .containerAchat table tr td form {
+        margin-bottom: initial;
+        padding: initial;
+        line-height: 1.5rem;
+        border: none; }
+        .containerAchat table tr td form .btnReset {
+          height: 3rem;
+          min-width: 10.2rem;
+          padding: 0.1rem 1rem 0;
+          font-size: 1.1rem;
+          text-transform: uppercase;
+          color: #ffffff;
+          background-color: #C0C0C0;
+          border: none;
+          border-radius: 3px;
+          transition-duration: 0.2s; }
+          .containerAchat table tr td form .btnReset i {
+            margin-right: 0.5rem; }
+        .containerAchat table tr td form .btnReset:hover {
+          color: #ffffff;
+          background-color: red;
+          cursor: pointer; }
+    .containerAchat table tfoot tr td {
+      padding: 2rem 0 0;
+      text-align: right;
+      border: none; }
+      .containerAchat table tfoot tr td h3 {
+        margin: -0.1rem 0 2.4rem; }
+  .containerAchat h4 {
+    margin-top: 4rem; }
+    .containerAchat h4 i {
+      width: 3.5rem;
+      text-align: center;
+      color: #ff8b2b; }
+  .containerAchat form {
+    margin-bottom: 3rem;
+    padding: 2.5rem 0.5rem 0.5rem;
+    line-height: 1.5rem;
+    font-weight: 100;
+    text-align: center;
+    color: #777777;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerAchat form div {
+      position: relative;
+      width: 40rem;
+      margin: 0 auto;
+      padding: 0.5rem 0; }
+      .containerAchat form div label {
+        display: block;
+        text-align: left; }
+      .containerAchat form div i {
+        float: right;
+        margin: -1.4rem 0;
+        font-size: 1.3rem; }
+        .containerAchat form div i a {
+          text-decoration: none;
+          color: #777777;
+          transition-duration: 0.1s; }
+        .containerAchat form div i a:hover {
+          color: #ef7d63; }
+      .containerAchat form div input {
+        height: 3.5rem;
+        width: 40rem;
+        margin: 0.8rem 0 1.5rem;
+        padding: 0.5rem;
+        color: #777777;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAchat form div p {
+        margin: 0.2rem 0 0.7rem;
+        line-height: 2rem;
+        color: red; }
+    .containerAchat form .btn {
+      display: block;
+      height: 3.2rem;
+      margin: 1rem auto 2.5rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerAchat form .btn:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerAchat form .msg p {
+      margin: -1.2rem 0 1.5rem;
+      color: red; }
+
+/* PAGE DETAILCO.PHTML */
+/* MAIN CONTENT */
+.containerDetailcom {
+  min-height: 56.5rem;
+  max-width: 114rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem; }
+  .containerDetailcom .infosCom {
+    float: right;
+    margin: -2rem 0 1.5rem; }
+    .containerDetailcom .infosCom p span {
+      float: right; }
+      .containerDetailcom .infosCom p span i {
+        color: #ef7d63; }
+  .containerDetailcom .displayFct {
+    float: left;
+    position: relative;
+    bottom: -9.1rem; }
+    .containerDetailcom .displayFct .btnFct {
+      padding: 1rem 1.2rem 1rem;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerDetailcom .displayFct .btnFct:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerDetailcom .displayFct .btnFct::before {
+      margin-right: 1rem;
+      font-family: "FontAwesome";
+      font-size: 1.3rem;
+      content: "\F15B"; }
+  .containerDetailcom .tableScroll {
+    clear: right;
+    margin-bottom: -1.4rem;
+    overflow-x: auto; }
+    .containerDetailcom .tableScroll table {
+      min-width: 113rem;
+      margin: 0 auto;
+      border-collapse: collapse; }
+      .containerDetailcom .tableScroll table tr th, .containerDetailcom .tableScroll table tr td {
+        padding: 1.5rem;
+        text-transform: uppercase;
+        text-align: center;
+        border: 1px solid #cccccc; }
+        .containerDetailcom .tableScroll table tr th a, .containerDetailcom .tableScroll table tr td a {
+          font-weight: 100;
+          text-decoration: none;
+          color: #777777;
+          transition-duration: 0.1s; }
+        .containerDetailcom .tableScroll table tr th a:hover, .containerDetailcom .tableScroll table tr td a:hover {
+          color: #ef7d63; }
+        .containerDetailcom .tableScroll table tr th img, .containerDetailcom .tableScroll table tr td img {
+          max-height: 13rem;
+          margin: 0.7rem auto 0; }
+        .containerDetailcom .tableScroll table tr th i, .containerDetailcom .tableScroll table tr td i {
+          color: #ef7d63; }
+      .containerDetailcom .tableScroll table tfoot tr td {
+        padding: 2rem 0 0;
+        text-transform: initial;
+        text-align: right;
+        border: none; }
+        .containerDetailcom .tableScroll table tfoot tr td h3 {
+          margin: -0.1rem 0 2.4rem; }
+
+/* PAGE FACTURE.PHTML */
+/* MAIN CONTENT */
+.containerFct {
+  min-height: 56.5rem;
+  max-width: 115rem;
+  margin: 0 auto 3rem; }
+  .containerFct .enteteFct {
+    padding: 1.5rem 0 1rem; }
+    .containerFct .enteteFct img {
+      float: left;
+      height: 6em;
+      margin: -1.8rem 0 0 -0.9rem; }
+    .containerFct .enteteFct div {
+      padding-top: 0.8rem; }
+      .containerFct .enteteFct div h3 {
+        line-height: 1rem;
+        text-align: right; }
+      .containerFct .enteteFct div p {
+        line-height: 0rem;
+        text-align: right; }
+  .containerFct .infosFct .adresseVendeur {
+    float: left; }
+    .containerFct .infosFct .adresseVendeur address {
+      white-space: pre-line;
+      text-transform: uppercase; }
+  .containerFct .infosFct .infosCom {
+    float: right;
+    margin: -1.5rem 0 3rem;
+    line-height: 1rem; }
+    .containerFct .infosFct .infosCom p span {
+      float: right; }
+  .containerFct .infosFct .adresseUser {
+    clear: both;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 7rem; }
+    .containerFct .infosFct .adresseUser h4 {
+      margin-bottom: 1.5rem; }
+    .containerFct .infosFct .adresseUser address {
+      white-space: pre-line;
+      text-transform: uppercase; }
+  .containerFct .tableScroll {
+    overflow-x: auto; }
+    .containerFct .tableScroll table {
+      width: 100%;
+      border-collapse: collapse; }
+      .containerFct .tableScroll table thead tr th {
+        width: 16%;
+        padding: 1rem;
+        text-align: left;
+        border-collapse: collapse;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 2px solid #dee2e6; }
+      .containerFct .tableScroll table tbody tr td {
+        padding: 1rem;
+        border-top: 1px solid rgba(222, 226, 230, 0.8); }
+      .containerFct .tableScroll table th:first-child {
+        width: 50%; }
+      .containerFct .tableScroll table tfoot {
+        line-height: 4rem;
+        text-align: right; }
+        .containerFct .tableScroll table tfoot tr:first-child td {
+          padding-top: 5rem; }
+        .containerFct .tableScroll table tfoot tr:last-child {
+          line-height: 2rem; }
+          .containerFct .tableScroll table tfoot tr:last-child td:first-child {
+            padding-bottom: 0;
+            text-align: left; }
+            .containerFct .tableScroll table tfoot tr:last-child td:first-child small {
+              font-size: 1.3rem; }
+          .containerFct .tableScroll table tfoot tr:last-child h3 {
+            margin-top: 1rem; }
+  .containerFct .printFct {
+    margin: 5rem 0 3rem;
+    text-align: right; }
+    .containerFct .printFct .btnPrint {
+      padding: 1rem 1rem 0.9rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 15px;
+      transition-duration: 0.2s; }
+    .containerFct .printFct .btnPrint:hover {
+      color: #ffffff;
+      background-color: #ef7d63;
+      cursor: pointer; }
+    .containerFct .printFct .btnPrint::before {
+      margin-right: 0.5rem;
+      font-family: "FontAwesome";
+      font-size: 1.3rem;
+      content: "\F02F"; }
+
+@media print {
+  .noPrint {
+    display: none; } }
+.unauthorized, .erreurHeader {
+  padding: 13.5rem 0 17.1rem;
+  text-align: center; }
+  .unauthorized img, .erreurHeader img {
+    max-height: 15rem;
+    vertical-align: middle; }
+  .unauthorized h2, .erreurHeader h2 {
+    font-size: 2.5rem;
+    font-weight: 400; }
+
+.backLink {
+  width: 100%;
+  margin: 2rem 0 1rem;
+  font-size: 1.6rem;
+  text-align: center; }
+  .backLink a {
+    text-decoration: none;
+    color: #777777;
+    transition-duration: 0.1s; }
+    .backLink a i {
+      font-size: 1.8rem; }
+  .backLink a:hover {
+    color: #ef7d63; }
+
+/* Media queries qui s'appliquent aux écrans dont la zone d'affichage est comprise entre 601 
+et 1024px */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  /* PAGE INDEX.PHTML */
+  /* MAIN CONTENT */
+  .containerLogin {
+    min-height: initial;
+    margin: 3rem auto 3rem; }
+    .containerLogin form {
+      margin-bottom: 3rem; }
+
+  /* PAGE-INTROUVABLE.HTML */
+  /* BREADCRUMB */
+  .filAriane {
+    padding: 0.5rem 0 3rem 1.5rem; }
+    .filAriane ul .titreFilLarge {
+      display: none; }
+    .filAriane ul .titreFil600 {
+      display: initial; }
+
+  /* MAIN CONTENT */
+  .containerErreur404 {
+    min-height: initial; }
+    .containerErreur404 div:first-child {
+      padding: 1.5rem 0; }
+      .containerErreur404 div:first-child h2 {
+        font-size: 2.3rem; }
+
+  /* PAGE LAYOUT.PHTML */
+  /* TOPBAR */
+  .topBar {
+    padding: 0 0.5rem; }
+    .topBar .topbarContenu .logo {
+      flex-grow: 0.8; }
+    .topBar .topbarContenu .displayAdmin ul li:first-child, .topBar .topbarContenu li:first-child + li {
+      display: none; }
+
+  /* HEADER */
+  .headerLayout nav ul li a {
+    padding: 2rem 1.92rem; }
+  .headerLayout nav ul li .menu {
+    max-height: 30rem;
+    padding-bottom: initial;
+    overflow: auto; }
+    .headerLayout nav ul li .menu .sousMenu {
+      width: 40%; }
+    .headerLayout nav ul li .menu .menuUsers {
+      padding-bottom: 3rem; }
+    .headerLayout nav ul li .menu .sousMenu:last-child {
+      padding-bottom: 3rem; }
+
+  /* PAGE TABLEAU-DE-BORD.PHTML */
+  /* MAIN CONTENT */
+  .containerDashboard {
+    grid-template-rows: 10rem 11rem 11rem;
+    grid-template-columns: auto 27rem 0 27rem auto;
+    min-height: initial; }
+    .containerDashboard h2 {
+      grid-area: 1 / 2 / 1 / 4;
+      margin-top: 2rem; }
+    .containerDashboard .dashboardBox1 a .dashboardInfos, .containerDashboard .dashboardBox2 a .dashboardInfos, .containerDashboard .dashboardBox3 a .dashboardInfos, .containerDashboard .dashboardBox4 a .dashboardInfos, .containerDashboard .dashboardBox5 a .dashboardInfos, .containerDashboard .dashboardBox6 a .dashboardInfos {
+      margin-top: 1rem;
+      margin-bottom: 0.8rem; }
+      .containerDashboard .dashboardBox1 a .dashboardInfos h4, .containerDashboard .dashboardBox2 a .dashboardInfos h4, .containerDashboard .dashboardBox3 a .dashboardInfos h4, .containerDashboard .dashboardBox4 a .dashboardInfos h4, .containerDashboard .dashboardBox5 a .dashboardInfos h4, .containerDashboard .dashboardBox6 a .dashboardInfos h4 {
+        margin-bottom: 1.8rem; }
+    .containerDashboard .dashboardBox1 {
+      grid-area: 2 / 2 / 2 / 2; }
+    .containerDashboard .dashboardBox2 {
+      grid-area: 2 / 4 / 2 / 4; }
+    .containerDashboard .dashboardBox3 {
+      grid-area: 3 / 2 / 3 / 2; }
+    .containerDashboard .dashboardBox4 {
+      grid-area: 3 / 4 / 3 / 4; }
+    .containerDashboard .dashboardBox5 {
+      grid-area: 4 / 2 / 4 / 2; }
+    .containerDashboard .dashboardBox6 {
+      grid-area: 4 / 4 / 4 / 4; }
+
+  /* PAGE CATEGORIES.PHTML */
+  /* MAIN CONTENT */
+  .containerCats {
+    min-height: initial;
+    max-width: 59rem; }
+    .containerCats h3 + h3 {
+      margin: -0.8rem 1rem 2rem 0; }
+      .containerCats h3 + h3 a {
+        padding: 0.8rem 1rem 0.8rem 0; }
+        .containerCats h3 + h3 a i {
+          margin: 0 -0.3rem 0; }
+    .containerCats table {
+      min-width: 58rem; }
+      .containerCats table tr th, .containerCats table tr td {
+        padding: 1.5rem 2rem;
+        font-size: 1.3rem; }
+    .containerCats .navigation div + span {
+      display: block;
+      margin-bottom: 1.5rem; }
+
+  /* PAGES AJOUTCAT.PHTML ET MODIFCAT.PHTML */
+  /* MAIN CONTENT */
+  .containerAjoutCat, .containerModifCat {
+    min-height: initial; }
+
+  /* PAGES SLIDER.PHTML, IMAGES.PHTML, ACHATS-MAGASIN.PHTML, VENTES.PHTML, ADMINISTRATEURS.PHTML, 
+  COMMANDES-CLIENTS.PHTML, RECHERCHES.PHTML ET PARTENAIRES.PHTML */
+  /* MAIN CONTENT */
+  .containerListe {
+    min-height: initial;
+    max-width: 60rem; }
+    .containerListe h3 + h3 {
+      margin: -0.8rem 1rem 2rem 0; }
+      .containerListe h3 + h3 a {
+        padding: 0.8rem 1rem 0.8rem 0; }
+        .containerListe h3 + h3 a i {
+          margin: 0 -0.3rem 0; }
+    .containerListe table {
+      min-width: 59rem;
+      font-size: 1.3rem; }
+      .containerListe table tr th {
+        padding: 1.5rem 0.5rem; }
+        .containerListe table tr th form .btnTri span {
+          padding-right: 1.5rem; }
+        .containerListe table tr th form .btnTri .tableHeader {
+          display: none; }
+        .containerListe table tr th form .btnTri .tblHeader300600 {
+          display: initial; }
+      .containerListe table tr td {
+        padding: 1.5rem 1rem; }
+        .containerListe table tr td a img {
+          max-height: 15rem;
+          max-width: 15rem; }
+        .containerListe table tr td .btnModif i, .containerListe table tr td .btnDetails i {
+          display: none; }
+        .containerListe table tr td .displayForm {
+          margin-bottom: -2rem; }
+        .containerListe table tr td .btnReset {
+          margin-top: 2rem; }
+          .containerListe table tr td .btnReset i {
+            display: none; }
+      .containerListe table tr .userCom + td + td {
+        white-space: pre; }
+      .containerListe table tfoot tr td {
+        text-align: initial; }
+        .containerListe table tfoot tr td h2 {
+          margin: -0.1rem 0 2.4rem; }
+    .containerListe .navigation div + span {
+      display: block;
+      margin-bottom: 1.5rem; }
+
+  /* PAGES AJOUTSLIDE.PHTML, MODIFSLIDE.PHTML, AJOUTIMAGE.PHTML, MODIFIMAGE.PHTML, 
+  AJOUTADMINISTRATEUR.PHTML, MODIFADMINISTRATEUR.PHTML, AJOUTUTILISATEUR.PHTML, 
+  MODIFUTILISATEUR.PHTML, AJOUTPARTENAIRE.PHTML ET MODIFPARTENAIRE.PHTML */
+  /* MAIN CONTENT */
+  .containerAjout, .containerModif {
+    min-height: initial; }
+
+  /* PAGES PRODUITS.PHTML ET UTILISATEURS.PHTML */
+  /* MAIN CONTENT */
+  .containerProds, .containerUsers {
+    min-height: initial;
+    max-width: 101rem; }
+    .containerProds h3 + h3 a, .containerUsers h3 + h3 a {
+      padding: 0.8rem 1rem 0.8rem 0; }
+      .containerProds h3 + h3 a i, .containerUsers h3 + h3 a i {
+        margin: 0 -0.3rem 0; }
+    .containerProds .navigation div + span, .containerUsers .navigation div + span {
+      display: block;
+      margin: -0.5rem 0 1.5rem; }
+    .containerProds table, .containerUsers table {
+      min-width: 100rem;
+      font-size: 1.3rem; }
+      .containerProds table tr th, .containerUsers table tr th {
+        padding: 1.5rem 0.5rem; }
+      .containerProds table tr td, .containerUsers table tr td {
+        padding: 1.5rem 1rem;
+        white-space: initial; }
+        .containerProds table tr td a img, .containerUsers table tr td a img {
+          max-height: 15rem; }
+        .containerProds table tr td .btnModif i, .containerUsers table tr td .btnModif i {
+          display: none; }
+        .containerProds table tr td .displayForm, .containerUsers table tr td .displayForm {
+          margin-top: -2rem; }
+        .containerProds table tr td .btnReset, .containerUsers table tr td .btnReset {
+          margin-top: 2rem; }
+          .containerProds table tr td .btnReset i, .containerUsers table tr td .btnReset i {
+            display: none; }
+
+  /* PAGES FICHEPRODUIT.PHTML */
+  /* MAIN CONTENT */
+  .containerAchat {
+    min-height: initial; }
+
+  /* PAGE DETAILCO.PHTML */
+  /* MAIN CONTENT */
+  .containerDetailcom {
+    min-height: initial;
+    max-width: 60rem; }
+    .containerDetailcom .infosCom {
+      margin: -2rem 1rem 1.5rem 0; }
+    .containerDetailcom .tableScroll table {
+      min-width: 59rem; }
+      .containerDetailcom .tableScroll table tr th, .containerDetailcom .tableScroll table tr td {
+        padding: 0.5rem;
+        font-size: 1.2rem; }
+        .containerDetailcom .tableScroll table tr th img, .containerDetailcom .tableScroll table tr td img {
+          max-height: 9rem; }
+
+  /* PAGE FACTURE.PHTML */
+  /* MAIN CONTENT */
+  .containerFct {
+    min-height: initial;
+    padding: 0 1rem; }
+
+  .unauthorized, .erreurHeader {
+    padding: 5rem 0; }
+    .unauthorized h2, .erreurHeader h2 {
+      font-size: 2.3rem; } }
+/* Media queries qui s'appliquent aux écrans dont la zone d'affichage est comprise entre 300 
+et 600px */
+@media screen and (min-width: 300px) and (max-width: 600px) {
+  /* PAGE INDEX.PHTML */
+  /* HEADER */
+  header .logo a img {
+    max-width: 30rem; }
+
+  /* MAIN CONTENT */
+  .containerLogin {
+    min-height: initial;
+    max-width: 31.5rem;
+    margin: -1rem auto 2.5rem;
+    padding: 0; }
+    .containerLogin form {
+      margin-bottom: 2.5rem;
+      padding: 1.2rem 0 1.4rem; }
+      .containerLogin form ul li input {
+        width: 23rem; }
+      .containerLogin form ul li .password + .changeType {
+        right: 4rem; }
+      .containerLogin form ul li .resterCo {
+        margin-left: -8.8rem; }
+      .containerLogin form ul li .g-recaptcha {
+        margin: 1rem 0 1rem 0.1rem; }
+
+  /* FOOTER */
+  footer {
+    padding-bottom: 1.1rem;
+    font-size: 1.3rem; }
+    footer .mentionsLegales {
+      margin: 0;
+      line-height: 1.5rem; }
+      footer .mentionsLegales p {
+        margin: 0.5rem; }
+
+  /* PAGE-INTROUVABLE.HTML */
+  /* BREADCRUMB */
+  .filAriane {
+    padding: 0.5rem 0 2rem 0; }
+    .filAriane ul li {
+      top: -0.5rem;
+      left: -1.5rem; }
+    .filAriane ul .titreFil, .filAriane ul .titreFilLarge {
+      display: none; }
+    .filAriane ul .titreFil300 {
+      display: initial; }
+
+  /* MAIN CONTENT */
+  .containerErreur404 {
+    min-height: initial;
+    margin-bottom: 2.5rem; }
+    .containerErreur404 div:first-child {
+      padding: 5rem 0; }
+      .containerErreur404 div:first-child h2 {
+        font-size: 2rem; }
+
+  /* PAGE LAYOUT.PHTML */
+  /* TOPBAR */
+  .topBar {
+    height: 10.4rem;
+    padding: 0 0.5rem; }
+    .topBar .topbarContenu {
+      display: grid;
+      grid-template-rows: 3rem 3rem 3rem;
+      grid-template-columns: auto; }
+      .topBar .topbarContenu .logo {
+        display: initial;
+        grid-area: 1 / 2 / 1 / 2; }
+      .topBar .topbarContenu .recherche {
+        grid-area: 3 / 2 / 3 / 2; }
+      .topBar .topbarContenu .displayAdmin {
+        grid-area: 2 / 2 / 2 / 2;
+        text-align: center; }
+
+  /* HEADER */
+  .headerLayout nav ul li a {
+    padding: 1rem 1.05rem; }
+  .headerLayout nav ul li .menu {
+    max-height: 20rem;
+    padding-bottom: initial;
+    overflow: auto; }
+    .headerLayout nav ul li .menu .sousMenu {
+      width: 100%; }
+      .headerLayout nav ul li .menu .sousMenu h2 {
+        padding: 2.5rem 0 1rem;
+        font-size: 1.4rem; }
+      .headerLayout nav ul li .menu .sousMenu ul li a {
+        font-size: 1.3rem; }
+    .headerLayout nav ul li .menu .sousMenu:last-child {
+      padding-bottom: 2.5rem; }
+
+  /* PAGE TABLEAU-DE-BORD.PHTML */
+  /* MAIN CONTENT */
+  .containerDashboard {
+    grid-template-rows: 7rem 11rem 11rem 11rem 11rem;
+    grid-template-columns: auto auto auto auto auto;
+    min-height: initial; }
+    .containerDashboard h2 {
+      grid-area: 1 / 3 / 1 / 3;
+      margin-top: 0.5rem;
+      font-size: 2.2rem; }
+    .containerDashboard .dashboardBox1 a .dashboardInfos, .containerDashboard .dashboardBox2 a .dashboardInfos, .containerDashboard .dashboardBox3 a .dashboardInfos, .containerDashboard .dashboardBox4 a .dashboardInfos, .containerDashboard .dashboardBox5 a .dashboardInfos, .containerDashboard .dashboardBox6 a .dashboardInfos {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem; }
+      .containerDashboard .dashboardBox1 a .dashboardInfos h4, .containerDashboard .dashboardBox2 a .dashboardInfos h4, .containerDashboard .dashboardBox3 a .dashboardInfos h4, .containerDashboard .dashboardBox4 a .dashboardInfos h4, .containerDashboard .dashboardBox5 a .dashboardInfos h4, .containerDashboard .dashboardBox6 a .dashboardInfos h4 {
+        margin-bottom: 1.8rem; }
+    .containerDashboard .dashboardBox1 {
+      grid-area: 2 / 3 / 2 / 3; }
+    .containerDashboard .dashboardBox2 {
+      grid-area: 3 / 3 / 3 / 3; }
+    .containerDashboard .dashboardBox3 {
+      grid-area: 4 / 3 / 4 / 3; }
+    .containerDashboard .dashboardBox4 {
+      grid-area: 5 / 3 / 5 / 3; }
+    .containerDashboard .dashboardBox5 {
+      grid-area: 6 / 3 / 6 / 3; }
+    .containerDashboard .dashboardBox6 {
+      grid-area: 7 / 3 / 7 / 3; }
+
+  /* PAGE CATEGORIES.PHTML */
+  /* MAIN CONTENT */
+  .containerCats {
+    min-height: initial;
+    max-width: 42rem;
+    margin-bottom: 2.5rem; }
+    .containerCats h3:first-child {
+      margin: -1rem 0 2.5rem -1.5rem;
+      text-align: center; }
+    .containerCats h3 + h3 {
+      float: initial;
+      margin: -0.8rem 0 2rem;
+      text-align: center; }
+      .containerCats h3 + h3 a {
+        padding: 0.7rem 0.8rem 0.7rem 0;
+        font-size: 1.3rem; }
+        .containerCats h3 + h3 a i {
+          margin: 0 -0.5rem 0; }
+    .containerCats .formLines {
+      text-align: center; }
+    .containerCats .navigation div + span {
+      display: block;
+      margin: -2rem 0 1.5rem; }
+    .containerCats .navigation .liensPages {
+      margin: 0; }
+      .containerCats .navigation .liensPages a {
+        padding: 0.1rem 0.4rem; }
+    .containerCats .tableScroll {
+      margin-bottom: 1.5rem; }
+    .containerCats .tableScroll + .navigation {
+      margin-bottom: 2.5rem; }
+    .containerCats table {
+      min-width: 41rem; }
+      .containerCats table tr th, .containerCats table tr td {
+        padding: 1.5rem 1rem;
+        font-size: 1.1rem; }
+        .containerCats table tr th form .btnTri span, .containerCats table tr td form .btnTri span {
+          padding-right: 1.5rem; }
+      .containerCats table tr td:last-child .btnModif, .containerCats table tr td:last-child .btnReset {
+        display: inline;
+        width: initial;
+        padding: 1rem;
+        line-height: 1.5rem;
+        color: #777777;
+        background-color: initial; }
+        .containerCats table tr td:last-child .btnModif i, .containerCats table tr td:last-child .btnReset i {
+          display: none; }
+      .containerCats table tr td:last-child .btnModif:hover, .containerCats table tr td:last-child .btnReset:hover {
+        color: #ef7d63;
+        background-color: initial; }
+
+  /* PAGES AJOUTCAT.PHTML ET MODIFCAT.PHTML */
+  /* MAIN CONTENT */
+  .containerAjoutCat, .containerModifCat {
+    min-height: initial;
+    margin-bottom: 2.5rem; }
+    .containerAjoutCat h3, .containerModifCat h3 {
+      font-size: 1.6rem;
+      font-weight: 500; }
+    .containerAjoutCat form, .containerModifCat form {
+      margin-bottom: 2.55rem; }
+
+  /* PAGES SLIDER.PHTML, IMAGES.PHTML, ACHATS-MAGASIN.PHTML, VENTES.PHTML, ADMINISTRATEURS.PHTML, 
+  COMMANDES-CLIENTS.PHTML, RECHERCHES.PHTML ET PARTENAIRES.PHTML */
+  /* MAIN CONTENT */
+  .containerListe {
+    min-height: initial;
+    max-width: 54rem;
+    margin-bottom: 2.5rem; }
+    .containerListe h3:first-child {
+      margin: -1rem 0 2.5rem -1.5rem;
+      text-align: center; }
+    .containerListe h3 + h3 {
+      float: initial;
+      margin: -0.8rem 0 2rem;
+      text-align: center; }
+      .containerListe h3 + h3 a {
+        padding: 0.7rem 0.8rem 0.7rem 0;
+        font-size: 1.3rem; }
+        .containerListe h3 + h3 a i {
+          margin: 0 -0.5rem 0; }
+    .containerListe .formLines {
+      text-align: center; }
+    .containerListe .navigation div + span {
+      display: block;
+      margin: -2rem 0 1.5rem; }
+    .containerListe .navigation .liensPages {
+      margin: 0; }
+      .containerListe .navigation .liensPages a {
+        padding: 0.1rem 0.4rem; }
+    .containerListe .tableScroll {
+      margin-bottom: 1.5rem; }
+    .containerListe .tableScroll + .navigation {
+      margin-bottom: 2.5rem; }
+    .containerListe table {
+      min-width: 53rem;
+      font-size: 1.1rem; }
+      .containerListe table tr th {
+        padding: 1.5rem 0.5rem; }
+        .containerListe table tr th form .btnTri span {
+          padding-right: 1rem; }
+        .containerListe table tr th form .btnTri .tableHeader {
+          display: none; }
+        .containerListe table tr th form .btnTri .tblHeader300600 {
+          display: initial; }
+      .containerListe table tr td {
+        padding: 1.5rem 1rem; }
+        .containerListe table tr td a img {
+          max-height: 12rem;
+          max-width: 12rem; }
+        .containerListe table tr td .btnModif, .containerListe table tr td .btnDetails, .containerListe table tr td .btnReset {
+          display: inline;
+          padding: 1rem 0;
+          line-height: 1.5rem;
+          color: #777777;
+          background-color: initial; }
+          .containerListe table tr td .btnModif i, .containerListe table tr td .btnDetails i, .containerListe table tr td .btnReset i {
+            display: none; }
+        .containerListe table tr td .btnModif:hover, .containerListe table tr td .btnDetails:hover, .containerListe table tr td .btnReset:hover {
+          color: #ef7d63;
+          background-color: initial; }
+        .containerListe table tr td .btnReset {
+          margin-top: 1rem; }
+        .containerListe table tr td .displayForm {
+          margin-bottom: -1.5rem; }
+      .containerListe table tr .userCom + td + td {
+        white-space: pre; }
+      .containerListe table tfoot tr td {
+        text-align: initial; }
+        .containerListe table tfoot tr td h2 {
+          margin: -0.1rem 0 2.4rem;
+          font-size: 1.6rem;
+          font-weight: 500; }
+
+  /* PAGES AJOUTSLIDE.PHTML, MODIFSLIDE.PHTML, AJOUTIMAGE.PHTML, MODIFIMAGE.PHTML, 
+  AJOUTADMINISTRATEUR.PHTML, MODIFADMINISTRATEUR.PHTML, AJOUTUTILISATEUR.PHTML, 
+  MODIFUTILISATEUR.PHTML, AJOUTPARTENAIRE.PHTML ET MODIFPARTENAIRE.PHTML */
+  /* MAIN CONTENT */
+  .containerAjout, .containerModif {
+    min-height: initial;
+    margin-bottom: 2.5rem; }
+    .containerAjout h3, .containerModif h3 {
+      font-size: 1.6rem;
+      font-weight: 500; }
+    .containerAjout form, .containerModif form {
+      margin-bottom: 2.55rem; }
+      .containerAjout form div, .containerModif form div {
+        width: 27rem; }
+        .containerAjout form div i, .containerModif form div i {
+          margin: 0.5rem 0 0; }
+        .containerAjout form div input, .containerModif form div input {
+          width: 27rem; }
+        .containerAjout form div select, .containerModif form div select {
+          width: 27rem; }
+
+  /* PAGES PRODUITS.PHTML ET UTILISATEURS.PHTML */
+  /* MAIN CONTENT */
+  .containerProds, .containerUsers {
+    min-height: initial;
+    max-width: 88rem;
+    margin-bottom: 2.5rem; }
+    .containerProds h3:first-child, .containerUsers h3:first-child {
+      margin: -1rem 0 2.5rem -1.5rem;
+      text-align: center; }
+    .containerProds h3 + h3, .containerUsers h3 + h3 {
+      float: initial;
+      margin: -0.8rem 0 2rem;
+      text-align: center; }
+      .containerProds h3 + h3 a, .containerUsers h3 + h3 a {
+        padding: 0.7rem 0.8rem 0.7rem 0;
+        font-size: 1.3rem; }
+        .containerProds h3 + h3 a i, .containerUsers h3 + h3 a i {
+          margin: 0 -0.5rem 0; }
+    .containerProds .formLines, .containerUsers .formLines {
+      text-align: center; }
+    .containerProds .navigation div + span, .containerUsers .navigation div + span {
+      display: block;
+      margin: -0.5rem 0 1.5rem; }
+    .containerProds .navigation .liensPages, .containerUsers .navigation .liensPages {
+      margin: 0; }
+      .containerProds .navigation .liensPages a, .containerUsers .navigation .liensPages a {
+        padding: 0.1rem 0.4rem; }
+    .containerProds .tableScroll, .containerUsers .tableScroll {
+      margin-bottom: 1.5rem; }
+    .containerProds .tableScroll + .navigation, .containerUsers .tableScroll + .navigation {
+      margin-bottom: 2.5rem; }
+    .containerProds table, .containerUsers table {
+      min-width: 87rem;
+      font-size: 1.1rem; }
+      .containerProds table tr th, .containerUsers table tr th {
+        padding: 1.5rem 0.5rem; }
+      .containerProds table tr td, .containerUsers table tr td {
+        padding: 1.5rem 1rem;
+        white-space: initial; }
+        .containerProds table tr td a img, .containerUsers table tr td a img {
+          max-height: 12rem; }
+        .containerProds table tr td .btnModif, .containerProds table tr td .btnAchat, .containerProds table tr td .btnReset, .containerUsers table tr td .btnModif, .containerUsers table tr td .btnAchat, .containerUsers table tr td .btnReset {
+          padding: 1rem 0;
+          line-height: 1.5rem;
+          color: #777777;
+          background-color: initial; }
+          .containerProds table tr td .btnModif i, .containerProds table tr td .btnAchat i, .containerProds table tr td .btnReset i, .containerUsers table tr td .btnModif i, .containerUsers table tr td .btnAchat i, .containerUsers table tr td .btnReset i {
+            display: none; }
+        .containerProds table tr td .btnModif:hover, .containerProds table tr td .btnAchat:hover, .containerProds table tr td .btnReset:hover, .containerUsers table tr td .btnModif:hover, .containerUsers table tr td .btnAchat:hover, .containerUsers table tr td .btnReset:hover {
+          color: #ef7d63;
+          background-color: initial; }
+        .containerProds table tr td .btnAchat, .containerUsers table tr td .btnAchat {
+          margin-bottom: initial; }
+        .containerProds table tr td .displayForm, .containerUsers table tr td .displayForm {
+          margin-top: initial; }
+        .containerProds table tr td .btnReset, .containerUsers table tr td .btnReset {
+          margin-top: initial; }
+      .containerProds table tr .descript, .containerUsers table tr .descript {
+        max-height: 20rem;
+        width: 29.5rem;
+        padding: 1rem 0 1rem 0.5rem;
+        overflow: auto;
+        text-align: initial; }
+      .containerProds table tr .video, .containerUsers table tr .video {
+        height: 11.75rem;
+        width: 20.45rem; }
+        .containerProds table tr .video video, .containerUsers table tr .video video {
+          height: 11.45rem;
+          width: 20rem; }
+      .containerProds table tr iframe, .containerUsers table tr iframe {
+        height: 11.45rem;
+        width: 20rem; }
+
+  /* PAGES FICHEPRODUIT.PHTML */
+  .containerAchat {
+    min-height: initial;
+    max-width: 44.5rem;
+    margin-bottom: 2.5rem; }
+    .containerAchat h3 {
+      font-size: 1.6rem;
+      font-weight: 500; }
+      .containerAchat h3 i {
+        height: 2.3rem;
+        margin-left: -1.3rem;
+        line-height: 2.1rem; }
+    .containerAchat .imgProd {
+      max-height: 30rem; }
+    .containerAchat .tableScroll {
+      margin-top: 0; }
+    .containerAchat table:first-child {
+      min-width: 29rem; }
+    .containerAchat table {
+      min-width: 46rem;
+      margin: 2rem auto 0;
+      font-size: 1.3rem; }
+      .containerAchat table tr th {
+        padding: 1.5rem 1rem; }
+      .containerAchat table tr td {
+        padding: 1.5rem 1rem; }
+        .containerAchat table tr td a img {
+          max-height: 12rem;
+          max-width: 12rem; }
+        .containerAchat table tr td .btnModif, .containerAchat table tr td .btnReset {
+          display: inline;
+          padding: 1rem 0;
+          line-height: 1.5rem;
+          color: #777777;
+          background-color: initial; }
+          .containerAchat table tr td .btnModif i, .containerAchat table tr td .btnReset i {
+            display: none; }
+        .containerAchat table tr td .btnModif:hover, .containerAchat table tr td .btnReset:hover {
+          color: #ef7d63;
+          background-color: initial; }
+        .containerAchat table tr td .btnReset {
+          margin-top: 1rem; }
+      .containerAchat table tfoot tr td {
+        text-align: center; }
+        .containerAchat table tfoot tr td h3 {
+          margin-bottom: 1.4rem; }
+    .containerAchat table + h4 {
+      margin: 3.5rem 0 -1rem;
+      font-weight: 500; }
+    .containerAchat h4 {
+      margin-top: 5rem;
+      font-weight: 500; }
+    .containerAchat form {
+      margin: -1rem 0 2.5rem; }
+      .containerAchat form div {
+        width: 27rem; }
+        .containerAchat form div i {
+          margin: 0.5rem 0 0; }
+        .containerAchat form div input {
+          width: 27rem; }
+
+  /* PAGE DETAILCO.PHTML */
+  /* MAIN CONTENT */
+  .containerDetailcom {
+    min-height: initial;
+    max-width: 55rem;
+    margin-bottom: 2.5rem; }
+    .containerDetailcom .infosCom {
+      float: initial;
+      margin: -0.5rem 0 -0.2rem;
+      font-size: 1.3rem; }
+      .containerDetailcom .infosCom p span {
+        float: none; }
+    .containerDetailcom .displayFct {
+      bottom: -2.3rem;
+      float: initial;
+      width: 100%;
+      margin-bottom: 5rem; }
+      .containerDetailcom .displayFct .btnFct {
+        padding: 0.7rem 0.8rem 0.7rem;
+        font-size: 1.3rem; }
+      .containerDetailcom .displayFct .btnFct::before {
+        margin-right: 0.5rem; }
+    .containerDetailcom .tableScroll {
+      clear: left;
+      margin-bottom: initial; }
+      .containerDetailcom .tableScroll table {
+        min-width: 54rem; }
+        .containerDetailcom .tableScroll table tr th, .containerDetailcom .tableScroll table tr td {
+          min-width: initial;
+          max-width: 13rem;
+          padding: 0.5rem;
+          font-size: 1.1rem; }
+          .containerDetailcom .tableScroll table tr th img, .containerDetailcom .tableScroll table tr td img {
+            max-height: 9rem; }
+        .containerDetailcom .tableScroll table tfoot tr td {
+          text-align: center;
+          font-size: 1.3rem; }
+          .containerDetailcom .tableScroll table tfoot tr td h3 {
+            margin: -0.1rem 0 1.4rem; }
+
+  /* PAGE FACTURE.PHTML */
+  /* MAIN CONTENT */
+  .containerFct {
+    min-height: initial;
+    margin-bottom: 2.5rem;
+    font-size: 1.3rem; }
+    .containerFct .enteteFct img {
+      margin-bottom: 0.5rem; }
+    .containerFct .enteteFct div h3 {
+      margin-top: 0.9rem; }
+    .containerFct .infosFct .adresseVendeur {
+      clear: left;
+      margin-bottom: 3rem; }
+    .containerFct .infosFct .infosCom {
+      margin: -1rem 0 0.5rem; }
+    .containerFct .infosFct .adresseUser {
+      margin-bottom: 4rem; }
+    .containerFct .tableScroll table tfoot tr:first-child td {
+      padding-top: 2rem; }
+    .containerFct .tableScroll table tfoot tr:last-child td:first-child {
+      padding-bottom: 1rem; }
+    .containerFct .printFct {
+      margin: 3rem 0 2.5rem; }
+
+  .unauthorized, .erreurHeader {
+    padding: 2.5rem 0; }
+    .unauthorized h2, .erreurHeader h2 {
+      font-size: 2rem; }
+
+  .backLink {
+    margin: 1.5rem 0 0.5rem; } }
