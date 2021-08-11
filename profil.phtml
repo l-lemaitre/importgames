@@ -1,0 +1,96 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Mes informations</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerProfil">
+    <h3><i class="fa fa-chevron-right"></i>Mes informations</h3>
+    <section>
+        <h4>Mes paramètres</h4>
+        <div>
+            <div>
+                <strong>Nom d'utilisateur :</strong>
+                <div><?= htmlspecialchars($user["username"]) ?></div>
+            </div>
+            <div>
+                <strong>E-mail :</strong>
+                <div><?= htmlspecialchars($user["email"]) ?></div>
+            </div>
+            <div>
+                <strong>Mot de passe :</strong>
+                <div class="displayPass">••••••••</div>
+                <?php
+                if(isset($_GET["ok"])) { ?>
+                    <p class="msgValid">Le changement de votre <em>mot de passe</em> a bien était pris en compte.</p>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="btnProfil"><a href="modifparam">Modifier</a></div>
+    </section>
+    <section>
+        <h4>Adresse de facturation / livraison</h4> <!-- par défaut -->
+        <div>
+            <div>
+                <strong>Nom :</strong>
+                <div>
+                    <?php if($user["nom"]) { echo htmlspecialchars($user["nom"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Prénom :</strong>
+                <div>
+                    <?php if($user["prenom"]) { echo htmlspecialchars($user["prenom"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Adresse :</strong>
+                <div>
+                    <?php if($user["adresse"]) { echo htmlspecialchars($user["adresse"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Code postal :</strong>
+                <div><?php if($user["code_postal"]) { echo htmlentities($user["code_postal"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Ville :</strong>
+                <div>
+                    <?php if($user["ville"]) { echo htmlspecialchars($user["ville"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Pays :</strong>
+                <div>
+                    <?php if($user["pays"]) { echo htmlspecialchars($user["pays"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+            <div>
+                <strong>Téléphone :</strong>
+                <div>
+                    <?php if($user["tel"]) { echo htmlentities($user["tel"]); } else { ?>
+                        <i>À compléter</i>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="btnProfil"><a href="modifadresse">Modifier</a></div>
+    </section>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

@@ -1,0 +1,29 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Validation commande</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerValidco">
+    <?php if(isset($verifError)) { ?>
+        <div>
+            <img src="images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur de vérification.</h2>
+        </div>
+    <?php }
+    elseif(isset($refError)) { ?>
+        <div>
+            <img src="images/divers/warning.png" alt="imgWarning" />
+            <h2>La requête ne provient pas de cette page.</h2>
+        </div>
+    <?php }
+    elseif(isset($validCo)) { ?>
+        <div>
+            <img src="images/divers/sign-check.ico" alt="sign-check" /><h2>Votre commande a été validée, merci <?= htmlspecialchars($user["username"]) ?>.</h2>
+        </div>
+    <?php } ?>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

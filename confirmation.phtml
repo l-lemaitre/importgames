@@ -1,0 +1,24 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Confirmation compte</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerConf">
+    <?php if(isset($linkError)) { ?>
+        <div>
+        	<img src="images/divers/attention.png" alt="imgAttention" />
+        	<h2>Le lien est erroné.</h2>
+        </div>
+    <?php }
+    elseif(isset($confCompte)) { ?>
+        <div>
+        	<img src="images/divers/checkmark.png" alt="imgCheckmark" />
+        	<h2>Votre compte a bien été validé, bienvenue sur <span>ImportGames</span> <?= htmlspecialchars($user["username"]) ?> !</h2>
+        </div>
+    <?php } ?>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

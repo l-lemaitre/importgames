@@ -1,0 +1,25 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li class="titreFil">Confirmation adresse e-mail</li>
+        <li class="titreFil300" title="Confirmation adresse e-mail">Confirmation adresse ...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerConf">
+    <?php if(isset($linkError)) { ?>
+        <div>
+        	<img src="images/divers/attention.png" alt="imgAttention" />
+        	<h2>Le lien est erroné.</h2>
+        </div>
+    <?php }
+    elseif(isset($mailConf)) { ?>
+        <div>
+        	<img src="images/divers/conf_courriel.png" alt="imgConfemail" />
+        	<h2>Votre changement d'adresse e-mail a bien été pris en compte, <?= htmlspecialchars($user["username"]) ?>.</h2>
+        </div>
+    <?php } ?>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

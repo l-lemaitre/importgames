@@ -1,0 +1,109 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li><a href="profil">Mes informations</a></li>
+        <li class="titreFil">Modifier mes paramètres</li>
+        <li class="titreFil300" title="Modifier mes paramètres">M...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerParam">
+    <h3><i class="fa fa-chevron-right"></i>Modifier mes paramètres</h3>
+    <form method="post">
+        <div>
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" value="<?php if(isset($_POST["username"])) { echo htmlspecialchars($_POST["username"]); } else { echo htmlspecialchars($user["username"]); } ?>" required />
+            <?php if(isset($emptyUsern)) { ?>
+                <p>Le <em>nom d'utilisateur</em> ne peut pas être vide.</p>
+            <?php }
+            elseif(isset($invalidUsern)) { ?>
+                <p>Le <em>nom d'utilisateur</em> ne doit comporter aucun espace ni caractères spéciaux et ne pas dépasser 16 caractères.</p>
+            <?php }
+            elseif(isset($usedUsern)) { ?>
+                <p>Le nom d'utilisateur <em><?= $username ?></em> n'est pas disponible.</p>
+            <?php } ?>
+        </div>
+        <div>
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" name="email" value="<?php if(isset($_POST["email"])) { echo $_POST["email"]; } else { echo htmlspecialchars($user["email"]); } ?>" required />
+            <?php if(isset($emptyMail)) { ?>
+                <p>L'adresse <em>e-mail</em> ne peut pas être vide.</p>
+            <?php }
+            elseif(isset($invalidMail)) { ?>
+                <p>L'adresse <em>e-mail</em> n'est pas valide.</p>
+            <?php }
+            elseif(isset($usedMail)) { ?>
+                <p>L'adresse e-mail <em><?= $email ?></em> est déjà utilisée.</p>
+            <?php } ?>
+        </div>
+        <input type="submit" class="btnModif" name="modifParam" value="Valider" />
+        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+        <input type="hidden" name="formToken" value="<?= $token ?>" />
+        <?php if(isset($verifError)) { ?>
+            <div class="msgParam"><p>Erreur de vérification.</p></div>
+        <?php }
+        elseif(isset($refError)) { ?>
+            <div class="msgParam"><p>La requête ne provient pas du formulaire.</p></div>
+        <?php } ?>
+        <div class="cautionMail">
+            <span>※ Si vous modifiez votre adresse e-mail vous serez déconnecté de votre compte et un courriel de vérification vous sera envoyé.</span>
+        </div>
+    </form>
+    <form method="POST">
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" class="password" name="password" value="<?php if(isset($_POST["password"])) { echo $_POST["password"]; } ?>" required /> 
+            <button class="changeType" type="button"></button>
+            <?php if(isset($emptyPass)) { ?>
+                <p>Le <em>mot de passe</em> ne peut pas être vide.</p>
+            <?php }
+            elseif(isset($passError)) { ?>
+                <p>Le <em>mot de passe</em> est incorrect.</p>
+            <?php } ?>
+        </div>
+        <div>
+            <label for="newpass">Nouveau mot de passe :</label>
+            <input type="password" id="newpass" class="password" name="newPass" value="<?php if(isset($_POST["newPass"])) { echo $_POST["newPass"]; } ?>" required />
+            <button class="changeType" type="button"></button>
+        <?php if(isset($emptyNewPass)) { ?>
+            <p>Le <em>nouveau mot de passe</em> ne peut pas être vide.</p>
+        <?php }
+        elseif(isset($invalidNewPass)) { ?>
+            <p>Le mot de passe n'est pas valide. Il doit contenir 8 caractères alphanumériques au minimum et ne comporter aucun accent ni caractères spéciaux.<p>
+        <?php } ?>
+        </div>
+        <div>
+            <label for="passConf">Confirmer le nouveau mot de passe :</label>
+            <input type="password" id="passConf" name="passConf" required />
+            <?php if(isset($invalidPassConf)) { ?>
+                <p>La confirmation du <em>nouveau mot de passe</em> ne correspond pas.</p>
+            <?php } ?>
+        </div>
+        <input type="submit" class="btnModif" name="modifMdp" value="Valider" />
+        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+        <input type="hidden" name="formToken" value="<?= $token ?>" />
+        <?php if(isset($verifPassError)) { ?>
+            <div class="msgParam"><p>Erreur de vérification.</p></div>
+        <?php }
+        elseif(isset($refPassError)) { ?>
+            <div class="msgParam"><p>La requête ne provient pas du formulaire.</p></div>
+        <?php } ?>
+    </form>
+    <form class="formReset" method="POST">
+        <button type="button" id="resetCte" class="btnReset">Supprimer le compte</button>
+        <!-- Token de vérification, voir fichier bdd_connection.php ligne 19 -->
+        <input type="hidden" name="formResetToken" value="<?= $token ?>" />
+        <?php if(isset($verifResetError)) { ?>
+            <div class="msgParam"><p>Erreur de vérification.</p></div>
+        <?php }
+        elseif(isset($refResetError)) { ?>
+            <div class="msgParam"><p>La requête ne provient pas du formulaire.</p></div>
+        <?php } ?>
+    </form>
+    <div class="backLink"><a href="/importgames/profil"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>
+
+<!-- Token de session, voir fichier bdd_connection.php ligne 19 -->
+<?php $_SESSION["token"] = htmlspecialchars($token); ?>

@@ -1,0 +1,190 @@
+<?php
+    // Enclenche la temporisation de sortie. Méthode pour corriger le message "Warning: Cannot modify header information - headers already sent by (...) in ..." quand on tente de modifier une entête de document alors que des informations ont déjà été envoyées au client
+    ob_start();
+?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta name="description" content="Projet personnel de llemaitre.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/importgames/images/divers/importgamesfull.ico" rel="icon" type="image/ico" />
+        <title>ImportGames | <?= htmlspecialchars(headTitle()) ?></title>
+        <!-- CSS Vendor -->
+        <link href="/importgames/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/plugin/flexslider/flexslider.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/plugin/owlcarousel/owl.carousel.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/plugin/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/plugin/slick/slick.css" rel="stylesheet" type="text/css" />
+        <!-- CSS Perso -->
+        <link href="/importgames/css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="/importgames/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- TOPBAR -->
+        <nav class="topBar">
+            <div class="topbarContenu">
+                <div class="themeWrapper">
+                    <label for="checkbox" class="themeSwitch">
+                        <input type="checkbox" id="checkbox" />
+                        <span class="slider round"></span>
+                    </label>
+                    <em id="statutTheme">Thème clair activé</em>
+                    <em id="statutTheme300">Thème clair</em>
+                </div>
+                <div class="bienvenue"><p>Bienvenue sur notre boutique en ligne !</p></div>
+                <div class="connexion">
+                    <ul>
+                    <?php if(!isset($_SESSION["user"])) { ?>
+                        <li><a href="/importgames/connexion">Connexion</a></li>
+                        <li class="separation">|</li>
+                        <li>
+                            <a href="/importgames/inscription">Inscription</a>
+                            <div class="fixScrollHeader"></div>
+                        </li>
+                    <?php }
+                    else { ?>
+                        <li>
+                            <div><span class="bonjourUser">Bonjour, <?= htmlspecialchars($_SESSION["user"]) ?></span></div>
+                        </li>
+                        <li>
+                            <div class="menuUser">
+                                <span class="separation">|</span>
+                                <a href="#">Mon compte</a>
+                                <ul class="sousMenu">
+                                    <li><a href="/importgames/commandes-page-1">Mes commandes</a></li>
+                                    <li><a href="/importgames/profil">Mes informations</a></li>
+                                    <li><a href="/importgames/deconnexion"><span>Déconnexion</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- HEADER -->
+        <header id="header">
+            <nav class="navBar">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="/importgames"><img src="/importgames/images/divers/importgamesfull.png" id="imgLogo" alt="logo" title="Accueil" />
+                    <h2 id="logoTitle">ImportGames</h2></a>
+                </div>
+                <!-- Navmenu -->
+                <div id="navMenu" class="navMenu">
+                    <button id="affichageNavmenu" class="iconNavmenu"><i class="fa fa-bars"></i></button>
+                    <ul id="navSousmenu" class="navSousmenu">
+                        <li><a href="/importgames/index">Accueil</a></li>
+                        <?php foreach($cats as $cat): ?>
+                            <li><a href="/importgames/cat-<?= htmlentities($cat["id"]) ?>-<?= htmlspecialchars(strtolower(urlencode(replaceAccents($cat["titre"])))) ?>"><?= htmlspecialchars($cat["titre"]) ?></a></li>
+                        <?php endforeach; ?>
+                        <li><a href="/importgames/support">Support</a></li>
+                    </ul>
+                </div>
+                <!-- Recherche & Panier -->
+                <div id="panierRecherche" class="panierRecherche">
+                    <div id="recherche" class="recherche">
+                        <form METHOD="GET" ACTION="/importgames/recherche">
+                            <input type="text" name="result" placeholder=" Recherche...">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div id="panier" class="panier">
+                        <a href="/importgames/panier"><i class="fa fa-shopping-cart"></i><span>Mon panier</span></a>
+                        <div id="panierSousmenu" class="panierSousmenu">
+                            <div>Vous avez <span><?= htmlentities(compterArticles()) ?></span> dans votre panier.</div>
+                            <hr>
+                            <?php for($i = 0; $i < count($_SESSION["panier"]["idProduit"]); $i++): ?>
+                            <div>
+                                <a href="/importgames/prod-<?= htmlspecialchars(rawurlencode($_SESSION["panier"]["idProduit"][$i])) ?>"><img src="<?= htmlspecialchars($_SESSION["panier"]["imgProduit"][$i]) ?>" alt="imgProd" />
+                                <h5><?= htmlspecialchars($_SESSION["panier"]["libelleProduit"][$i]) ?></h5></a><a href="panier-del-<?= htmlspecialchars(rawurlencode($_SESSION["panier"]["idProduit"][$i])) ?>" class="btnSuppr"><i class="fa fa-trash-o"></i></a>
+                                <p><?= htmlentities($_SESSION["panier"]["qteProduit"][$i]) ?> x <?= htmlentities(str_replace(".", ",", number_format($_SESSION["panier"]["prixProduit"][$i], 2))) ?>€</p>
+                                <hr>
+                            </div>
+                            <?php endfor; ?>
+                            <div class="panierSoustotal">Sous-Total : <strong><?= htmlentities(str_replace(".", ",", number_format(MontantGlobal(), 2))) ?>€</strong></div>
+                            <div class="boutonPanier"><a href="/importgames/panier">Panier</a></div>
+                            <div>
+                                <a href="/importgames/panier" id="panierBlank" class="panierBlank" target="_blank">Afficher le panier dans une autre fenêtre</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- AFFICHAGE TEMPLATE -->
+        <?php
+            // Inclut la variable template, soit le contenu de la page .phtml correspondant à la variable session template du fichier .php de la page courante
+            if(empty($template)) {
+                $template = $_SESSION["template"];
+
+                // On limite l'inclusion aux fichiers .phtml en ajoutant dynamiquement l'extension. On supprime également d'éventuels espaces
+                $template = trim($template . ".phtml");
+            }
+
+            // On évite les caractères qui permettent de naviguer dans les répertoires
+            $template = str_replace("../", "protect", $template);
+            $template = str_replace(";", "protect", $template);
+            $template = str_replace("%", "protect", $template);
+
+            // On interdit l'inclusion de dossiers protégés par htaccess
+            if(preg_match("/backoff/", $template)) {
+                echo "Vous n'avez pas accès à ce répertoire.";
+             }
+
+            else {
+                // On vérifie que la page est bien sur le "serveur" en utlisant le chemin du dossier parent de la variable session FILE_PHTML du fichier .php de la page courante
+                if(file_exists(dirname($_SESSION["FILE_PHTML"]) . "/" . $template)) {
+                    include dirname($_SESSION["FILE_PHTML"]) . "/" . $template;
+                }
+
+                else {
+                    echo "Page inexistante.";
+                }
+            }
+        ?>
+        <!-- Cookie Consent -->
+        <aside id="cookieConsent" class="cookieConsent">
+            <div id="closeCookieConsent" class="closeCookieConsent">x</div>
+            <div>ImportGames utilise des cookies pour vous garantir la meilleure expérience sur notre site Web. <a href="https://www.culture-informatique.net/cest-quoi-les-cookies" class="lienCookie" target="_blank">En savoir plus</a><a id="cookieConsentOK" class="cookieConsentOK">Autoriser</a></div>
+        </aside>
+        <!-- FOOTER -->
+        <footer>
+            <div class="containerFooter">
+                <div class="footerInfos">
+                    <h5>À propos de la boutique</h5>
+                    <img src="/importgames/images/divers/importgames.png" alt="minLogo" />
+                    <!-- Liens vers adresses professionnelles ou pages de réseaux sociaux existantes
+                    <ul class="reseauxSociaux">
+                        <li><a href="https://www.facebook.com" class="fa fa-facebook"></a></li>
+                        <li><a href="https://www.twitter.com" class="fa fa-twitter"></a></li>
+                        <li><a href="https://feedburner.google.com" class="fa fa-rss"></a></li>
+                        <li><a href="mailto:contact@llemaitre.com" class="fa fa-envelope"></a></li>
+                        <li><a href="https://www.pinterest.com" class="fa fa-pinterest"></a></li>
+                        <li><a href="https://www.instagram.com" class="fa fa-instagram"></a></li>
+                    </ul> -->
+                </div>
+            </div>
+            <!-- Mentions légales -->
+            <div class="mentionsLegales">
+                <p class="contact">Site vitrine E-commerce, projet personnel et professionnel de <a href="mailto:contact@llemaitre.com">Ludovic LEMAÎTRE</a></p>
+                <p>Copyright &copy; 2020-2021 &middot; Conçu et développé par <a href="https://llemaitre.com" target="_blank">llemaitre.com</a>. Tous droits réservés</p>
+            </div>
+        </footer>
+        <!-- Javascript / JS Vendor -->
+        <script src="/importgames/js/jquery-3.4.1.js"></script>
+        <script src="/importgames/js/js.cookie.js"></script>
+        <script src="/importgames/js/vendor.js"></script>
+        <script src="/importgames/plugin/flexslider/jquery.flexslider.js"></script>
+        <script src="/importgames/plugin/owlcarousel/owl.carousel.js"></script>
+        <script src="/importgames/plugin/fancybox/jquery.fancybox.js"></script>
+        <script src="/importgames/plugin/slick/slick.js"></script>
+        <script src="/importgames/plugin/isotope/isotope.pkgd.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <!-- JS Perso -->
+        <script src="/importgames/js/ajax.js"></script>
+        <script src="/importgames/js/main.js"></script>
+    </body>
+</html>

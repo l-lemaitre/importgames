@@ -1,0 +1,10 @@
+Les fichiers présents dans les répertoires sont tous prêts à l'emploi sur linux.
+
+Fichiers à modifier pour établir une connexion avec la base de données "importgames" :
+application/bdd_co_fonctions.php
+application/bdd_connection.php ligne 87
+backoff/application/bdd_connection.php lignes 57 et 58
+
+Fichiers à modifier pour accéder au back office :
+backoff/.htaccess ligne 4
+backoff/.htpasswd

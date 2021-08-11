@@ -1,0 +1,52 @@
+<!-- Slider -->
+<article class="slider">
+    <div class="flexslider">
+        <ul class="slides">
+            <?php foreach($slids as $slid): ?>
+                <li>
+                    <a href="cat-<?= htmlentities($slid["id"]) ?>-<?= htmlspecialchars(strtolower(urlencode(replaceAccents($slid["titre"])))) ?>"><img src="<?= htmlspecialchars($slid["image"]) ?>" alt="imgSlid" />
+                    <div class="titreSlider">
+                        <h1><?= htmlspecialchars($slid["titre"]) ?></h1>
+                        <hr>
+                        <span><?= htmlspecialchars($slid["legende"]) ?></span>
+                    </div></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</article>
+
+<!-- MAIN CONTENT -->
+<main class="containerProdnew">
+    <h5><span>Nouveautés</span></h5>
+    <div class="selectCat filtresSelectcat">
+        <button class="selectionne" data-filter="*">Tout</button>
+        <?php foreach($cats as $cat): ?>
+            <button data-filter=".catTitre<?= htmlspecialchars($cat["id"]) ?>"><?= htmlspecialchars($cat["titre"]) ?></button>
+        <?php endforeach; ?>
+    </div>
+    <div class="isotope">
+        <?php foreach($prods as $prod): ?>
+        <div class="isotopeArticle catTitre<?= htmlentities($prod["cat_id"]) ?>">
+            <a href="prod-<?= htmlentities($prod["id"]) ?>"><img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" alt="imgProd" title="<?= htmlspecialchars($prod["titre"]) ?>" />
+            <h4 class="prodtitreIso" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso600" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre600($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso300" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre300($prod["titre"])) ?></h4></a>
+            <span><?= htmlentities(str_replace(".", ",", $prod["prix"])) ?>€</span>
+            <?php if($prod["qte"] >= 1) { ?>
+                <a href="panier?action=ajout&id=<?= htmlentities($prod["id"]) ?>&libelle=<?= htmlspecialchars(urlencode($prod["titre"])) ?>&qte=1&prix=<?= htmlentities($prod["prix"]) ?>&img=<?= htmlspecialchars($prod["apercu_img"]) ?>" class="ajoutPanier">Ajouter au panier</a>
+            <?php }
+            else { ?>
+                <div>Rupture de stock</div>
+            <?php } ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</main>
+
+<!--Partenaires -->
+<aside class="partenaires">
+    <?php foreach($partners as $partner): ?>
+    <a href="<?= htmlspecialchars($partner["url"]) ?>" target="_blank"><img src="<?= htmlspecialchars($partner["image"]) ?>" alt="imgPartner" title="<?= htmlspecialchars($partner["nom"]) ?>" /></a>
+    <?php endforeach; ?>
+</aside>

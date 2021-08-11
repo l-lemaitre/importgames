@@ -1,0 +1,53 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Support</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerSupport">
+    <h5><span>Contactez-nous</span></h5>
+    <form method="POST">
+        <div>
+            <div>
+                <input type="text" name="name" placeholder="Nom :" value="<?php if(isset($_POST["name"])) { echo htmlspecialchars($_POST["name"]); } elseif(isset($_SESSION["user_id"])) { echo htmlspecialchars($_SESSION["user"]); } ?>" maxlength="100" required />
+                <?php if(isset($emptyName)) { ?>
+                    <p>Le <em>nom</em> ne peut pas être vide.</p>
+                <?php }
+                elseif(isset($invalidName)) { ?>
+                    <p>Le <em>nom</em> doit contenir au moins 3 caractères et ne pas comporter de caractères spéciaux.</p>
+                <?php } ?>
+                <input type="email" name="email" placeholder="E-mail :" value="<?php if(isset($_POST["email"])) { echo $_POST["email"]; } elseif(isset($_SESSION["user_id"])) { echo htmlspecialchars($_SESSION["user_email"]); } ?>" maxlength="100" required />
+                <?php if(isset($emptyMail)) { ?>
+                    <p>L'adresse <em>e-mail</em> ne peut pas être vide.</p>
+                <?php }
+                elseif(isset($invalidMail)) { ?>
+                    <p>L'adresse <em>e-mail</em> n'est pas valide.</p>
+                <?php } ?>
+            </div>
+        </div>
+        <div>
+            <input type="text" class="sujet" name="sujet" placeholder="Sujet :" value="<?php if(isset($_POST["sujet"])) { echo htmlspecialchars($_POST["sujet"]); } ?>" maxlength="100" required />
+            <?php if(isset($emptySujet)) { ?>
+                <p>Le <em>sujet</em> du message ne peut pas être vide.</p>
+            <?php } ?>
+        </div>
+        <div>
+            <textarea name="textMsg" placeholder="Votre message :" maxlength="400" rows="6" required><?php if(isset($_POST["textMsg"])) { echo $_POST["textMsg"]; } ?></textarea>
+            <?php if(isset($emptyMsg)) { ?>
+                <p>Le champ de saisie <em>votre message</em> ne peut pas être vide.</p>
+            <?php } ?>
+        </div>
+        <button class="btnMsg" type="submit" name="message">Envoyer</button>
+        <?php if(isset($replyOk)) { ?>
+            <div><p class="msgValid">Votre message a bien été envoyé.
+            Nous vous répondrons par courrier électronique dans les prochaines heures.</p></div>
+        <?php }
+        elseif(isset($replyError)) { ?>
+            <div><p class="msgErreur">Erreur : Votre message n'a pu être envoyé.</p></div>
+        <?php } ?>
+    </form>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

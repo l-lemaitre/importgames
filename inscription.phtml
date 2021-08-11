@@ -1,0 +1,70 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Inscription</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerReg">
+    <h3><i class="fa fa-chevron-right"></i>Inscription</h3>
+    <form method="POST">
+        <ul>
+            <li>
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" value="<?php if(isset($_POST["username"])) { echo htmlspecialchars($_POST["username"]); } ?>" required />
+                <?php if(isset($emptyUsern)) { ?>
+                    <div><p>Le <em>nom d'utilisateur</em> ne peut pas être vide.</p></div>
+                <?php }
+                elseif(isset($invalidUsern)) { ?>
+                    <div><p>Le <em>nom d'utilisateur</em> ne doit comporter aucun espace ni caractères spéciaux et ne pas dépasser 16 caractères.</p></div>
+                <?php }
+                elseif(isset($usedUsern)) { ?>
+                    <div><p>Ce <em>nom d'utilisateur</em> n'est pas disponible.</p></div>
+                <?php } ?>
+            </li>
+            <li>
+                <label for="email">E-mail :</label>
+                <input type="email" id="email" name="email" value="<?php if(isset($_POST["email"])) { echo $_POST["email"]; } ?>" required />
+                <?php if(isset($emptyMail)) { ?>
+                    <div><p>L'adresse <em>e-mail</em> ne peut pas être vide.</p></div>
+                <?php }
+                elseif(isset($invalidMail)) { ?>
+                    <div><p>L'adresse <em>e-mail</em> n'est pas valide.</p></div>
+                <?php }
+                elseif(isset($usedMail)) { ?>
+                    <div><p>Cette adresse <em>e-mail</em> est déjà utilisée.</p></div>
+                <?php } ?>
+            </li>
+            <li>
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" class="password" name="password" value="<?php if(isset($_POST["password"])) { echo $_POST["password"]; } ?>" required />
+                <button class="changeType" type="button"></button>
+                <?php if(isset($emptyPass)) { ?>
+                    <div><p>Le <em>mot de passe</em> ne peut pas être vide.</p></div>
+                <?php }
+                elseif(isset($invalidPass)) { ?>
+                    <div><p>Le mot de passe n'est pas valide. Il doit contenir 8 caractères alphanumériques au minimum et ne comporter aucun accent ni caractères spéciaux.<p></div>
+                <?php } ?>
+            </li>
+            <li>
+                <label for="passConf">Confirmer le mot de passe :</label>
+                <input type="password" id="passConf" name="passConf" required />
+                <?php if(isset($invalidPassConf)) { ?>
+                    <div><p>La confirmation du <em>mot de passe</em> ne correspond pas.</p></div>
+                <?php } ?>
+            </li>
+        </ul>
+        <button class="btnReg" type="submit" name="creationCte">Créez votre compte</button>
+        <?php if(isset($okReply)) { ?>
+            <div><p class="msgValid">Un e-mail d'activation vous a était envoyé.
+            Veuillez vérifier votre messagerie et suivre les instructions pour accéder à votre compte.</p></div>
+        <?php }
+        elseif(isset($errorReply)) { ?>
+            <div><p>Erreur : L'e-mail d'activation n'a pu vous être envoyé.
+            Pour accéder à votre compte veuillez contacter notre support technique.</p></div>
+        <?php } ?>
+    </form>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

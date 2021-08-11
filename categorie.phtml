@@ -1,0 +1,59 @@
+<!-- En-tête -->
+<div class="entete">
+    <div class="titreEntete">
+        <h2><span><?php if(isset($verifCat["titre"])) { echo htmlspecialchars($verifCat["titre"]); } else { echo "?"; } ?></span></h2>
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li><?php if(isset($verifCat["titre"])) { echo htmlspecialchars($verifCat["titre"]); } else { echo "?"; } ?></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerCat">
+    <?php if(!isset($catId)) { ?>
+        <div class="erreurAdresse">
+            <img src="images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php }
+    elseif(!isset($verifCat["id"])) { ?>
+        <div class="erreurAdresse">
+            <img src="images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php }
+    else { ?>
+        <form method="POST" class="flexBasis">
+            <label for="affichageTri">Trier par :</label>
+            <select id="affichageTri" name="affichageTri">
+                <option value="defaut">Date de disponibilité (Croissante)</option>
+                <option value="nouveautes">Nouveautés</option>
+                <option value="qte">Disponibilité</option>
+                <option value="prixCroissant">Prix (Croissant)</option>
+                <option value="prixDecroissant">Prix (Décroissant)</option>
+                <option value="titreAaZ">Titre de A à Z</option>
+            </select>
+        </form>
+        <?php foreach($prods as $prod): ?>
+        <div class="prodsCat">
+            <a href="prod-<?= htmlentities($prod["id"]) ?>"><img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" alt="imgProd" title="<?= htmlspecialchars($prod["titre"]) ?>" />
+            <h4 class="prodtitreIso" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso600" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre600($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso300" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre300($prod["titre"])) ?></h4></a>
+            <span><?= htmlentities(str_replace(".", ",", $prod["prix"])) ?>€</span>
+            <?php if($prod["qte"] >= 1) { ?>
+                <a href='panier.php?action=ajout&id=<?= htmlentities($prod["id"]) ?>&libelle=<?= htmlspecialchars(urlencode($prod["titre"])) ?>&qte=1&prix=<?= htmlentities($prod["prix"]) ?>&img=<?= htmlspecialchars($prod["apercu_img"]) ?>' class="ajoutPanier">Ajouter au panier</a>
+            <?php }
+            else { ?>
+                <div>Rupture de stock</div>
+            <?php } ?>
+        </div>
+        <?php endforeach;
+    } ?>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

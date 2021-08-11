@@ -1,0 +1,81 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li><a href="commandes-page-1">Mes commandes</a></li>
+        <li class="titreFil">Commande #<?php if(isset($com["id"])) { echo htmlentities(str_pad($com["numero"], 4, "0", STR_PAD_LEFT)); } else { echo "0000"; } ?></li>
+        <li class="titreFil300" title="Commande #<?php if(isset($com["id"])) { echo htmlentities(str_pad($com["numero"], 4, "0", STR_PAD_LEFT)); } else { echo "0000"; } ?>">C...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerDetailco">
+    <?php if(!isset($comId) || !isset($com["id"])) { ?>
+        <div class="comNull">
+            <img src="images/divers/package.png" alt="imgPackage" />
+            <h2>Aucune commande trouvée.</h2>
+        </div>
+    <?php }
+    else { ?>
+        <div class="infosDetail">
+            <div class="infosCom">
+                <p><strong>Date de la commande :&nbsp;</strong><span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"]))) ?></span></p>
+                <p><strong>N° de la commande :&nbsp;</strong><span><?= htmlentities(str_pad($com["numero"], 4, "0", STR_PAD_LEFT)) ?></span></p>
+            </div>
+        </div>
+        <div class="tableScroll">
+            <table class="prodDetail">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Sous-total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for($i = 0; $i < $nbrProdsCo; $i++): ?>
+                    <tr>
+                        <?php if(($com["date_co"] < $dateCrea[$i]) || !$dateCrea[$i]) { ?>
+                            <td>Visuel indisponible</td>
+                            <td><?= htmlspecialchars($titreCo[$i]) ?></td>
+                        <?php }
+                        else { ?>
+                            <td><a href="prod-<?= htmlentities($prodId[$i]) ?>"><img src="<?= htmlspecialchars($apercuImg[$i]) ?>" alt="imgProd" /></a></td>
+                            <td><a href="prod-<?= htmlentities($prodId[$i]) ?>"><?= htmlspecialchars($titreCo[$i]) ?></a></td>
+                        <?php } ?>
+                        <td><?= htmlentities($qteCo[$i]) ?></td>
+                        <td><?= htmlentities(str_replace(".", ",", $prixCo[$i])) ?>€</td>
+                        <td><?= htmlentities(str_replace(".", ",", number_format($qteCo[$i] * $prixCo[$i], 2))) ?>€</td>
+                        <?php if($qte[$i] >= 1 && $dateCrea[$i] < $com["date_co"]) { ?>
+                            <td>
+                                <a href="panier?action=ajout&id=<?= htmlentities($prodId[$i]) ?>&libelle=<?= htmlspecialchars(urlencode($titre[$i])) ?>&qte=1&prix=<?= htmlentities($prix[$i]) ?>&img=<?= htmlspecialchars($apercuImg[$i]) ?>" class="ajoutPanier">Acheter à nouveau</a>
+                                <div>※ Voir note en bas de page.</div>
+                            </td>
+                        <?php }
+                        else { ?>
+                            <td class="ruptureProd">Rupture de stock</td>
+                        <?php } ?>
+                    </tr>
+                    <?php endfor; ?>
+                </tbody>
+                <tfoot class="totalDetail">
+                    <tr>
+                        <td colspan="6"><b>Total HT :</b> <span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.80), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><b>TVA 20% :</b> <span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.20), 2))) ?>€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><h3>Total : <?= htmlentities(str_replace(".", ",", $com["total"])) ?>€</h3></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div><a href="fct-<?= htmlentities($com["id"]) ?>" target="_blank" class="btnFct">Afficher la facture</a></div>
+        <div>※ Les prix actuelles des produits peuvent différer de ceux de la commande. Veuillez vérifier le tarif actuel avant de valider votre panier.</div>
+    <?php } ?>
+    <div class="backLink"><a href="/importgames/commandes-page-1"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>

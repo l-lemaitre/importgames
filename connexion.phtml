@@ -1,0 +1,49 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Connexion</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerLogin">
+    <h3><i class="fa fa-chevron-right"></i>Connexion</h3>
+    <form method="POST">
+        <ul>
+            <li>
+                <input type="text" name="mailUsername" placeholder="Nom d'utilisateur ou e-mail :" value="<?php if(isset($_POST["mailUsername"])) { echo htmlspecialchars($_POST["mailUsername"]); } ?>" required />
+                <?php if(isset($emptyMailName)) { ?>
+                    <div><p>L'<em>identifiant</em> ne peut pas être vide.</p></div>
+                <?php } ?>
+            </li>
+            <li>
+                <input type="password" class="password" name="password" placeholder="Mot de passe :" value="<?php if(isset($_POST["password"])) { echo $_POST["password"]; } ?>" required />
+                <button class="changeType" type="button"></button>
+                <?php if(isset($emptyPass)) { ?>
+                    <div><p>Le <em>mot de passe</em> ne peut pas être vide.</p></div>
+                <?php } ?>
+            </li>
+            <li>
+                <input type="checkbox" id="resterCo" class="resterCo" name="resterCo" value="<?php if(isset($_POST["resterCo"])) { echo "<input type=\"checkbox\" checked=\"checked\""; } ?>" />
+                <label for="resterCo">Rester connecté</label>
+            </li>
+            <li>
+                <div class="g-recaptcha" data-sitekey="6LfGCe8UAAAAAOLswSSrPok74Xl4Tg52dvFDF4ya"></div>
+                <?php if(isset($noCaptcha)) { ?>
+                    <div><p>Vérification reCAPTCHA requise.</p></div>
+                <?php } ?>
+            </li>
+        </ul>
+        <button class="btnLogin" type="submit" name="login">Connexion</button>
+        <?php if(isset($tokenError)) { ?>
+            <div><p>L'adresse e-mail n'a pas été vérifiée.
+            Veuillez consulter votre messagerie ou bien contacter notre support technique si vous n'avez pas reçu le courriel de validation.</p></div>
+        <?php }
+        elseif(isset($loginError) && !isset($emptyMailName) && !isset($emptyPass)) { ?>
+            <div><p>L'<em>identifiant</em> ou le <em>mot de passe</em> est incorrect.</p></div>
+        <?php } ?>
+        <a href="pass"><span>Mot de passe oublié ?</span></a>
+    </form>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

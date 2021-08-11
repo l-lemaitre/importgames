@@ -1,0 +1,42 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li><a href="connexion">Connexion</a></li>
+        <li class="titreFil">Nouveau mot de passe</li>
+        <li class="titreFil300" title="Nouveau mot de passe">Nouveau...</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerMdp">
+    <h3><i class="fa fa-chevron-right"></i>Nouveau mot de passe</h3>
+    <form method="POST">
+        <input type="email" name="email" placeholder="E-mail :" value="<?php if(isset($_POST["email"])) { echo $_POST["email"]; } ?>" required>
+        <?php if(isset($emptyMail)) { ?>
+            <div><p>L'adresse <em>e-mail</em> ne peut pas être vide.</p></div>
+        <?php }
+        elseif(isset($invalidMail)) { ?>
+            <div><p>L'adresse <em>e-mail</em> n'est pas valide.</p></div>
+        <?php }
+        elseif(isset($tokenError)) { ?>
+            <div><p class="msgErreur">Le compte ou l'adresse e-mail n'ont pas été validés.
+            Veuillez vérifier votre messagerie ou bien contacter notre support technique si vous n'avez pas reçu de courriel d'activation.</p></div>
+        <?php }
+        elseif(isset($noMail)) { ?>
+            <div><p>Cette adresse e-mail n'est associée à aucun compte.</p></div>
+        <?php } ?>
+        <button class="btnMdp" type="submit" name="newPass">Envoyer</button>
+        <?php if(isset($notActivated)) { ?>
+            <div><p class="msgErreur">Une demande de changement de mot de passe est déjà en cours. Veuillez vérifier votre messagerie ou bien contacter notre support technique si vous n'avez pas reçu l'e-mail.</p></div>
+        <?php }
+        elseif(isset($replyOk)) { ?>
+            <div><p class="msgValid">Votre demande de changement de mot de passe a bien été prise en compte.
+            Veuillez vérifier votre messagerie et suivre les instructions pour terminer le processus de récupération.</p><div>
+        <?php }
+        elseif(isset($replyError)) { ?>
+            <div><p class="msgErreur">Erreur : L'e-mail de récupération du mot de passe n'a pas était envoyé. Pour accéder à votre compte veuillez contacter notre support technique.</p></div>
+        <?php } ?>
+    </form>
+    <div class="backLink"><a href="/importgames/connexion"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a></div>
+</main>

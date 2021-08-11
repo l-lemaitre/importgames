@@ -1,0 +1,114 @@
+<!-- En-tête -->
+<section class="enteteSearch">
+    <div class="titreEnteteSearch">
+        <?php if(isset($searchResult)) { ?>
+            <h2 class="titreEntete">
+                <?php if($nbrProdsRec == 0) { ?>
+                    Aucun résultat trouvé pour :
+                 <?php }
+                elseif($nbrProdsRec == 1) { echo htmlspecialchars($nbrProdsRec); ?>
+                    résultat trouvé pour :
+                <?php }
+                else { echo htmlspecialchars($nbrProdsRec); ?>
+                    résultats trouvés pour :
+                <?php } ?>
+                 <span title="<?= htmlspecialchars($searchResult) ?>"><?= couperTitreEntete(htmlspecialchars($searchResult)) ?></span></h2>
+            <h2 class="titreEntete300">
+                <?php if($nbrProdsRec == 0) { ?>
+                    Aucun résultat trouvé
+                 <?php }
+                elseif($nbrProdsRec == 1) { echo htmlspecialchars($nbrProdsRec); ?>
+                    résultat trouvé
+                <?php }
+                else { echo htmlspecialchars($nbrProdsRec); ?>
+                    résultats trouvés
+                <?php } ?>
+            </h2>
+        <?php } ?>
+    </div>
+</section>
+
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <?php if(isset($searchResult)) { ?>
+        <ul>
+            <li><a href="index" class="home">Accueil</a></li>
+            <li class="titreFil" title="Recherche : <?= htmlspecialchars($searchResult) ?>">Recherche : <?= couperTitreFil(htmlspecialchars($searchResult)) ?></li>
+            <li class="titreFil300" title="Recherche : <?= htmlspecialchars($searchResult) ?>">Recherche : <?= couperTitreFil300(htmlspecialchars($searchResult)) ?></li>
+        </ul>
+    <?php } ?>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerSearch">
+    <?php if(!isset($searchResult) || !$prods) { ?>
+        <div class="searchNull">
+            <img src="images/divers/emoticon-sad.png" alt="emoticon-sad" />
+            <h2>Aucun article trouvé</h2>
+        </div>
+    <?php }
+    else {
+        if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)) { ?>
+                    <div class="pagePrec"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php }
+                elseif(isset($next)) { ?>
+                    <div class="pageSuiv"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php }
+                elseif(isset($prev)) { ?>
+                    <div class="pagePrec"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php }
+
+                // Si le nombre de pages de pages est supérieur à 1 (voir recherche.php ligne 221),
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+
+                    <?php // on affiche le nombre de pages avec leurs liens
+                    for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $i ?>" id="lienPageTop<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+        foreach($prods as $prod): ?>
+        <div class="prodSearch">
+            <a href="prod-<?= htmlentities($prod["id"]) ?>"><img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" alt="imgProd" title="<?= htmlspecialchars($prod["titre"]) ?>" />
+            <h4 class="prodtitreIso" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso600" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre600($prod["titre"])) ?></h4>
+            <h4 class="prodtitreIso300" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre300($prod["titre"])) ?></h4></a>
+            <span><?= htmlentities(str_replace(".", ",", $prod["prix"])) ?>€</span>
+            <?php if($prod["qte"] >= 1) { ?>
+                <a href="panier.php?action=ajout&id=<?= htmlentities($prod["id"]) ?>&libelle=<?= htmlspecialchars(urlencode($prod["titre"])) ?>&qte=1&prix=<?= htmlentities($prod["prix"]) ?>&img=<?= htmlspecialchars($prod["apercu_img"]) ?>" class="ajoutPanier">Ajouter au panier</a>
+            <?php }
+            else { ?>
+                <div>Rupture de stock</div>
+            <?php } ?>
+        </div>
+        <?php endforeach;
+        if(isset($navigation)) { ?>
+            <div class="navigation">
+                <?php if(isset($prev) && isset($next)) { ?>
+                    <div class="pagePrec"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                    <div class="pageSuiv"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php }
+                elseif(isset($next)) { ?>
+                    <div class="pageSuiv"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $next ?>">Suivant <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>
+                <?php }
+                elseif(isset($prev)) { ?>
+                    <div class="pagePrec"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Précédent</a></div>
+                <?php }
+                
+                if($nbrPages > 1) { ?>
+                    <span>Pages : </span>
+
+                    <?php for($i = 1 ; $i <= $nbrPages ; $i++): ?>
+                        <span class="liensPages"><a href="recherche?result=<?= urlencode($searchResult) ?>&page=<?= $i ?>" id="lienPage<?= $i ?>"><?= $i ?></a></span>
+                    <?php endfor;
+                } ?>
+            </div>
+        <?php }
+    } ?>
+    <div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

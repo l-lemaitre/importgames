@@ -1,0 +1,89 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>Panier</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerPanier">
+    <?php if(isset($stockInfCart)) { ?>
+        <div class="msgAjout">Vous avez atteint la quantité maximum de <?php echo $_SESSION["panier"]["qteProduit"][$positProd]; if($_SESSION["panier"]["qteProduit"][$positProd] == 1): ?> pièce disponible<?php else: ?> pièces disponibles<?php endif; ?> pour le produit :
+        	<span><?= $libelle ?></span></div>
+	<?php }
+    elseif(isset($qteMax)) { ?>
+        <div class="msgAjout">La quantité maximum de 10 pièces par commande a était atteint pour le produit :
+        	<span><?= $libelle ?></span></div>
+    <?php }
+	if(!$nbrArticles) { ?>
+	    <div class="panierVide">
+	    	<img src="images/divers/panier_reverse.png" alt="panierVide" />
+	    	<h2>Votre panier est vide</h2>
+	    </div>
+    <?php }
+    elseif(isset($_GET["no-liv"])) { ?>
+        <div class="msgAddress">
+	    	<a href="modifadresse"><img src="images/divers/address.png" alt="imgAddress" /></a>
+        	<p class="msgValid">Pour valider votre panier veuillez renseigner une adresse en allant dans la partie <a href="profil"><i>"Mes informations"</i></a>&nbsp; de votre espace personnel ou en cliquant sur l'icône.</p>
+        </div>
+	<?php }
+	else { ?>
+    	<form method="post" action="panier">
+        	<div class="tableScroll">
+			    <table id="tablePanier">
+			    	<thead>
+			    		<tr>
+						    <th></th>
+						    <th>Produit</th>
+						    <th>Quantité</th>
+						    <th>Prix Unitaire</th>
+						    <th>Sous-total</th>
+						    <th></th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<?php for($i = 0; $i < $nbrArticles; $i++): ?>
+			    		<tr>
+			    			<td><a href="prod-<?= htmlspecialchars(rawurlencode($_SESSION["panier"]["idProduit"][$i])) ?>"><img src="<?= htmlspecialchars($_SESSION["panier"]["imgProduit"][$i]) ?>" alt="imgProd" /></a></td>
+						    <td><a href="prod-<?= htmlspecialchars(rawurlencode($_SESSION["panier"]["idProduit"][$i])) ?>"><?= htmlspecialchars($_SESSION["panier"]["libelleProduit"][$i]) ?></a></td>
+						   	<td>
+						   		<input type="number" min="1" max="10" id="qteArticle<?= $i + 1 ?>" name="qte[]" value="<?= htmlentities($_SESSION["panier"]["qteProduit"][$i]) ?>" />
+						   		<input type="hidden" name="action" value="refresh" />
+							    <?php if(isset($stockInfQte) && $qteArticle[$i] > $qteStock[$i]) { ?>
+							        <p>Notre stock est actuellement insuffisant pour la quantité saisie.</p>
+								<?php } ?>
+						   	</td>
+						    <td><?= htmlentities(str_replace(".", ",", number_format($_SESSION["panier"]["prixProduit"][$i], 2))) ?>€</td>
+						    <td><?= htmlentities(str_replace(".", ",", number_format($_SESSION["panier"]["qteProduit"][$i] * $_SESSION["panier"]["prixProduit"][$i], 2))) ?>€</td>
+						    <td><a href="panier?action=suppression&id=<?= htmlspecialchars(rawurlencode($_SESSION["panier"]["idProduit"][$i])) ?>" class="btnSuppr">Supprimer</a></td>
+						</tr>
+						<?php endfor; ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="6"><span>Total (<?= htmlentities(compterArticles()) ?>) : <strong><?= htmlentities(str_replace(".", ",", number_format(montantGlobal(), 2))) ?>€</strong></span></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div id="positionBtnVal">
+		        <?php if(isset($_SESSION["user_id"])) {
+		            // Si la colonne "nom" dans la table "user" n'est pas remplie, les autres colonnes correspondant à l'adresse de livraison ne sont pas renseignées non plus. On envoie le client vers la page panier.php?no-liv (voir fichier .htaccess ligne 117) pour afficher le message ligne 25
+		            if(!$user["nom"]) { ?>
+		                <p><a href="panier-no-liv" class="btnValid">Valider ma commande</a></p>
+		            <?php }
+		            // On envoie l'utilisateur vers la page validercommande.php qui va traiter les données du panier en ajoutant au lien le token de vérification
+		            else { ?>
+		                <p><a href="validco-<?= htmlspecialchars($_SESSION["tokenValidco"]) ?>-verif" class="btnValid">Valider ma commande</a></p>
+		            <?php }
+		        }
+		        // Si le visiteur n'est pas connecté à son compte on l'envoie vers la page de connexion
+		        else { ?>
+		            <p><a href="connexion" class="btnValid">Valider ma commande</a></p>
+		        <?php } ?>
+		    </div>
+    	</form>
+	<?php } ?>
+	<div class="backLink"><a href="/importgames/index"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Accueil</a></div>
+</main>

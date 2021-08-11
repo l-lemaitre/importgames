@@ -1,0 +1,163 @@
+<!-- BREADCRUMB -->
+<nav class="filAriane">
+    <ul>
+        <li><a href="index" class="home">Accueil</a></li>
+        <li>
+            <?php if(isset($prod["id"]) && getTitrebyid($prod["cat_id"])) { ?>
+                <a href="cat-<?= htmlentities($prod["cat_id"]) ?>-<?= htmlspecialchars(strtolower(urlencode(renameTitrebyid($prod["cat_id"])))) ?>"><?= htmlspecialchars(getTitrebyid($prod["cat_id"])) ?></a>
+            <?php } else { ?>
+                <a href="#">?</a>
+            <?php } ?>
+        </li>
+        <li class="titreFil">
+            <?php if(isset($prod["id"])) { echo htmlspecialchars($prod["titre"]); } else { echo "?"; } ?>
+        </li>
+        <li class="titreFil300" title="<?php if(isset($prod["id"])) { echo htmlspecialchars($prod["titre"]); } ?>">
+            <?php if(isset($prod["id"])) { echo htmlspecialchars(couperTitreFil($prod["titre"])); } else { echo "?"; } ?>
+        </li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="containerProduit">
+    <?php if(!isset($prodId)) { ?>
+        <div class="erreurAdresse">
+            <img src="images/divers/warning.png" alt="imgWarning" />
+            <h2>Erreur adresse HTTP</h2>
+        </div>
+    <?php }
+    elseif(!isset($prod["id"])) { ?>
+        <div class="erreurAdresse">
+            <img src="images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+            <h2>Aucun contenu trouvé</h2>
+        </div>
+    <?php }
+    else { ?>
+        <section class="galerie">
+            <div class="owlCarousel sync1">
+                <?php foreach($imgs as $img): ?>
+                <div class="item"> 
+                    <img src="<?= htmlspecialchars($img["url"]) ?>" alt="imgUrl" />
+                    <a href="<?= htmlspecialchars($img["url"]) ?>" data-fancybox="gallery" class="zoom"><i class="fa fa-arrows-alt"></i><img class="imgFancy" src="<?= htmlspecialchars($img["url"]) ?>" alt="imgFancy" /></a>
+                </div>
+                <?php endforeach; ?>    
+            </div>
+            <div class="owlCarousel sync2">
+                <?php foreach($imgs as $img): ?>
+                <div class="item"><img src="<?= htmlspecialchars($img["url"]) ?>" alt="imgUrl" /></div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+        <section class="prodInfos">
+            <h3><?= htmlspecialchars($prod["titre"]) ?></h3>
+            <strong><?= htmlentities(str_replace(".", ",", $prod["prix"])) ?>€</strong>
+            <?php if($prod["qte"] >= 1) {
+                if($prod["qte"] <= 5) { ?>
+                    <div>Plus que <?= htmlspecialchars($prod["qte"]) ?> exemplaires disponibles.</div>
+                <?php }
+                else { ?>
+                    <div>En stock.</div>
+                <?php } ?>
+                <form method="POST">
+                    <select name="qte">
+                        <?php if($prod["qte"] >= 1) { ?>
+                        <option value="1">1</option>
+                        <?php }
+                        if($prod["qte"] >= 2) { ?>
+                        <option value="2">2</option>
+                        <?php }
+                        if($prod["qte"] >= 3) { ?>
+                        <option value="3">3</option>
+                        <?php }
+                        if($prod["qte"] >= 4) { ?>
+                        <option value="4">4</option>
+                        <?php }
+                        if($prod["qte"] >= 5) { ?>
+                        <option value="5">5</option>
+                        <?php }
+                        if($prod["qte"] >= 6) { ?>
+                        <option value="6">6</option>
+                        <?php }
+                        if($prod["qte"] >= 7) { ?>
+                        <option value="7">7</option>
+                        <?php }
+                        if($prod["qte"] >= 8) { ?>
+                        <option value="8">8</option>
+                        <?php }
+                        if($prod["qte"] >= 9) { ?>
+                        <option value="9">9</option>
+                        <?php }
+                        if($prod["qte"] >= 10) { ?>
+                        <option value="10">10</option>
+                        <?php } ?>
+                    </select>
+                    <button class="btnAjoutp" type="submit" name="ajouterProd">Ajouter au panier</button>
+                </form>
+                <?php if(isset($qteMax)) { ?>
+                    <p>Le panier contient déjà la quantité maximum de 10 exemplaires.</p>
+                <?php }
+                elseif(isset($ajoutQteMax)) { ?>
+                    <p>La quantité maximum de 10 exemplaires a été ajoutée au panier.</p>
+                <?php }
+                elseif(isset($stockInfCart)) { ?>
+                    <p>Le panier contient déjà la quantité maximum d'exemplaires disponibles.</p>
+                <?php }
+                elseif(isset($ajoutStockInf)) { ?>
+                    <p>La quantité maximum d'exemplaires disponibles a été ajoutée au panier.</p>
+                <?php }
+            }
+            else { ?>
+                <div class="ruptureProd">En rupture de stock.</div>
+            <?php }
+            if(isset($videoMp4)) { ?>
+                <div class="video">
+                    <video width="265" height="150" controls><source src="<?= htmlspecialchars($prod["video"]) ?>" type="video/mp4"></video>
+                </div>
+            <?php }
+            elseif(isset($stream)) { ?>
+                <div class="iframe">
+                    <iframe src="<?= htmlspecialchars($prod["video"]) ?>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            <?php } ?>
+        </section>
+        <section class="prodContenu">
+            <div class="prodTitre"><h3>Description du produit</h3></div>
+            <div class="prodDescription">
+                <b><?= htmlspecialchars($prod["titre"]) ?></b>
+                <p><?= htmlspecialchars($prod["description"]) ?></p>
+                <?php if($prod["date_sortie"]) { ?>
+                    <p>Date de sortie : <?= htmlspecialchars(strftime("%d %b %G", strtotime($prod["date_sortie"]))) ?></p>
+                <?php } ?>
+                <p>Code-barre EAN : <?= htmlentities($prod["ean13"]) ?></p>
+            </div>
+        </section>
+        <section class="prodSimilaires">
+            <h5><span>Produits similaires</span></h5>
+            <div class="carrouselProduits">
+                <?php foreach($prods as $prod): ?>
+                <div class="prodsimCat">
+        			<a href="prod-<?= htmlentities($prod["id"]) ?>"><img src="<?= htmlspecialchars($prod["apercu_img"]) ?>" alt="imgProd" title="<?= htmlspecialchars($prod["titre"]) ?>" />
+                    <h4 class="prodtitreIso" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre($prod["titre"])) ?></h4>
+                    <h4 class="prodtitreIso600" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre600($prod["titre"])) ?></h4>
+                    <h4 class="prodtitreIso300" title="<?= htmlspecialchars($prod["titre"]) ?>"><?= htmlspecialchars(couperTitre300($prod["titre"])) ?></h4></a>
+                    <span><?= htmlentities(str_replace(".", ",", $prod["prix"])) ?>€</span>
+                    <?php if($prod["qte"] >= 1) { ?>
+                        <a href='panier.php?action=ajout&id=<?= htmlentities($prod["id"]) ?>&libelle=<?= htmlspecialchars(urlencode($prod["titre"])) ?>&qte=1&prix=<?= htmlentities($prod["prix"]) ?>&img=<?= htmlspecialchars($prod["apercu_img"]) ?>' class="ajoutPanier">Ajouter au panier</a>
+                    <?php }
+                    else { ?>
+                        <div>Rupture de stock</div>
+                    <?php } ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    <?php } ?>
+    <div class="backLink">
+        <?php if(isset($prod["id"]) && getTitrebyid($prod["cat_id"])) { ?>
+            <a href="cat-<?= htmlentities($prod["cat_id"]) ?>-<?= htmlspecialchars(strtolower(urlencode(renameTitrebyid($prod["cat_id"])))) ?>">
+        <?php } else { ?>
+            <a href="#">
+        <?php } ?>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour</a>
+    </div>
+</main>

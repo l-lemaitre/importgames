@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta name="description" content="Facture ImportGames" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="images/divers/importgamesfull.ico" rel="icon" type="image/ico" />
+        <title>ImportGames | Facture</title>
+        <!-- CSS Vendor -->
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- CSS Perso -->
+        <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header class="headerFact"></header>
+        <!-- MAIN CONTENT -->
+        <main class="containerFacture">
+            <?php if(!isset($comId) || !isset($com["id"])) { ?>
+                <div class="erreurAdresseHttp">
+                    <img src="images/divers/point_d_interrogation.png" alt="imgInterrogation" />
+                    <h2>Aucun contenu trouvé.</h2>
+                </div>
+            <?php }
+            else { ?>
+                <div class="enteteFact">
+                    <img src="images/divers/importgamesfull.png" alt="logo" />
+                    <div>
+                        <h3>Facture</h3>
+                        <p>N°<?= htmlentities(str_pad($com["id"], 4, "0", STR_PAD_LEFT)) ?></p>
+                    </div>
+                </div>
+                <div class="infosFact">
+                    <div class="adresseVendeur">
+                        <address>ImportGames
+                            55 rue de Paris
+                            75000 PARIS
+                            France
+                            TVA FR55XXXXXXX55
+                        </address>
+                    </div>
+                    <div class="infosCom">
+                        <p><strong>Date de la facture :&nbsp;</strong> <span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"] . "+ 1 DAY"))) ?></span></p>
+                        <p><strong>Date de la commande :&nbsp;</strong> <span><?= htmlentities(date("d/m/Y", strtotime($com["date_co"]))) ?></span></p>
+                        <p><strong>N° de la commande :&nbsp;</strong> <span><?= htmlentities(str_pad($com["numero"], 4, "0", STR_PAD_LEFT)) ?></span></p>
+                    </div>
+                    <div class="adresseUser">
+                        <div>
+                            <h4>Adresse de facturation</h4>
+                            <address><?= htmlspecialchars($com["adresse"]) ?></address>
+                        </div>
+                        <div>
+                            <h4>Adresse de livraison</h4>
+                            <address><?= htmlspecialchars($com["adresse"]) ?></address>
+                        </div>
+                    </div>
+                </div>
+                <div class="tableScroll">
+                    <table class="prodFact">
+                        <thead>
+                            <tr>
+                                <th class="thProd">Produit</th>
+                                <th>Quantité</th>
+                                <th>Prix Unitaire</th>
+                                <th>Sous-total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($details as $detail): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($detail["titre"]) ?></td>
+                                <td><?= htmlentities($detail["qte"]) ?></td>
+                                <td><?= htmlentities(str_replace(".", ",", $detail["prix"])) ?>€</td>
+                                <td><?= htmlentities(str_replace(".", ",", number_format($detail["qte"] * $detail["prix"], 2))) ?>€</td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                        <tfoot class="totalFact">
+                            <tr>
+                                <td colspan="4" class="totalHt"><b>Total HT : </b><span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.80), 2))) ?>€</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><b>TVA 20% : </b><span><?= htmlentities(str_replace(".", ",", number_format(($com["total"]*0.20), 2))) ?>€</span></td>
+                            </tr>
+                            <tr class="totalCo">
+                                <td colspan="1" class="totalCofr"><b>Arrêt de la facture à la somme de : </b><small><?= htmlspecialchars($totalFr) ?></small></td>
+                                <td colspan="3"><h3>Total : <?= htmlentities(str_replace(".", ",", $com["total"])) ?>€</h3></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="printFact noPrint">
+                    <button type="button" id="print" class="btnPrint">Imprimer</button>
+                </div>
+            <?php } ?>
+        </main>
+        <!-- FOOTER -->
+        <footer class="footerFact"></footer>
+        <!-- JS Perso -->
+        <script src="/importgames/js/main.js"></script>
+    </body>
+</html>
